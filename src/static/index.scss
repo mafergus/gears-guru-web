@@ -5,6 +5,11 @@ body {
   font-family: sans-serif;
 }
 
+a:hover {
+  cursor: pointer;
+  color: black;
+}
+
 .centered-container {
   display: flex;
   align-items: center;
