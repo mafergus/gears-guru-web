@@ -1,5 +1,6 @@
 {
   "projects": {
-    "main": "gears-guru-991bc"
+    "main": "gears-guru-991bc",
+    "default": "gears-guru-991bc"
   }
 }
