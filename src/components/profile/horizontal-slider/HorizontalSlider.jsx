@@ -28,21 +28,29 @@ export default class HorzontalSlider extends React.Component {
   }
 
   leftArrowClick = () => {
-    const { middle } = this.state;
-    const item = middle > 2 ? Math.floor(middle - 2, 2) : 2;
-    const tesNode = ReactDOM.findDOMNode(this.refs[`node${item}`]);
-    debugger;
-    tesNode.scrollIntoView();
-    this.setState({ middle: item });
+    const { first } = this.state;
+    const newFirst = first-2 < 0 ? 0 : first-2;
+    const tesNode = ReactDOM.findDOMNode(this.refs[`node${newFirst}`]);
+    tesNode.scrollIntoView({ behavior: "smooth" })
+    this.setState({ 
+      first: newFirst,
+      middle: newFirst + 2,
+      last: newFirst + 4,
+    });
   };
 
   rightArrowClick = () => {
-    const { middle } = this.state;
-    const item = middle < 11 ? Math.floor(middle + 2, 11) : 11;
-    const tesNode = ReactDOM.findDOMNode(this.refs[`node${item}`]);
-    debugger;
-    tesNode.scrollIntoView();
-    this.setState({ middle: item });
+    const { data } = this.props;
+    const { last } = this.state;
+    const newLast = last + 2 > data.length-1 ? data.length-1 : last + 2;
+    const tesNode = ReactDOM.findDOMNode(this.refs[`node${newLast}`]);
+    tesNode.scrollIntoView({ behavior: "smooth" });
+    const newFirst = newLast-4 < 0 ? 0 : newLast-4;
+    this.setState({ 
+      first: newFirst,
+      middle: newFirst+2,
+      last: newLast,
+    });
   };
   
   render() {
