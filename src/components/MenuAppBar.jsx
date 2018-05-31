@@ -8,6 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import { Logo } from 'assets/Logo';
 import { primary } from 'util/colors'
 
 // import { signOut } from 'util/Api';
@@ -53,8 +54,9 @@ export default class MenuAppBar extends React.Component {
     return (
       <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
         <Toolbar style={{ backgroundColor: primary[500] }}>
-          <Typography variant="title" color="inherit" style={{ flex: 1 }}>
-            {title}
+          <Logo style={{ height: 52, width: 46 }} fill="white" stroke="white" />
+          <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times" }}>
+            Gears Guru
           </Typography>
           {auth && (
             <div>

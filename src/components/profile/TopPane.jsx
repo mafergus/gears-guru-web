@@ -21,7 +21,15 @@ export default class TopPane extends React.Component {
 
     return (
       <div style={{ padding: 20, width: "100%", display: "flex" }}>
-        <img src={garage.icon} style={{ height: 100, width: 100, display: "inline-block" }} />
+        <img 
+          src={garage.icon}
+          style={{ 
+            height: 100,
+            width: 100,
+            display: "inline-block",
+          }}
+          className="border"
+        />
         <div style={{ display: "inline-block", flexGrow: 1 }}>
           <h1>{garage.name}</h1>
           <h3>{types}</h3>
@@ -62,7 +70,8 @@ export default class TopPane extends React.Component {
 
     return (
       <div style={{ width: "100%", height: 400, position: "relative" }}>
-        <HorizontalSlider style={{ backgroundColor: "red" }} data={garage.images}/>
+        <HorizontalSlider data={garage.images}/>
+        <hr />
         {this.renderTitleDiv()}
       </div>
     );

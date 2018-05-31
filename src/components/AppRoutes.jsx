@@ -27,7 +27,7 @@ class AppRoutes extends React.Component {
     // const isMobile = state.browser.is.extraSmall;
 
     return (
-      <div style={{ height: "100%", width: "100%", position: "fixed" }}>
+      <div style={{ height: "100%", width: "100%", position: "fixed", backgroundColor: "#EEEEEE" }}>
         <CssBaseline />
         {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
         <Route path="*" component={MainPage} />

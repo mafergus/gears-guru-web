@@ -17,8 +17,18 @@ export default class Image extends React.Component {
     const { style, src, number } = this.props;
 
     return (
-      <li style={{ height: 200, width: 200, display: "inline-block", backgroundColor: "yellow", ...style }}>
-        <img src={src} style={{ width: "100%", height: "100%" }} />
+      <li style={{ height: 200, width: 200, display: "inline-block", borderRadius: 3, ...style }}>
+        <img 
+          src={src}
+          style={{ 
+            width: "100%",
+            height: "100%",
+            borderRadius: 3,
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderColor: "rgba(0, 0, 0, 0.08)",
+          }} 
+        />
       </li>
     );
   }

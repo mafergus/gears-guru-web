@@ -1,10 +1,12 @@
+import styles from 'static/index.scss';
+
 export const primary = {
-  50: "#C8CBCD",
-  100: "#92979C",
-  300: "#6F777E",
-  500: "#545D66",
-  700: "#3C454E",
-  900: "#212932",
+  50: styles.primary50,
+  100: styles.primary100,
+  300: styles.primary300,
+  500: styles.primary500,
+  700: styles.primary700,
+  900: styles.primary900,
 };
 
 export const secondary = {
@@ -13,4 +15,20 @@ export const secondary = {
   500: "#5C0C0C",
   700: "#390000",
   900: "#1C0000",
+};
+
+export const text = {
+  primary: {
+    light: "white",
+    dark: "rgba(0, 0, 0, 0.87)",
+  },
+  secondary: {
+    dark: "rgba(0, 0, 0, 0.54)",
+  },
+  tertiary: {
+    dark: "rgba(0, 0, 0, 0.38)",
+  },
+  quartinary: {
+    dark: "rgba(0, 0, 0, 0.12)",
+  }
 };

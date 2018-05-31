@@ -31,9 +31,19 @@ class GaragePage extends React.Component {
     const { id } = match.params.id;
     
     return (
-      <div style={{ height: "100%", width: "100%" }} className="centered-container">
-        <div style={{ height: "100%", width: "80%", backgroundColor: "green" }}>
+      <div style={{ height: "100%", width: "100%", marginTop: 12 }} className="centered-container">
+        <div style={{ 
+            height: "100%",
+            width: "80%",
+            backgroundColor: "white",
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderColor: "rgba(0, 0, 0, 0.1)",
+            borderRadius: 3,
+          }}
+        >
           <TopPane garage={garage} />
+          <hr />
           <ServicesPane style={{ width: "100%", height: 300, backgroundColor: "blue" }}/>
         </div>
       </div>

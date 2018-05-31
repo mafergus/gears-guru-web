@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import DocumentTitle from 'react-document-title';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import logo from 'assets/logo.svg';
 import 'static/App.css';
 import { primary } from 'util/colors';
 

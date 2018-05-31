@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 import Image from 'components/profile/horizontal-slider/Image';
+import LeftArrow from 'assets/left-arrow.png';
+import RightArrow from 'assets/right-arrow.png';
 
 const INTERVAL = 2;
 
@@ -52,16 +54,38 @@ export default class HorzontalSlider extends React.Component {
       last: newLast,
     });
   };
+
+  renderLeftArrow = () => {
+    return (
+      <div 
+        style={{ height: 50, width: 25, position: "absolute", left: 0, top: 80 }}
+        onClick={this.leftArrowClick}
+      >
+        <img src={LeftArrow} style={{ width: "100%", height: "100%" }} />
+      </div>
+    );
+  };
+
+  renderRightArrow = () => {
+    return (
+      <div
+        style={{ height: 50, width: 25, position: "absolute", right: 0, top: 80 }}
+        onClick={this.rightArrowClick}
+      >
+        <img src={RightArrow} style={{ width: "100%", height: "100%" }} />
+      </div>
+    );
+  }
   
   render() {
     const { data, style } = this.props;
+    const { first, last } = this.state;
 
     return (
-      <div style={{ height: 220, width: "100%", overflow: "hidden", ...style }}>
-        <div style={{ height: 70, width: 60, backgroundColor: "blue", position: "absolute", left: 0, top: 0 }} onClick={this.leftArrowClick}>
-        </div>
+      <div style={{ width: "100%", overflow: "hidden", ...style }}>
+        {this.renderLeftArrow()}
         <ul style={{ 
-          height: 200,
+          height: 210,
           overflowX: "scroll",
           overflowY: "hidden",
           listStyle: "none",
@@ -74,8 +98,7 @@ export default class HorzontalSlider extends React.Component {
             data.map((item, index) => <Image ref={`node${index}`} src={item} number={index } style={{ marginRight: 10 }}/>)
           }
         </ul>
-        <div style={{ height: 70, width: 60, backgroundColor: "blue", position: "absolute", right: 0, top: 0 }} onClick={this.rightArrowClick}>
-        </div>
+        {this.renderRightArrow()}
       </div>
     );
   }

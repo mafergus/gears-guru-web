@@ -1,13 +1,66 @@
+$primary-color-50: #C8CBCD;
+$primary-color-100: #92979C;
+$primary-color-300: #6F777E;
+$primary-color-500: #545D66;
+$primary-color-700: #3C454E;
+$primary-color-900: #212932;
+
+$secondary-color-100: #A64343;
+$secondary-color-300: #822424;
+$secondary-color-500: #5C0C0C;
+$secondary-color-700: #390000;
+$secondary-color-900: #1C0000;
+
+$quartinary-color: rgba(0, 0, 0, 0.12);
+
+$divider-color: rgba(0, 0, 0, 0.08);
+
+:export {
+  primary50: $primary-color-50;
+  primary100: $primary-color-100;
+  primary300: $primary-color-300;
+  primary500: $primary-color-500;
+  primary700: $primary-color-700;
+  primary900: $primary-color-900;
+
+  secondary100: $secondary-color-100;
+  secondary300: $secondary-color-300;
+  secondary500: $secondary-color-500;
+  secondary700: $secondary-color-700;
+  secondary900: $secondary-color-900;
+}
+
+@font-face {
+    font-family: 'Good-Times'; /*a name to be used later*/
+    src: url('../assets/good-times.ttf');
+    -webkit-font-smoothing: antialiased;
+}
+
 body {
   margin: 0;
-  background-color: red;
+  background-color: #EEEEEE;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Roboto";
 }
 
 a:hover {
   cursor: pointer;
   color: black;
+}
+
+hr {
+  height: 1px;
+  width: 100%;
+  background-color: $divider-color;
+  font-size: 0;
+  border: 0;
+}
+
+.border {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  border-color: $divider-color;
 }
 
 .centered-container {
