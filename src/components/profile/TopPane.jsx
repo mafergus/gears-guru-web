@@ -4,21 +4,31 @@ import Button from '@material-ui/core/Button';
 
 import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSlider';
 
+const commaSeparatedString = (objArr, propName) => {
+  return objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? "," : ""), '');
+}
+
 export default class TopPane extends React.Component {
 
+  static propTypes = {
+    garage: PropTypes.object.isRequired,
+  };
+
   renderTitleDiv() {
+    const { garage } = this.props;
+    const types = commaSeparatedString(garage.garageTypes, 'type');
+    const neighborhoods = commaSeparatedString(garage.neighborhoods, 'name');
+
     return (
       <div style={{ padding: 20, width: "100%", display: "flex" }}>
-        <img src="http://placehold.it/1000x400/ffffff/c0392b/&text=slide1" style={{ height: 100, width: 100, display: "inline-block" }} />
+        <img src={garage.icon} style={{ height: 100, width: 100, display: "inline-block" }} />
         <div style={{ display: "inline-block", flexGrow: 1 }}>
-          <h1>Astra Cars Repairing</h1>
-          <h5>Car Garage</h5>
-          <h5>Al Quoz</h5>
+          <h1>{garage.name}</h1>
+          <h3>{types}</h3>
+          <h5>{neighborhoods}</h5>
         </div>
         <div style={{ backgroundColor: "purple" }}>
-          <h3>
-            8.65/10
-          </h3>
+          <h3>{garage.rating}</h3>
           <div style={{ display: "flex" }}>
             <Button variant="raised" onClick={() => alert("Book!")} color="secondary">Book</Button>
             <Button variant="raised" onClick={() => alert("Book!")} color="secondary">Quote</Button>
@@ -29,6 +39,7 @@ export default class TopPane extends React.Component {
   }
 
   render() {
+    const { garage } = this.props;
     
     const data = [
       "https://igx.4sqi.net/img/general/200x200/49627524_V5mhAMpdiNL7j9la_FaH0vseHdn3cAfSc8yYfEqaDl4.jpg",
@@ -45,9 +56,13 @@ export default class TopPane extends React.Component {
       "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
     ];
 
+    if (!garage) {
+      return null;
+    }
+
     return (
       <div style={{ width: "100%", height: 400, position: "relative" }}>
-        <HorizontalSlider style={{ backgroundColor: "red" }} data={data}/>
+        <HorizontalSlider style={{ backgroundColor: "red" }} data={garage.images}/>
         {this.renderTitleDiv()}
       </div>
     );

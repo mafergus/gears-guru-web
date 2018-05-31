@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import HomePage from 'components/home/HomePage';
-import ProfilePage from 'components/profile/ProfilePage';
+import GaragePage from 'components/profile/GaragePage';
 import MenuAppBar from 'components/MenuAppBar';
 import { primary } from 'util/colors';
 
@@ -14,13 +14,13 @@ const routes = [
   {
     path: '/',
     exact: true,
-    main: () => <ProfilePage />,
+    main: GaragePage,
     title: 'Home'
   },
   {
-    path: '/profile',
-    main: () => <ProfilePage />,
-    title: 'Profile'
+    path: '/garage/:id',
+    main: GaragePage,
+    title: 'Garage'
   }
 ];
 

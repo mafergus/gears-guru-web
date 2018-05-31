@@ -63,7 +63,7 @@ export default class HorzontalSlider extends React.Component {
           whiteSpace: "nowrap",
         }}>
           {
-            data.map((item, index) => <Image ref={`node${index}`} data={item} number={index } style={{ marginRight: 10 }}/>)
+            data.map((item, index) => <Image ref={`node${index}`} src={item} number={index } style={{ marginRight: 10 }}/>)
           }
         </ul>
         <div style={{ height: 70, width: 60, backgroundColor: "blue", position: "absolute", right: 0, top: 0 }} onClick={this.rightArrowClick}>

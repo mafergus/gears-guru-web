@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import store from "datastore/store";
-import { fetchGarage } from 'util/Api';
 
 const config = {
   apiKey: "AIzaSyC-PryPlz5CVsratD20eV7iB9gM76JY8Uw",
@@ -18,6 +17,24 @@ firebase.database().ref('garages').on('value', snapshot => {
     const garages = snapshot.val();
     if (garages) {
       store.dispatch({ type: "GET_GARAGES_SUCCESS", garages });
+    }
+  }
+});
+
+firebase.database().ref('categories').on('value', snapshot => {
+  if (snapshot.exists()) {
+    const categories = snapshot.val();
+    if (categories) {
+      store.dispatch({ type: "GET_CATEGORIES_SUCCESS", categories });
+    }
+  }
+});
+
+firebase.database().ref('lists').on('value', snapshot => {
+  if (snapshot.exists()) {
+    const lists = snapshot.val();
+    if (lists) {
+      store.dispatch({ type: "GET_LISTS_SUCCESS", lists });
     }
   }
 });
@@ -40,8 +57,6 @@ firebase.auth().onAuthStateChanged(user => {
       creationTime: user.metadata.creationTime,
     };
     store.dispatch({ type: "ADD_AUTHED_USER_SUCCESS", user: authedUser });
-    fetchGarage(user.uid)
-    .then(garage => store.dispatch({ type: "ADD_GARAGE_SUCCESS", garage }));
   } else {
     // No user is signed in.
   }

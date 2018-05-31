@@ -18,7 +18,7 @@ export default class Image extends React.Component {
 
     return (
       <li style={{ height: 200, width: 200, display: "inline-block", backgroundColor: "yellow", ...style }}>
-        {number}
+        <img src={src} style={{ width: "100%", height: "100%" }} />
       </li>
     );
   }
