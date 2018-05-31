@@ -54,8 +54,8 @@ export default class MenuAppBar extends React.Component {
     return (
       <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
         <Toolbar style={{ backgroundColor: primary[500] }}>
-          <Logo style={{ height: 52, width: 46 }} fill="white" stroke="white" />
-          <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times" }}>
+          <Logo style={{ height: 35, width: 31, marginRight: 12 }} fill="white" stroke="white" />
+          <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em" }}>
             Gears Guru
           </Typography>
           {auth && (

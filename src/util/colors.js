@@ -17,6 +17,12 @@ export const secondary = {
   900: "#1C0000",
 };
 
+export const textDark = {
+  primary: styles.textDarkPrimary,
+  secondary: styles.textDarkSecondary,
+  tertiary: styles.textDarkTertiary,
+};
+
 export const text = {
   primary: {
     light: "white",

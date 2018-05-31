@@ -34,7 +34,7 @@ class GaragePage extends React.Component {
       <div style={{ height: "100%", width: "100%", marginTop: 12 }} className="centered-container">
         <div style={{ 
             height: "100%",
-            width: "80%",
+            width: "70%",
             backgroundColor: "white",
             borderStyle: "solid",
             borderWidth: 1,

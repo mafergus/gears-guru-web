@@ -13,7 +13,14 @@ $secondary-color-900: #1C0000;
 
 $quartinary-color: rgba(0, 0, 0, 0.12);
 
+$primary-text-dark: rgba(0, 0, 0, 0.87);
+$secondary-text-dark: rgba(0, 0, 0, 0.6);
+$tertiary-text-dark: rgba(0, 0, 0, 0.38);
 $divider-color: rgba(0, 0, 0, 0.08);
+
+$rating-good-color: green;
+$rating-average-color: yellow;
+$rating-poor-color: red;
 
 :export {
   primary50: $primary-color-50;
@@ -28,6 +35,14 @@ $divider-color: rgba(0, 0, 0, 0.08);
   secondary500: $secondary-color-500;
   secondary700: $secondary-color-700;
   secondary900: $secondary-color-900;
+
+  textDarkPrimary: $primary-text-dark;
+  textDarkSecondary: $secondary-text-dark;
+  textDarkTertiary: $tertiary-text-dark;
+
+  ratingGoodColor: $rating-good-color;
+  ratingAverageColor: $rating-average-color;
+  ratingPoorColor: $rating-poor-color;
 }
 
 @font-face {
@@ -38,6 +53,7 @@ $divider-color: rgba(0, 0, 0, 0.08);
 
 body {
   margin: 0;
+  color: $primary-text-dark;
   background-color: #EEEEEE;
   padding: 0;
   font-family: "Roboto";
@@ -46,6 +62,17 @@ body {
 a:hover {
   cursor: pointer;
   color: black;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+h5 {
+  margin: 0;
+  font-weight: 500;
 }
 
 hr {

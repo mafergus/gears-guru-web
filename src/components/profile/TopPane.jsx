@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
 import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSlider';
+import { textDark } from 'util/colors';
 
 const commaSeparatedString = (objArr, propName) => {
-  return objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? "," : ""), '');
+  return objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? ", " : ""), '');
 }
 
 export default class TopPane extends React.Component {
@@ -27,13 +28,16 @@ export default class TopPane extends React.Component {
             height: 100,
             width: 100,
             display: "inline-block",
+            marginRight: 15,
           }}
           className="border"
         />
         <div style={{ display: "inline-block", flexGrow: 1 }}>
-          <h1>{garage.name}</h1>
-          <h3>{types}</h3>
-          <h5>{neighborhoods}</h5>
+          <div style={{ height: "100%", display: "flex", flexDirection: "column", paddingTop: 5, paddingBottom: 5 }}>
+            <h1 style={{ flexGrow: 1 }}>{garage.name}</h1>
+            <h5 style={{ color: textDark.secondary }}>{types}</h5>
+            <h5 style={{ color: textDark.secondary, marginTop: 6 }}>{neighborhoods}</h5>
+          </div>
         </div>
         <div style={{ backgroundColor: "purple" }}>
           <h3>{garage.rating}</h3>
