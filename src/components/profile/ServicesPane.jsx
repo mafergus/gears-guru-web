@@ -39,8 +39,11 @@ function mapStateToProps(state, props) {
     const rank = list && list.items.indexOf(props.garage.uid);
     return list && { rank: rank+1, uid: item.uid, name: list.name };
   });
+  let categories = props.garage && props.garage.categories && Object.keys(props.garage.categories).map(categoryId => state.categories[categoryId]);
+  categories = categories && categories.filter(item => item !== undefined);
   return {
     lists: leLists && leLists.filter(item => item !== undefined),
+    categories: categories || [],
   };
 }
 
@@ -73,7 +76,7 @@ class ServicesPane extends React.Component {
   };
 
   render() {
-    const { classes, className, lists, style } = this.props;
+    const { categories, classes, className, lists, style } = this.props;
     const { value } = this.state;
 
     return (
@@ -96,7 +99,7 @@ class ServicesPane extends React.Component {
         
         {value === 0 && <TabContainer>
             <TopCategoriesList style={{ width: "100%" }} lists={lists} />
-            <ServicesList style={{ width: "100%", backgroundColor: "yellow" }}/>
+            <ServicesList style={{ width: "100%", backgroundColor: "yellow" }} categories={categories}/>
           </TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
       </div>

@@ -3,18 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
+import Avatar from '@material-ui/core/Avatar';
 
-const services = [
-  {
-    name: "Car Repair"
-  },
-  {
-    name: "Brakes"
-  },
-  {
-    name: "Tires"
-  }
-];
+import { textDark } from 'util/colors';
 
 const styles = theme => ({
   root: {
@@ -30,6 +21,7 @@ const styles = theme => ({
 class ServicesList extends React.Component {
 
   static propTypes = {
+    categories: PropTypes.array.isRequired,
     style: PropTypes.object,
   };
 
@@ -49,7 +41,7 @@ class ServicesList extends React.Component {
     const { classes } = this.props;
     return (
       <Chip
-        avatar={<FaceIcon />}
+        avatar={<Avatar src={service.icon} style={{ backgroundColor: textDark.secondary }}/>}
         label={service.name}
         onClick={this.handleClick}
         style={{ margin: 5 }}
@@ -58,11 +50,11 @@ class ServicesList extends React.Component {
   };
 
   render() {
-    const { style } = this.props;
+    const { categories, style } = this.props;
 
     return (
       <div style={{ ...style }}>
-        {services.map(item => this.renderChip(item))}
+        {categories.map(item => this.renderChip(item))}
       </div>
     );
   }
