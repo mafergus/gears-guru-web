@@ -6,8 +6,6 @@ import Image from 'components/profile/horizontal-slider/Image';
 import LeftArrow from 'assets/left-arrow.png';
 import RightArrow from 'assets/right-arrow.png';
 
-const INTERVAL = 2;
-
 export default class HorzontalSlider extends React.Component {
 
   static propTypes = {
@@ -79,7 +77,6 @@ export default class HorzontalSlider extends React.Component {
   
   render() {
     const { data, style } = this.props;
-    const { first, last } = this.state;
 
     return (
       <div style={{ width: "100%", overflow: "hidden", ...style }}>

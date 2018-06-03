@@ -17,6 +17,20 @@ export default class TopPane extends React.Component {
     garage: PropTypes.object.isRequired,
   };
 
+  static defaultProps = {
+    garage: {
+      name: 'Placeholder',
+      images: [],
+      rating: 5,
+      garageTypes: [],
+      neighborhoods: [],
+    }
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
   renderTitleDiv() {
     const { garage } = this.props;
     const types = commaSeparatedString(garage.garageTypes, 'type');
@@ -93,12 +107,11 @@ export default class TopPane extends React.Component {
       "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
     ];
 
-    if (!garage) {
-      return null;
-    }
-
     return (
-      <div style={{ width: "100%", height: 400, position: "relative" }}>
+      <div 
+        style={{ width: "100%", marginBottom: 15, position: "relative", backgroundColor: "white" }}
+        className="border"
+      >
         <HorizontalSlider data={garage.images}/>
         <hr />
         {this.renderTitleDiv()}

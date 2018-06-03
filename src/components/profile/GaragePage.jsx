@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 
 import TopPane from 'components/profile/TopPane';
 import ServicesPane from 'components/profile/ServicesPane';
+import LocationPane from 'components/profile/LocationPane';
 import 'static/index.scss';
 
 const garageId = 'garageId1';
 
 function mapStateToProps(state, props) {
   const id = props.match.params.id || null;
-    return {
+  return {
     garage: id ? state.garages[id] : {},
   };
 }
@@ -32,19 +33,18 @@ class GaragePage extends React.Component {
     
     return (
       <div style={{ height: "100%", width: "100%", marginTop: 12 }} className="centered-container">
-        <div style={{ 
+        <div 
+          style={{ 
             height: "100%",
             width: "70%",
-            backgroundColor: "white",
-            borderStyle: "solid",
-            borderWidth: 1,
-            borderColor: "rgba(0, 0, 0, 0.1)",
-            borderRadius: 3,
           }}
         >
-          <TopPane garage={garage} />
-          <hr />
-          <ServicesPane style={{ width: "100%", height: 300, backgroundColor: "blue" }}/>
+          <TopPane garage={garage}/>
+          <div style={{ display: "flex" }}>
+            <ServicesPane style={{ height: 300 }}/>
+            <div style={{ width: 12 }} />
+            <LocationPane style={{ width: "30%", backgroundColor: "orange" }}/>
+          </div>
         </div>
       </div>
     );

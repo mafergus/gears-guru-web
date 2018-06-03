@@ -5,9 +5,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import classNames from 'classnames';
 
 import TopCategoriesList from 'components/profile/TopCategoriesList';
 import ServicesList from 'components/profile/ServicesList';
+import { dividerColor } from 'util/colors';
 
 function TabContainer(props) {
   return (
@@ -32,10 +34,12 @@ class ServicesPane extends React.Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    className: PropTypes.any,
     style: PropTypes.object,
   };
 
   static defaultProps = {
+    className: '',
     style: {},
   };
 
@@ -52,13 +56,22 @@ class ServicesPane extends React.Component {
   };
 
   render() {
-    const { classes, style } = this.props;
+    const { classes, className, style } = this.props;
     const { value } = this.state;
 
     return (
-      <div className={classes.root} style={{ ...style }}>
-        <AppBar position="static" style={{ backgroundColor: "white" }}>
-          <Tabs value={value} onChange={this.handleChange} textColor="secondary">
+      <div className={classNames(classes.root, className, 'border')} style={{ ...style }}>
+        <AppBar
+          position="static"
+          style={{ backgroundColor: "white", borderRadius: 3 }}
+          elevation={0}
+        >
+          <Tabs
+            value={value}
+            onChange={this.handleChange} 
+            textColor="secondary"
+            style={{ borderBottom: `1px solid ${dividerColor}` }}
+          >
             <Tab label="Services" />
             <Tab label="Special Offers" />
           </Tabs>

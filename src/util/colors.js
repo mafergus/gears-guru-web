@@ -23,6 +23,8 @@ export const textDark = {
   tertiary: styles.textDarkTertiary,
 };
 
+export const dividerColor = styles.divider;
+
 export const text = {
   primary: {
     light: "white",

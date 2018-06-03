@@ -16,7 +16,9 @@ import firebase from 'datastore/database';
 import { primary, secondary } from 'util/colors';
 
 // Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory()
+const history = createHistory();
+
+firebase.init();
 
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))

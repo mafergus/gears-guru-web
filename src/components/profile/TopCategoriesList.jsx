@@ -27,16 +27,12 @@ export default class TopCategoriesList extends React.Component {
 
   renderCategory = category => {
     return (
-      <div style={{ width: "100%", display: "flex", alignItems: "center", paddingLeft: 20, paddingRight: 20, paddingTop: 5, paddingRight: 5 }}>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", paddingLeft: 20, paddingTop: 5, paddingRight: 5 }}>
         <Stars />
         {`Ranked #${category.rank} for`}
         <Link to="/customers" style={{ textDecoration: 'none' }}>Car Repair</Link>
       </div>
     );
-  }
-
-  constructor() {
-    super();
   }
 
   render() {

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export default class Image extends React.Component {
 
   static propTypes = {
-    number: PropTypes.number.isRequired,
     src: PropTypes.string.isRequired,
     style: PropTypes.object,
   };
@@ -14,7 +13,7 @@ export default class Image extends React.Component {
   };
   
   render() {
-    const { style, src, number } = this.props;
+    const { style, src } = this.props;
 
     return (
       <li style={{ height: 200, width: 200, display: "inline-block", borderRadius: 3, ...style }}>

@@ -43,6 +43,8 @@ $rating-poor-color: red;
   ratingGoodColor: $rating-good-color;
   ratingAverageColor: $rating-average-color;
   ratingPoorColor: $rating-poor-color;
+
+  divider: $divider-color;
 }
 
 @font-face {
@@ -66,7 +68,7 @@ a:hover {
 
 h1 {
   margin: 0;
-  font-size: 1.8em;
+  font-size: 1.7em;
   font-weight: 500;
 }
 
