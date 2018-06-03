@@ -8,7 +8,7 @@ import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSli
 import { textDark } from 'util/colors';
 
 const commaSeparatedString = (objArr, propName) => {
-  return objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? ", " : ""), '');
+  return objArr ? objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? ", " : ""), '') : '';
 }
 
 export default class TopPane extends React.Component {
@@ -106,6 +106,10 @@ export default class TopPane extends React.Component {
       "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
       "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
     ];
+
+    if (!Object.keys(garage).length) {
+      return null;
+    }
 
     return (
       <div 

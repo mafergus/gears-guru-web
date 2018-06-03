@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import TopCategoriesList from 'components/profile/TopCategoriesList';
 import ServicesList from 'components/profile/ServicesList';
@@ -13,7 +14,7 @@ import { dividerColor } from 'util/colors';
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: 5 }}>
       {props.children}
     </Typography>
   );
@@ -30,16 +31,32 @@ const styles = theme => ({
   },
 });
 
+function mapStateToProps(state, props) {
+  const listIds = props.garage.lists;
+  const lists = listIds && Object.keys(listIds).map(id => { return { ...state.lists[id], uid: id } });
+  const leLists = lists && lists.map(item => {
+    const list = state.lists[item.uid];
+    const rank = list && list.items.indexOf(props.garage.uid);
+    return list && { rank: rank+1, uid: item.uid, name: list.name };
+  });
+  return {
+    lists: leLists && leLists.filter(item => item !== undefined),
+  };
+}
+
 class ServicesPane extends React.Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.any,
+    garage: PropTypes.object.isRequired,
+    lists: PropTypes.array,
     style: PropTypes.object,
   };
 
   static defaultProps = {
     className: '',
+    lists: [],
     style: {},
   };
 
@@ -56,7 +73,7 @@ class ServicesPane extends React.Component {
   };
 
   render() {
-    const { classes, className, style } = this.props;
+    const { classes, className, lists, style } = this.props;
     const { value } = this.state;
 
     return (
@@ -78,7 +95,7 @@ class ServicesPane extends React.Component {
         </AppBar>
         
         {value === 0 && <TabContainer>
-            <TopCategoriesList style={{ width: "100%", backgroundColor: "red" }} />
+            <TopCategoriesList style={{ width: "100%" }} lists={lists} />
             <ServicesList style={{ width: "100%", backgroundColor: "yellow" }}/>
           </TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
@@ -87,4 +104,4 @@ class ServicesPane extends React.Component {
   }
 }
 
-export default withStyles(styles)(ServicesPane);
+export default connect(mapStateToProps)(withStyles(styles)(ServicesPane));

@@ -12,7 +12,7 @@ const garageId = 'garageId1';
 function mapStateToProps(state, props) {
   const id = props.match.params.id || null;
   return {
-    garage: id ? state.garages[id] : {},
+    garage: id ? { ...state.garages[id], uid: id } : {},
   };
 }
 
@@ -41,7 +41,7 @@ class GaragePage extends React.Component {
         >
           <TopPane garage={garage}/>
           <div style={{ display: "flex" }}>
-            <ServicesPane style={{ height: 300 }}/>
+            <ServicesPane style={{ height: 300 }} garage={garage}/>
             <div style={{ width: 12 }} />
             <LocationPane style={{ width: "30%", backgroundColor: "orange" }}/>
           </div>
