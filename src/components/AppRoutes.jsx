@@ -3,6 +3,8 @@ import { Route } from 'react-router';
 import MainPage from 'components/MainPage';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Helmet } from 'react-helmet';
+import DocumentTitle from 'react-document-title';
 
 function mapStateToProps(state, props) {
   return {
@@ -28,6 +30,12 @@ class AppRoutes extends React.Component {
 
     return (
       <div style={{ height: "100%", width: "100%", position: "fixed", backgroundColor: "#EEEEEE" }}>
+        <DocumentTitle title="Gears Guru - Find the best car repair garages in Dubai!" />
+        <Helmet>
+          <meta name="description" content="Best Car and Auto Repair Services and Workshops Dubai" />
+          <meta name="keywords" content="car repair, car repair dubai, car repair uae, auto repair, auto repair dubai, auto repair uae, car service, car service dubai, auto service, auto servicing dubai, car garage, car workshop, auto workshop" />
+          <meta name="google-site-verification" content="Z5xfhCSfmT74Y2930wHGuxbb8ipy1lymqaS22U6jVCA" />
+        </Helmet>
         <CssBaseline />
         {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
         <Route path="*" component={MainPage} />

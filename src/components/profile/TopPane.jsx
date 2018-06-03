@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import Today from '@material-ui/icons/Today';
+import MonetizationOn from '@material-ui/icons/MonetizationOn';
 
 import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSlider';
 import { textDark } from 'util/colors';
@@ -39,11 +41,34 @@ export default class TopPane extends React.Component {
             <h5 style={{ color: textDark.secondary, marginTop: 6 }}>{neighborhoods}</h5>
           </div>
         </div>
-        <div style={{ backgroundColor: "purple" }}>
-          <h3>{garage.rating}</h3>
-          <div style={{ display: "flex" }}>
-            <Button variant="raised" onClick={() => alert("Book!")} color="secondary">Book</Button>
-            <Button variant="raised" onClick={() => alert("Book!")} color="secondary">Quote</Button>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ padding: 7, paddingRight: 0, textAlign: "right" }}>
+            <span style={{ 
+              color: "white",
+              backgroundColor: "green",
+              padding: 7,
+              borderRadius: 3,
+            }}>{garage.rating}<span style={{ fontSize: "0.6em" }}>/10</span></span>
+          </div>
+          <div style={{ display: "flex", flexGrow: 1, alignItems: "flex-end" }}>
+            <Button
+              style={{ height: 30, marginRight: 7 }}
+              variant="raised"
+              onClick={() => alert("Book!")}
+              color="secondary"
+            >
+              <Today style={{ marginRight: 6, height: 22, width: 22 }} />
+              Book
+            </Button>
+            <Button 
+              style={{ height: 30 }}
+              variant="raised"
+              onClick={() => alert("Book!")}
+              color="secondary"
+            >
+              <MonetizationOn style={{ marginRight: 6, height: 22, width: 22 }} />
+              Quote
+            </Button>
           </div>
         </div>
       </div>

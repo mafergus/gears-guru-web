@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import DocumentTitle from 'react-document-title';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 import 'static/App.css';
 import { primary } from 'util/colors';
