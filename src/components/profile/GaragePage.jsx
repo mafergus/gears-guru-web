@@ -27,6 +27,10 @@ class GaragePage extends React.Component {
     super(props);
   }
 
+  locationClick = locationObj => {
+
+  };
+
   render() {
     const { garage, match } = this.props;
     const { id } = match.params.id;
@@ -41,9 +45,16 @@ class GaragePage extends React.Component {
         >
           <TopPane garage={garage}/>
           <div style={{ display: "flex" }}>
-            <ServicesPane style={{ height: 300 }} garage={garage}/>
+            <ServicesPane 
+              style={{ height: 300 }}
+              garage={garage}
+            />
             <div style={{ width: 12 }} />
-            <LocationPane style={{ width: "30%", backgroundColor: "orange" }}/>
+            <LocationPane
+              style={{ width: "30%", backgroundColor: "white" }}
+              garage={garage}
+              onLocationClick={this.locationClick}
+            />
           </div>
         </div>
       </div>

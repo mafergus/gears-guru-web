@@ -61,6 +61,10 @@ body {
   font-family: "Roboto";
 }
 
+a { 
+  text-decoration: none;
+}
+
 a:hover {
   cursor: pointer;
   color: black;
@@ -72,9 +76,31 @@ h1 {
   font-weight: 500;
 }
 
+h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1em;
+}
+
 h5 {
   margin: 0;
+  font-size: 0.9em;
+  margin: 0;
   font-weight: 500;
+}
+
+p {
+  margin: 0;
+  font-size: 0.9em;
 }
 
 hr {
