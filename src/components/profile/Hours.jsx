@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { textDark } from 'util/colors';
 
@@ -43,20 +44,40 @@ export default class Hours extends React.Component {
     );
   };
 
+  isOpen = (open, close) => {
+    let openInt = parseInt(open.replace(':', ''), 10);
+    let closeInt = parseInt(close.replace(':', ''), 10);
+    // Closes tomorrow
+    if (closeInt < openInt) { closeInt += 2400; }
+    let now = moment().hour() + '' + (moment().minute() < 10 ? '0' : '') + moment().minute();
+    now = parseInt(now, 10);
+    return (closeInt >= now && now >= openInt);
+  };
+
+  getIsOpen = hours => {
+    const day = moment().day();
+    const isOpen = this.isOpen(hours[day].open, hours[day].close);
+    return isOpen ? <span style={{ color: "green" }}>{`Open until ${hours[day].close}`}</span>
+      : <span style={{ color: "red" }}>{`Closed until ${hours[day+1 % 7].open}`}</span>;
+  };
+
   render() {
     const { hours, style } = this.props;
+    if (!hours) { return null; }
     const { isExpanded } = this.state;
     const day = new Date().getDay();
+    const ts = moment({ hour: moment().hour(), minute: moment().minute() });
+    const isOpen = this.isOpen(hours[day].open, hours[day].close);
 
     return (
       <div style={style}>
-        <p>
-          <span>{`Open until 8:00 PM `}</span>
+        <p style={{ color: textDark.secondary }}>
+          {this.getIsOpen(hours)}
           <a 
             style={{ color: "blue" }}
             onClick={this.expand}
           >
-            {`(Show ${isExpanded ? 'less' : 'more'})`}
+            {` (Show ${isExpanded ? 'less' : 'more'})`}
           </a>
         </p>
         {isExpanded && hours &&

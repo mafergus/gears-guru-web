@@ -39,9 +39,9 @@ export default class LocationPane extends React.Component {
     const { garage } = this.props;
 
     return (
-      <div>
-        <h4 style={{ marginBottom: 10 }}>{garage.name}</h4>
-        <p style={{ marginBottom: 10 }}>{garage.locations && garage.locations[0].address}</p>
+      <div style={{ marginTop: 6 }}>
+        <h4 style={{ marginBottom: 10, color: textDark.secondary }}>{garage.name}</h4>
+        <p style={{ marginBottom: 10, color: textDark.secondary }}>{garage.locations && garage.locations[0].address}</p>
         <a
           href="http://maps.google.com/maps?daddr=25.117632,55.212545"
           target="_blank"
@@ -54,7 +54,7 @@ export default class LocationPane extends React.Component {
   renderItem = (icon, item) => {
     return (
       <div style={{ display: "flex", alignItems: "center", padding: 10, }}>
-        {React.cloneElement(icon, { style: { marginRight: 14, color: textDark.secondary } })}
+        {React.cloneElement(icon, { style: { marginRight: 23, color: textDark.secondary } })}
         {item}
       </div>
     );
