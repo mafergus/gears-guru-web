@@ -10,7 +10,7 @@ export default class GarageList extends React.Component {
   };
 
   renderItem = garage => {
-    return <Grid item md={3} style={{ padding: 20, height: 150, backgroundColor: "green", display: "relative" }}>
+    return <Grid item md={2} style={{ padding: 20, height: 150, backgroundColor: "green", display: "relative", margin: 10 }}>
       <div style={{ backgroundColor: "purple", height: 50, width: 50, top: 10, right: 10, position: "absolute" }}></div>
       <h3>Garage Name</h3>
     </Grid>;

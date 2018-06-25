@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import store from "datastore/store";
 
-
 firebase.init = () => {
 
   const config = {

@@ -17,11 +17,12 @@ const daysOfWeek = [
 export default class Hours extends React.Component {
   
   static propTypes = {
-    hours: PropTypes.array.isRequired,
+    hours: PropTypes.array,
     style: PropTypes.object,
   };
 
   static defaultProps = {
+    hours: [],
     style: {},
   };
 
@@ -63,7 +64,7 @@ export default class Hours extends React.Component {
 
   render() {
     const { hours, style } = this.props;
-    if (!hours) { return null; }
+    if (hours.length === 0) { return null; }
     const { isExpanded } = this.state;
 
     return (

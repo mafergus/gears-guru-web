@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TopPane from 'components/profile/TopPane';
 import ServicesPane from 'components/profile/ServicesPane';
 import LocationPane from 'components/profile/LocationPane';
+// import FeedContainer from 'components/feed/FeedContainer';
 import 'static/index.scss';
 
 function mapStateToProps(state, props) {
@@ -37,6 +38,7 @@ class GaragePage extends React.Component {
               style={{ height: 250 }}
               garage={garage}
             />
+            {/*<FeedContainer />*/}
             <div style={{ width: 12 }} />
             <LocationPane
               style={{ width: "30%", backgroundColor: "white" }}
