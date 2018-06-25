@@ -1,21 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 
 import Stars from '@material-ui/icons/Stars';
 import { textDark } from 'util/colors';
-
-const rankedCategories = [
-  {
-    rank: 1,
-    categoryId: "cat1id",
-  },
-  {
-    rank: 2,
-    categoryId: "catId2",
-  }
-];
 
 export default class TopCategoriesList extends React.Component {
 

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from 'components/home/HomePage';
 import GaragePage from 'components/profile/GaragePage';
 import MenuAppBar from 'components/MenuAppBar';
-import { primary } from 'util/colors';
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -14,7 +13,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    main: GaragePage,
+    main: HomePage,
     title: 'Home'
   },
   {

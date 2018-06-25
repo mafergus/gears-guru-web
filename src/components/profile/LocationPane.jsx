@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Schedule from '@material-ui/icons/Schedule';
 import Phone from '@material-ui/icons/Phone';
@@ -45,6 +38,7 @@ export default class LocationPane extends React.Component {
         <a
           href="http://maps.google.com/maps?daddr=25.117632,55.212545"
           target="_blank"
+          rel="noopener noreferrer"
           style={{ fontSize: "0.9em" }}
         >Get directions</a>
       </div>
@@ -102,7 +96,7 @@ export default class LocationPane extends React.Component {
   };
 
   render() {
-    const { className, garage, onLocationClick, style } = this.props;
+    const { className, garage, style } = this.props;
     if (!garage) { return null; }
     const locations = garage.locations;
     const mapCenter = (locations && locations.length > 0) ? { lat: locations[0].lat, lng: locations[0].long } 

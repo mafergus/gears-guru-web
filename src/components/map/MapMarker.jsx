@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import autoBind from "react-autobind";
-import LocationOn from '@material-ui/icons/LocationOn';
 
 import { secondary } from 'util/colors';
+import MapPin from 'assets/map-pin.png';
 // import { Place } from "components/Icons/Glyphs";
 
-const HEIGHT = 90;
-const WIDTH = 63;
+const HEIGHT = 60;
+const WIDTH = 42;
 
 const STYLE = {
   fill: secondary[500],
@@ -66,13 +66,15 @@ export default class MapMarker extends React.Component {
     const { lat, lng } = this.props;
     const scale = this.props.hovered ? 1 : 0.65;
 
-    return <LocationOn
+    return <img
         style={{ ...this.getStyle(scale), transform: `scale(${scale} , ${scale})`, WebkitTransform: `scale(${scale} , ${scale})` }}
+        src={MapPin}
         lat={lat}
         lng={lng}
         onMouseOver={this.onMouseEnter}
         onMouseOut={this.onMouseExit}
-        color="#EEEEEE" 
+        color="#EEEEEE"
+        alt=""
       />;
   }
 }

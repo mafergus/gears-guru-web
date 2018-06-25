@@ -99,7 +99,8 @@ class ServicesPane extends React.Component {
         
         {value === 0 && <TabContainer>
             <TopCategoriesList style={{ width: "100%" }} lists={lists} />
-            <ServicesList style={{ width: "100%", backgroundColor: "yellow" }} categories={categories}/>
+            <hr style={{ marginTop: 6 }}/>
+            <ServicesList style={{ width: "100%", marginTop: 10 }} categories={categories}/>
           </TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
       </div>

@@ -65,9 +65,6 @@ export default class Hours extends React.Component {
     const { hours, style } = this.props;
     if (!hours) { return null; }
     const { isExpanded } = this.state;
-    const day = new Date().getDay();
-    const ts = moment({ hour: moment().hour(), minute: moment().minute() });
-    const isOpen = this.isOpen(hours[day].open, hours[day].close);
 
     return (
       <div style={style}>

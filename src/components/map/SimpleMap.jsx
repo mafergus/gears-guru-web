@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import { GOOGLE_MAPS_API_KEY, AL_QUOZ_LOCATION } from 'util/constants';
-import MapMarker from 'components/map/MapMarker';
+import { GOOGLE_MAPS_API_KEY } from 'util/constants';
 // import MapCard from 'components/Map/MapCard';
 
 export default class SimpleMap extends Component {
@@ -40,7 +39,7 @@ export default class SimpleMap extends Component {
   }
 
   renderEventCard() {
-    const { hoveredMarker } = this.state;
+    // const { hoveredMarker } = this.state;
 
     // if (this.state.hoveredMarker !== -1) {
     //   return <MapCard 

@@ -8,7 +8,7 @@ import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSli
 import { textDark } from 'util/colors';
 
 const commaSeparatedString = (objArr, propName) => {
-  return objArr ? objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx != array.length-1 ? ", " : ""), '') : '';
+  return objArr ? objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx !== array.length-1 ? ", " : ""), '') : '';
 }
 
 export default class TopPane extends React.Component {
@@ -27,10 +27,6 @@ export default class TopPane extends React.Component {
     }
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   renderTitleDiv() {
     const { garage } = this.props;
     const types = commaSeparatedString(garage.garageTypes, 'type');
@@ -47,6 +43,7 @@ export default class TopPane extends React.Component {
             marginRight: 15,
           }}
           className="border"
+          alt="Garage Icon"
         />
         <div style={{ display: "inline-block", flexGrow: 1 }}>
           <div style={{ height: "100%", display: "flex", flexDirection: "column", paddingTop: 5, paddingBottom: 5 }}>
@@ -91,21 +88,6 @@ export default class TopPane extends React.Component {
 
   render() {
     const { garage } = this.props;
-    
-    const data = [
-      "https://igx.4sqi.net/img/general/200x200/49627524_V5mhAMpdiNL7j9la_FaH0vseHdn3cAfSc8yYfEqaDl4.jpg",
-      "https://igx.4sqi.net/img/general/200x200/51224990_Q3UVdm5pP5xIc1TAhKGoc9BUv2lw7efAaJrDSsDd7sw.jpg",
-      "https://igx.4sqi.net/img/general/200x200/51224990_ib_rLnO3EVZa5V_x2ds_sLTew0SBS0ylo5SlglRfAcA.jpg",
-      "http://placehold.it/1000x400/ffffff/c0392b/&text=slide1",
-      "https://igx.4sqi.net/img/general/200x200/43206255_DK4sclHoKq3iR1j-22ZKm6QGjYptf0HR_6bOzjMgRug.jpg",
-      "http://placehold.it/1000x400/ffffff/c0392b/&text=slide1",
-      "https://igx.4sqi.net/img/general/200x200/32683196__X0uPLoWQYFokNjmL7aKlrObsl5Xqe17wyegFmMDW5Q.jpg",
-      "https://igx.4sqi.net/img/general/200x200/32683196_niismZRK0CyDSgI5eDqRV2uLt5GtQ-qKdamKPL3DSlM.jpg",
-      "https://igx.4sqi.net/img/general/200x200/32683196_1ibw-E6xJNRpOb-OHTtixgxm8Hm4gwXhxra8BfnpHbQ.jpg",
-      "http://placehold.it/1000x400/ffffff/c0392b/&text=slide1",
-      "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
-      "https://igx.4sqi.net/img/general/200x200/32683196_iGsHGE1XdD6xxyAAgCi6XJLj1bvI5A4HznZT7Cyfl8g.jpg",
-    ];
 
     if (!Object.keys(garage).length) {
       return null;

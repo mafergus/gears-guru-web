@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 import Avatar from '@material-ui/core/Avatar';
 
-import { textDark } from 'util/colors';
+import { secondary } from 'util/colors';
 
 const styles = theme => ({
   root: {
@@ -29,10 +28,6 @@ class ServicesList extends React.Component {
     style: {},
   };
   
-  constructor() {
-    super();
-  }
-
   handleClick = () => {
 
   };
@@ -41,10 +36,11 @@ class ServicesList extends React.Component {
     const { classes } = this.props;
     return (
       <Chip
-        avatar={<Avatar src={service.icon} style={{ backgroundColor: textDark.secondary }}/>}
+        avatar={<Avatar src={service.icon} style={{ margin: 10, backgroundColor: "transparent" }}/>}
         label={service.name}
         onClick={this.handleClick}
-        style={{ margin: 5 }}
+        style={{ margin: 5, backgroundColor: secondary[500] }}
+        className={classes}
       />
     );
   };

@@ -7,8 +7,6 @@ import ServicesPane from 'components/profile/ServicesPane';
 import LocationPane from 'components/profile/LocationPane';
 import 'static/index.scss';
 
-const garageId = 'garageId1';
-
 function mapStateToProps(state, props) {
   const id = props.match.params.id || null;
   return {
@@ -23,30 +21,20 @@ class GaragePage extends React.Component {
     match: PropTypes.object.isRequired,
   };
   
-  constructor(props) {
-    super(props);
-  }
-
   locationClick = locationObj => {
 
   };
 
   render() {
-    const { garage, match } = this.props;
-    const { id } = match.params.id;
+    const { garage } = this.props;
     
     return (
-      <div style={{ height: "100%", width: "100%", marginTop: 12 }} className="centered-container">
-        <div 
-          style={{ 
-            height: "100%",
-            width: "70%",
-          }}
-        >
+      <div style={{ width: "100%", marginTop: 12 }} className="centered-container">
+        <div style={{ width: "70%" }}>
           <TopPane garage={garage}/>
           <div style={{ display: "flex" }}>
             <ServicesPane 
-              style={{ height: 300 }}
+              style={{ height: 250 }}
               garage={garage}
             />
             <div style={{ width: 12 }} />

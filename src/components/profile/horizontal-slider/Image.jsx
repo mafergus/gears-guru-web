@@ -26,7 +26,8 @@ export default class Image extends React.Component {
             borderStyle: "solid",
             borderWidth: 1,
             borderColor: "rgba(0, 0, 0, 0.08)",
-          }} 
+          }}
+          alt="Garage"
         />
       </li>
     );

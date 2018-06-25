@@ -47,7 +47,7 @@ export default class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { title, style } = this.props;
+    const { style } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 

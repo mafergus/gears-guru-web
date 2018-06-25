@@ -59,7 +59,7 @@ export default class HorzontalSlider extends React.Component {
         style={{ height: 50, width: 25, position: "absolute", left: 0, top: 80 }}
         onClick={this.leftArrowClick}
       >
-        <img src={LeftArrow} style={{ width: "100%", height: "100%" }} />
+        <img src={LeftArrow} style={{ width: "100%", height: "100%" }} alt="Left Arrow" />
       </div>
     );
   };
@@ -70,7 +70,7 @@ export default class HorzontalSlider extends React.Component {
         style={{ height: 50, width: 25, position: "absolute", right: 0, top: 80 }}
         onClick={this.rightArrowClick}
       >
-        <img src={RightArrow} style={{ width: "100%", height: "100%" }} />
+        <img src={RightArrow} style={{ width: "100%", height: "100%" }} alt="Right Arrow" />
       </div>
     );
   }
