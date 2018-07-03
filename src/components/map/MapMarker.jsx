@@ -21,7 +21,7 @@ const STYLE = {
 export default class MapMarker extends React.Component {
 
   static propTypes = {
-    hovered: PropTypes.bool.isRequired,
+    hovered: PropTypes.bool,
     onClickMarker: PropTypes.func,
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
@@ -30,6 +30,7 @@ export default class MapMarker extends React.Component {
   };
 
   static defaultProps = {
+    hovered: false,
     onClickMarker: null,
   };
 

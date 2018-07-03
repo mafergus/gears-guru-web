@@ -105,7 +105,7 @@ export default class LocationPane extends React.Component {
     return (
       <div className={classNames(className, 'border')} style={{ ...style, padding: 7 }}>
         {locations && <SimpleMap center={mapCenter} style={{ width: "100%", height: 250 }}>
-          {locations.map(item => <MapMarker lat={item.lat} lng={item.long}/>)}
+          {locations.map(item => <MapMarker key={item.lat + item.long} lat={item.lat} lng={item.long}/>)}
         </SimpleMap>}
         {this.renderItem(<LocationOn />, this.renderAddress())}
         <hr />

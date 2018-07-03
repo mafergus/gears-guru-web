@@ -46,10 +46,9 @@ class ServicesList extends React.Component {
     const { classes } = this.props;
     return (
       <Chip
+        key={service.name}
         avatar={<img src="https://firebasestorage.googleapis.com/v0/b/gears-guru-991bc.appspot.com/o/icons%2Ficon-shipping.svg?alt=media&token=25b5fcc4-8490-43df-84fb-52f4fefe9d0e" style={GLYPH_STYLE} />}
         label={service.name}
-        labelStyle={{ color: "white" }}
-        textColor="white"
         onClick={this.handleClick}
         style={{ margin: 5, backgroundColor: secondary[500], textColor: "white" }}
         className={classes.chip}

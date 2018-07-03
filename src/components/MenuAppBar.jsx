@@ -36,6 +36,8 @@ class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
+    logInModalOpen: false,
+    signUpModalOpen: false,
   };
 
   handleChange = (event, checked) => {

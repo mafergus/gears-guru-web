@@ -24,7 +24,7 @@ class ReviewsPane extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.any,
-    garageID: PropTypes.string.isRequired,
+    garageId: PropTypes.string.isRequired,
     style: PropTypes.object,
   };
 
@@ -34,12 +34,12 @@ class ReviewsPane extends React.Component {
   };
   
   render() {
-    const { classes, className, style } = this.props;
+    const { classes, className, garageId, style } = this.props;
     return (
-      <div className={classNames(classes.root, className, 'border')} style={{ ...style }}>
-        <h3 style={{ fontWeight: 400, margin: 20 }}>Reviews</h3>
-        <hr />
-        <FeedContainer />
+      <div className={classNames(classes.root, className, 'border')} style={{ ...style, padding: 10 }}>
+        <h4 style={{ fontWeight: 400, margin: 10 }}>Reviews</h4>
+        <hr style={{ marginTop: 20 }}/>
+        <FeedContainer feedId={garageId} />
       </div>
     );
   }

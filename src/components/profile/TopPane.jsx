@@ -95,7 +95,7 @@ export default class TopPane extends React.Component {
 
     return (
       <div 
-        style={{ width: "100%", marginBottom: 11, position: "relative", backgroundColor: "white" }}
+        style={{ width: "100%", marginBottom: 7, position: "relative", backgroundColor: "white" }}
         className="border"
       >
         <HorizontalSlider data={garage.images}/>

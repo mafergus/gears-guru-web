@@ -18,7 +18,7 @@ export default class TopCategoriesList extends React.Component {
 
   renderCategory = category => {
     return (
-      <div style={{ width: "100%", display: "flex", alignItems: "center", padding: 6 }}>
+      <div key={category.uid} style={{ width: "100%", display: "flex", alignItems: "center", padding: 6 }}>
         <Stars style={{ color: textDark.secondary, marginRight: 5 }}/>
         <span style={{ color: textDark.secondary }}>Ranked&nbsp;</span>
         <Link to={`/lists/${category.uid}`} style={{ textDecoration: 'none' }}>{`#${category.rank} `}</Link><span>&nbsp;</span><span style={{ color: textDark.secondary }}>for&nbsp;</span>
