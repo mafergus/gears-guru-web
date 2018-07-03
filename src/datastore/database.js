@@ -41,6 +41,13 @@ firebase.init = () => {
     }
   });
 
+  firebase.database().ref('feeds').on('value', snapshot => {
+    const feeds = snapshot.val();
+    if (feeds) {
+      store.dispatch({ type: "GET_FEEDS_SUCCESS", feeds });
+    }
+  });
+
   // firebase.database().ref('users').on('value', snapshot => {
   //   const users = snapshot.val();
   //   if (users) {
@@ -63,6 +70,17 @@ firebase.init = () => {
       // No user is signed in.
     }
   });
+
+  firebase.onAuthSuccess = (userId) => {
+    if (!userId) { return; }
+    firebase.database().ref("/users/" + userId).on('value', snapshot => {
+      const user = snapshot.val();
+      if (user) {
+        store.dispatch({ type: "ADD_AUTHED_USER_SUCCESS", user });
+      }
+    });
+  };
+  
 }
 
 export default firebase;

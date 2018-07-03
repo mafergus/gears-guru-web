@@ -123,3 +123,29 @@ hr {
   align-items: center;
   justify-content: center;
 }
+
+.facebookSignUpButton {
+  border: 0;
+  border-radius: 5%;
+  width: 110px;
+  height: 110px;
+  background-image: url("../assets/facebook-logo.png");
+  background-position: 50% 50%;
+  background-size: contain;
+  object-fit: cover;
+  transition: opacity 0.1s ease-in-out;
+
+  &:active {
+    outline: none;
+    opacity: 0.35;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: none;
+    opacity: 0.4;
+  }
+}

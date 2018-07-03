@@ -7,10 +7,10 @@ import FeedItem from "components/feed/FeedItem";
 import { addFeedMessage, addFeedMessageReply } from "util/api";
 
 function mapStateToProps(state, props) {
-  const rawFeed = state.feeds.get(props.feedId) || [];
+  const rawFeed = state.feeds[props.feedId] || [];
   const feed = [];
   rawFeed.forEach((item, key) => { 
-    feed.push({ id: key, ...item.toJS() });
+    feed.push({ id: key, ...item });
   });
   const users = {};
   feed.forEach(item => { users[item.userId] = state.users.get(item.userId); });
@@ -24,10 +24,16 @@ function mapStateToProps(state, props) {
 export class FeedContainer extends React.Component {
 
   static propTypes = {
-    authedUser: PropTypes.object.isRequired,
+    authedUser: PropTypes.object,
     feedId: PropTypes.string.isRequired,
     feed: PropTypes.array.isRequired,
     users: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    authedUser: {
+      photo: "https://firebasestorage.googleapis.com/v0/b/erfara-2aa21.appspot.com/o/placeholder.png?alt=media&token=3bc07900-7743-4936-b877-fce51a0e4903"
+    }
   };
   
   constructor() {

@@ -7,13 +7,22 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
+import AuthModal from 'components/auth/AuthModal';
 import { Logo } from 'assets/Logo';
-import { primary } from 'util/colors'
+import { primary } from 'util/colors';
+import { connect } from 'react-redux';
 
 // import { signOut } from 'util/Api';
 
-export default class MenuAppBar extends React.Component {
+function mapStateToProps(state, props) {
+  return {
+    authedUser: state.authedUser || {},
+  }
+}
+
+class MenuAppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
@@ -46,10 +55,75 @@ export default class MenuAppBar extends React.Component {
     // signOut();
   }
 
-  render() {
-    const { style } = this.props;
-    const { auth, anchorEl } = this.state;
+  renderLogin = () => {
+    const { authedUser } = this.props;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+
+    return (
+      <div>
+        {authedUser.hasOwnProperty("uid") ?
+          <div>
+            <IconButton
+              aria-owns={open ? 'menu-appbar' : null}
+              aria-haspopup="true"
+              onClick={this.handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
+            </Menu>
+          </div> :
+          <div>
+            <Button
+              style={{ color: "white" }}
+              variant="outlined"
+              color="secondary"
+              onClick={() => this.setState({ logInModalOpen: true })}
+            >
+              Log In
+            </Button>
+            <Button 
+              style={{ height: 30, marginLeft: 15 }}
+              variant="raised"
+              onClick={() => this.setState({ signUpModalOpen: true })}
+              color="secondary"
+            >
+              Sign Up
+            </Button>
+            <AuthModal
+              title="Log In"
+              isOpen={this.state.logInModalOpen}
+              handleClose={() => this.setState({ logInModalOpen: false })}
+            />
+            <AuthModal 
+              title="Sign Up"
+              isOpen={this.state.signUpModalOpen}
+              handleClose={() => this.setState({ signUpModalOpen: false })} 
+            />
+          </div>
+        }
+      </div>
+    );
+  }
+
+  render() {
+    const { authedUser, style } = this.props;
 
     return (
       <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
@@ -58,36 +132,11 @@ export default class MenuAppBar extends React.Component {
           <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em" }}>
             Gears Guru
           </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
-              </Menu>
-            </div>
-          )}
+          {this.renderLogin()}
         </Toolbar>
       </AppBar>
     );
   }
 }
+
+export default connect(mapStateToProps)(MenuAppBar);
