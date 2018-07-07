@@ -3,29 +3,29 @@ import firebase from 'datastore/database';
 const PLACEHOLDER_PHOTO = "https://s-media-cache-ak0.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg";
 const PIXABAY_KEY = "4423887-ab96e540ffbe404d644032133";
 
-export function addFeedMessage(feedId, userId, message, timestamp) {
+export function addReviewMessage(reviewId, userId, message, timestamp) {
   const messageData = {
     message,
     userId,
     timestamp,
   };
-  const newFeedItemKey = firebase.database().ref(`feeds/${feedId}`).push().key;
+  const newReviewItemKey = firebase.database().ref(`reviews/${reviewId}`).push().key;
   const updates = {};
-  updates[`feeds/${feedId}/` + newFeedItemKey] = messageData;
+  updates[`reviews/${reviewId}/` + newReviewItemKey] = messageData;
 
   return firebase.database().ref().update(updates);
 }
 
-export function addFeedMessageReply(feedId, feedItemId, userId, message, timestamp) {
-  const url = `feeds/${feedId}/${feedItemId}/replies/`;
+export function addReviewMessageReply(reviewId, reviewItemId, userId, message, timestamp) {
+  const url = `reviews/${reviewId}/${reviewItemId}/replies/`;
   const messageData = {
     message,
     userId,
     timestamp,
   };
-  const newFeedItemKey = firebase.database().ref(url).push().key;
+  const newReviewItemKey = firebase.database().ref(url).push().key;
   const updates = {};
-  updates[url + newFeedItemKey] = messageData;
+  updates[url + newReviewItemKey] = messageData;
 
   return firebase.database().ref().update(updates);
 }

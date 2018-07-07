@@ -125,7 +125,7 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { authedUser, style } = this.props;
+    const { style } = this.props;
 
     return (
       <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>

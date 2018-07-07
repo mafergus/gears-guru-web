@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
 import TextField from '@material-ui/core/TextField';
-import Item from "components/feed/Item";
+import Item from "components/reviews/Item";
 
 function mapStateToProps(state) {
   return {
@@ -11,11 +11,11 @@ function mapStateToProps(state) {
   };
 }
 
-export class FeedItem extends React.Component {
+class ReviewsItem extends React.Component {
 
   static propTypes = {
     authedUserPhoto: PropTypes.string.isRequired,
-    feedItem: PropTypes.object.isRequired,
+    reviewItem: PropTypes.object.isRequired,
     onReply: PropTypes.func.isRequired,
     username: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
@@ -33,9 +33,9 @@ export class FeedItem extends React.Component {
   }
 
   onKeyPress(event) {
-    const { onReply, feedItem } = this.props;
+    const { onReply, reviewItem } = this.props;
     if (event.charCode === 13 && this.state.reply.length > 2) { // enter key pressed
-      onReply(feedItem.id, this.state.reply);
+      onReply(reviewItem.id, this.state.reply);
       this.setState({ 
         reply: "",
         isReplyOpen: false,
@@ -93,15 +93,15 @@ export class FeedItem extends React.Component {
   }
 
   render() {
-    const { feedItem, username, image } = this.props;
+    const { reviewItem, username, image } = this.props;
     return <div style={{ padding: "15px 0px 15px 0px", width: "100%" }}>
       <Item
-        message={feedItem.message}
+        message={reviewItem.message}
         username={username}
         image={image}
-        timestamp={feedItem.timestamp}
+        timestamp={reviewItem.timestamp}
       />
-      {feedItem.replies && this.renderReplies(feedItem.replies)}
+      {reviewItem.replies && this.renderReplies(reviewItem.replies)}
       <div style={{ padding: "1em 0em 1em 80px", fontSize: "0.9em" }}>
         <span
           className="reply-box"
@@ -116,4 +116,4 @@ export class FeedItem extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(FeedItem);
+export default connect(mapStateToProps)(ReviewsItem);

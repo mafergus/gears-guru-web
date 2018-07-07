@@ -149,3 +149,38 @@ hr {
     opacity: 0.4;
   }
 }
+
+.hoverable {
+  -webkit-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
+  &:hover {
+    -webkit-transform: scale(1.01);
+        -ms-transform: scale(1.01);
+            transform: scale(1.01);
+           box-shadow: 5px 5px 8px #C7C7C7;
+  }
+}
+
+.light-shadow {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.shadow {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+$gradient-start: rgba(0, 0, 0, 0);
+$gradient-end: rgba(0, 0, 0, 0.35);
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($gradient-start, $gradient-end); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($gradient-start, $gradient-end); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($gradient-start, $gradient-end); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($gradient-start, $gradient-end); /* Standard syntax */
+}

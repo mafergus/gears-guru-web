@@ -4,7 +4,6 @@ import firebase from 'datastore/database';
 import Dialog from '@material-ui/core/Dialog';
 import { addUser, getPhoto, uploadFile, checkUserExists } from 'util/api';
 import store from "datastore/store";
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { text } from 'util/colors';
 

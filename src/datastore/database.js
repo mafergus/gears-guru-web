@@ -41,10 +41,10 @@ firebase.init = () => {
     }
   });
 
-  firebase.database().ref('feeds').on('value', snapshot => {
-    const feeds = snapshot.val();
-    if (feeds) {
-      store.dispatch({ type: "GET_FEEDS_SUCCESS", feeds });
+  firebase.database().ref('reviews').on('value', snapshot => {
+    const reviews = snapshot.val();
+    if (reviews) {
+      store.dispatch({ type: "GET_REVIEWS_SUCCESS", reviews });
     }
   });
 
