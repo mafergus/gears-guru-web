@@ -44,18 +44,20 @@ class ServiceSelector extends React.Component {
     return (
       <Grid 
         container 
-        style={{ ...style, zIndex: 10 }}
+        style={{ ...style, zIndex: 10, pointerEvents: "none" }}
         className="centered-container"
       >
         <Grid 
           item
-          sm={12}
+          xs={12}
+          sm={8}
+          md={4}
           lg={3}
-          style={{ display: "flex", flexDirection: "column", backgroundColor: "rgba(255, 255, 255, 0.8)", padding: 30, borderRadius: 3 }}
+          style={{ display: "flex", flexDirection: "column", backgroundColor: "rgba(255, 255, 255, 0.85)", padding: 30, borderRadius: 3 }}
           className="centered-container"
         >
           <h1 style={{ textAlign: "center" }}>Find a top rated car repair garage near you</h1>
-          <div style={{ marginTop: 55, display: "flex", width: "100%", alignItems: "center" }}>
+          <div style={{ marginTop: 55, display: "flex", width: "100%", alignItems: "center", pointerEvents: "auto" }}>
             <FormControl style={{ flexGrow: 1 }}>
               <InputLabel htmlFor="age-native-simple">Service Required</InputLabel>
               <Select
@@ -72,7 +74,7 @@ class ServiceSelector extends React.Component {
               </Select>
             </FormControl>
             <Button
-              style={{ height: 30, marginLeft: 25 }}
+              style={{ height: 30, marginLeft: 25, minWidth: 130 }}
               variant="raised"
               onClick={() => onSubmit(categories[service])}
               color="secondary"

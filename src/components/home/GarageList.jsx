@@ -20,7 +20,6 @@ export default class GarageList extends React.Component {
 
     return (
       <Grid
-        spacing={24}
         style={{ ...style }}
         container
       >
