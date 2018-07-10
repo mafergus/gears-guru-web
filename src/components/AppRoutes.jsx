@@ -6,6 +6,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Helmet } from 'react-helmet';
 import DocumentTitle from 'react-document-title';
 
+import AdminPage from 'components/admin/AdminPage';
+import GarageAdmin from 'components/admin/GarageAdmin';
+
 function mapStateToProps(state, props) {
   return {
     authedUser: state.authedUser,
@@ -38,8 +41,7 @@ class AppRoutes extends React.Component {
         </Helmet>
         <CssBaseline />
         {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
-        <Route path="*" component={MainPage} />
-        {/*<Route path="/admin" component={AdminPage}/>*/}
+        <MainPage />
       </div>
     );
   }

@@ -7,12 +7,13 @@ import GarageListItem from 'components/home/GarageListItem';
 export default class GarageList extends React.Component {
   
   static propTypes = {
-    garages: PropTypes.object,
-    style: PropTypes.class,
+    garages: PropTypes.array,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
-    garages: {}
+    garages: [],
+    style: {},
   };
 
   render() {

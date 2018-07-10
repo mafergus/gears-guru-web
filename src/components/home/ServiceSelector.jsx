@@ -17,7 +17,7 @@ function mapStateToProps(state, props) {
 
 class ServiceSelector extends React.Component {
 
-  static PropTypes = {
+  static propTypes = {
     categories: PropTypes.array,
     onSubmit: PropTypes.func,
     style: PropTypes.object,
