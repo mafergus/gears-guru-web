@@ -9,22 +9,24 @@ export default class GarageList extends React.Component {
   static propTypes = {
     garages: PropTypes.array,
     style: PropTypes.object,
+    urlBase: PropTypes.string,
   };
 
   static defaultProps = {
     garages: [],
     style: {},
+    urlBase: 'garage/',
   };
 
   render() {
-    const { garages, style } = this.props;
+    const { garages, style, urlBase } = this.props;
 
     return (
       <Grid
         style={{ ...style }}
         container
       >
-        {garages.map(garage => <GarageListItem garage={garage}/>)}
+        {garages.map(garage => <GarageListItem garage={garage} urlBase={urlBase}/>)}
       </Grid>
     );
   }

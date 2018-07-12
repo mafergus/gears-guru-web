@@ -92,13 +92,19 @@ export default class TopPane extends React.Component {
     if (!Object.keys(garage).length) {
       return null;
     }
+    debugger;
+    console.log(garage);
+
+    const data = garage && garage.images && Object.entries(garage.images).map(entry => { 
+      return { uid: entry[0], url: entry[1] };
+    });
 
     return (
       <div 
         style={{ width: "100%", marginBottom: 7, position: "relative", backgroundColor: "white" }}
         className="border"
       >
-        <HorizontalSlider data={garage.images}/>
+        <HorizontalSlider data={data} />
         <hr />
         {this.renderTitleDiv()}
       </div>

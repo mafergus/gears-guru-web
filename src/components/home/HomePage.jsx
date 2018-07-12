@@ -10,10 +10,7 @@ import ServiceSelector from 'components/home/ServiceSelector';
 
 function mapStateToProps(state, props) {
   return {
-    garages: Object.entries(state.garages).map(entry => {
-      const garage = entry[1];
-      return { ...garage, uid: entry[0] };
-    }),
+    garages: Object.entries(state.garages).map(entry => entry[1]),
   };
 }
 

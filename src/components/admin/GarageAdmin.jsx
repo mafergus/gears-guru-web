@@ -1,18 +1,378 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dropzone from 'react-dropzone';
+import uuid from 'uuid/v1';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default class GarageAdmin extends React.Component {
+import firebase from 'datastore/database';
+
+function mapStateToProps(state, props) {
+  return {
+    garage: state.garages[props.match.params.id] || null,
+  };
+}
+
+function Br() {
+  return (
+    <div style={{ height: 40 }}>
+    </div>
+  );
+}
+
+class GarageAdmin extends React.Component {
   
   static propTypes = {
     match: PropTypes.object.isRequired,
   };
 
-  render() {
+  state = {
+    dialogOpen: false,
+    facebook: '',
+    hours: [
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+    ],
+    images: [],
+    name: '',
+    phoneNumber: '',
+    icon: '',
+    isHoursExpanded: false,
+    website: '',
+  };
+
+  componentDidUpdate = prevProps => {
+    const { garage } = this.props;
+
+    if (garage === null) {
+      return;
+    }
+
+    if (prevProps.garage === null || garage.uid !== prevProps.garage.uid) {
+      this.setState({
+        facebook: garage.facebook,
+        hours: garage.hours,
+        name: garage.name,
+        phoneNumber: garage.phoneNumber,
+        icon: garage.icon,
+        images: garage.images,
+        website: garage.website,
+      });
+    }
+  }
+
+  onDrop = (acceptedFiles, rejectedFiles) => {
     const { match } = this.props;
+    console.log("Accepted: ", acceptedFiles, " rejected: ", rejectedFiles);
+
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child('/images/garage-icons/' + match.params.id);
+    var dlUrl = null;
+    imageRef.put(acceptedFiles[0]).then(snapshot => {
+      return snapshot.task.snapshot.ref.getDownloadURL();
+    }).then(downloadURL => {
+      dlUrl = downloadURL;
+      const update = { icon: downloadURL };
+      return firebase.database().ref('garages/' + match.params.id).update(update);
+    }).then(snapshot => {
+      this.setState({ icon: dlUrl });
+    });
+  }
+
+  updateData = (propId, val) => {
+    const { match } = this.props;
+    const newState = {};
+    newState[propId] = val;
+    this.setState(newState, () => {
+      firebase.database().ref('garages/' + match.params.id).update(newState);
+    });
+  }
+
+  renderTextField(text, value, propName) {
+    return (
+      <TextField
+        style={{ width: 300 }}
+        label={text}
+        onChange={(event, value) => this.updateData(propName, event.target.value)}
+        value={value}
+      />
+    );
+  }
+
+  renderUpdateIcon = () => {
+    const { icon } = this.state;
 
     return (
-      <div style={{ width: "100%", height: 500, backgroundColor: "purple" }}>
+      <div>
+        <div style={{ display: "flex" }}>
+          <h3>Edit Icon</h3>
+          <Dropzone
+            style={{ width: 130, marginLeft: 15 }}
+            accept="image/jpeg, image/png"
+            onDrop={this.onDrop}
+          >
+            <Button
+              label="Upload"
+              variant="raised" 
+              color="secondary"
+            >
+              Upload
+            </Button>
+          </Dropzone>
+        </div>
+        <Br />
+        {icon && <img src={icon} style={{ height: 200, width: 200 }} alt="garage icon"/>}
+        <Br />
+      </div>
+    );
+  }
+
+  updateHour = (isOpen, val, index) => {
+    const { match } = this.props;
+    const { hours } = this.state;
+    const newHours = [ ...hours ];
+    newHours[index][isOpen ? 'open' : 'close'] = val;
+    const newState = {};
+    newState[isOpen ? 'open' : 'close'] = val;
+
+    this.setState({ hours: newHours });
+    firebase.database().ref('garages/' + match.params.id + "/hours/" + index).update(newState);
+  }
+
+  renderHour = (isOpen, val, index) => {
+    return (
+      <div style={{ display: "flex", alignItems: "baseline" }}>
+        <h5 style={{ marginRight: 15 }}>{isOpen ? 'Open' : 'Close'}: </h5>
+        <TextField
+          onChange={(event, value) => this.updateHour(isOpen, event.target.value, index)}
+          value={val}
+        />
+      </div>
+    );
+  }
+
+  renderHours = () => {
+    const { hours, isHoursExpanded } = this.state;
+
+    return (
+      <div>
+        <div style={{ display: "flex" }}>
+          <h3>Garage Hours</h3>
+          <Button
+            label="Upload"
+            variant="raised" 
+            color="secondary"
+            style={{ marginLeft: 15 }}
+            onClick={() => this.setState({ isHoursExpanded: !isHoursExpanded })}
+          >
+            {isHoursExpanded ? 'Collapse -' : 'Expand +'}
+          </Button>
+        </div>
+        {isHoursExpanded && hours.map((item, index) => {
+          return (
+            <div>
+              <div style={{ paddingLeft: 30 }}>
+                <Br />
+                <h5>{index}</h5>
+                {this.renderHour(true, hours[index].open, index)}
+                {this.renderHour(false, hours[index].close, index)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  onUploadImage = (acceptedFiles, rejectedFiles) => {
+    const { match } = this.props;
+    console.log("Accepted: ", acceptedFiles, " rejected: ", rejectedFiles);
+
+    const storageRef = firebase.storage().ref();
+    const leUuid = uuid();
+    const imageRef = storageRef.child('/images/garages/' + match.params.id + "/images/" + leUuid);
+    imageRef.put(acceptedFiles[0]).then(snapshot => {
+      return snapshot.task.snapshot.ref.getDownloadURL();
+    }).then(downloadURL => {
+      return firebase.database().ref('garages/' + match.params.id + "/images/" + leUuid).set(downloadURL);
+    }).then(snapshot => {
+      window.location.reload();
+    });
+  }
+
+  deleteImage = imageUid => {
+    const { match } = this.props;
+    const garageUid = match.params.id;
+
+    const dataRef = firebase.database().ref('garages/' + garageUid + '/images/' + imageUid);
+    const storageRef = firebase.storage().ref('images/garages/' + garageUid + '/images/' + imageUid);
+    dataRef.remove().then(() => storageRef.delete()).then(() => window.location.reload());
+  }
+
+  renderImages = () => {
+    const { images } = this.state;
+
+    return (
+      <div>
+        <div style={{ display: "flex" }}>
+          <h3>Edit Images</h3>
+          <Dropzone
+            style={{ width: 130, marginLeft: 15 }}
+            accept="image/jpeg, image/png"
+            onDrop={this.onUploadImage}
+          >
+            <Button
+              label="Upload"
+              variant="raised" 
+              color="secondary"
+            >
+              Upload
+            </Button>
+          </Dropzone>
+        </div>
+        <Br />
+        {images && Object.entries(images).map(entry => {
+          return (
+            <div style={{ width: 200, height: 200, position: "relative", display: "inline-block" }}>
+              <img src={entry[1]} style={{ width: "100%", height: "100%" }} alt="garage image"/>
+              <Button
+                label="Upload"
+                variant="raised" 
+                color="secondary"
+                style={{ position: "absolute", right: 10, bottom: 10 }}
+                onClick={() => this.deleteImage(entry[0])}
+              >
+                Delete
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  renderLocations = () => {
+    return (
+      <div>
+        <h3>Branches</h3>
+      </div>
+    );
+  }
+
+  renderNeighborhoods = () => {
+    return (
+      <div>
+        <h3>Neighborhoods</h3>
+      </div>
+    );
+  }
+
+  handleClose = shouldDelete => {
+    const garageUid = this.props.match.params.id;
+
+    if (shouldDelete) {
+      firebase.database().ref('garages/' + garageUid)
+      .once('value')
+      .then(snapshot => {
+        debugger;
+        if (snapshot.val() && snapshot.val().images) {
+          debugger;
+          const images = snapshot.val().images;
+          Object.entries(images).map(entry => {
+            firebase.storage().ref('images/garages/' + garageUid + '/images/' + entry[0]).delete();
+          });
+          return null;
+        }
+      })
+      .then(() => {
+        debugger;
+        firebase.database().ref('garages/' + garageUid).remove();
+      });
+    }
+
+    this.setState({ dialogOpen: false});
+  }
+
+  renderDialog = () => {
+    return (
+      <div>
+        <Button onClick={() => this.setState({ dialogOpen: false})}>Open alert dialog</Button>
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              This action is final, the garage info cannot be recovered
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.handleClose(false)} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={() => this.handleClose(true)} color="secondary" autoFocus>
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+
+  render() {
+    const { garage } = this.props;
+    const { facebook, name, phoneNumber, website } = this.state;
+
+    return (
+      <div style={{ width: "100%", height: "100%", margin: 50 }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", marginBottom: 50 }}>
+            <h1 style={{ marginRight: 15 }}>{garage ? "Edit" : "Add"} Garage</h1>
+            <Button
+              label="Upload"
+              variant="raised" 
+              color="secondary"
+              onClick={() => this.setState({ dialogOpen: true })}
+            >
+              Delete
+            </Button>
+          </div>
+          {this.renderTextField('Garage Name', name, 'name')}
+          <Br />
+          {this.renderTextField('Telephone Number', phoneNumber, 'phoneNumber')}
+          <Br />
+          {this.renderUpdateIcon()}
+          <Br />
+          {this.renderTextField('Facebook', facebook, 'facebook')}
+          <Br />
+          {this.renderTextField('Website', website, 'website')}
+          <Br />
+          {this.renderHours()}
+          <Br />
+          {this.renderImages()}
+          <Br />
+          {this.renderLocations()}
+          <Br />
+          {this.renderNeighborhoods()}
+        </div>
+        {this.renderDialog()}
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps)(GarageAdmin);

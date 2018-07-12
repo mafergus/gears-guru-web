@@ -1,13 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router';
 import MainPage from 'components/MainPage';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Helmet } from 'react-helmet';
 import DocumentTitle from 'react-document-title';
-
-import AdminPage from 'components/admin/AdminPage';
-import GarageAdmin from 'components/admin/GarageAdmin';
 
 function mapStateToProps(state, props) {
   return {
