@@ -41,6 +41,7 @@ export default class TopPane extends React.Component {
             width: 100,
             display: "inline-block",
             marginRight: 15,
+            objectFit: "contain",
           }}
           className="border"
           alt="Garage Icon"
@@ -92,8 +93,6 @@ export default class TopPane extends React.Component {
     if (!Object.keys(garage).length) {
       return null;
     }
-    debugger;
-    console.log(garage);
 
     const data = garage && garage.images && Object.entries(garage.images).map(entry => { 
       return { uid: entry[0], url: entry[1] };

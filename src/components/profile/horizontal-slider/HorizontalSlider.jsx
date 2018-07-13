@@ -80,7 +80,7 @@ export default class HorzontalSlider extends React.Component {
 
     return (
       <div style={{ width: "100%", overflow: "hidden", ...style }}>
-        {this.renderLeftArrow()}
+        {data.length > 5 && this.renderLeftArrow()}
         <ul style={{ 
           height: 210,
           overflowX: "scroll",
@@ -95,7 +95,7 @@ export default class HorzontalSlider extends React.Component {
             data.map((item, index) => <Image ref={`node${index}`} src={item.url} number={index} style={{ marginRight: 10 }}/>)
           }
         </ul>
-        {this.renderRightArrow()}
+        {data.length > 5 && this.renderRightArrow()}
       </div>
     );
   }

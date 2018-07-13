@@ -34,8 +34,6 @@ export function addUser(user) {
   return dispatch => {
     if (Object.keys(user).length === 0) { return dispatch({ type: "ADD_AUTHED_USER_SUCCESS", user }); }
 
-    // debugger;
-    
     const updates = {};
     updates["users/" + user.uid + "/name"] = user.name;
     updates["users/" + user.uid + "/uid"] = user.uid;

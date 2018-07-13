@@ -31,6 +31,8 @@ class GaragePage extends React.Component {
 
   render() {
     const { browser, garage } = this.props;
+
+    if (!garage) { return null; }
     
     return (
       <Grid container style={{ width: "100%", marginTop: 12 }} className="centered-container">

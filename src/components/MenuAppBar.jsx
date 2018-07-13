@@ -8,11 +8,12 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import AuthModal from 'components/auth/AuthModal';
 import { Logo } from 'assets/Logo';
 import { primary } from 'util/colors';
-import { connect } from 'react-redux';
 
 // import { signOut } from 'util/Api';
 
@@ -63,7 +64,7 @@ class MenuAppBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <div>
+      <div style={{ position: "absolute", right: 10}}>
         {authedUser.hasOwnProperty("uid") ?
           <div>
             <IconButton
@@ -130,10 +131,29 @@ class MenuAppBar extends React.Component {
     return (
       <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
         <Toolbar style={{ backgroundColor: primary[500] }}>
-          <Logo style={{ height: 35, width: 31, marginRight: 12 }} fill="white" stroke="white" />
-          <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em" }}>
-            Gears Guru
-          </Typography>
+          <Link
+            to="/"
+            style={{ 
+              display: "flex",
+              position: "relative",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "white"
+            }}
+          >
+            <Logo
+              style={{ height: 35, width: 31, marginRight: 12 }}
+              fill="white"
+              stroke="white"
+            />
+            <Typography
+              variant="title"
+              color="inherit"
+              style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em", textDecoration: "none" }}
+            >
+              Gears Guru
+            </Typography>
+          </Link>
           {this.renderLogin()}
         </Toolbar>
       </AppBar>

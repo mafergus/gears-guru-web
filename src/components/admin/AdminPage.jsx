@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 import GarageList from 'components/home/GarageList';
 import firebase from 'datastore/database';
+import { AL_QUOZ_LOCATION } from 'util/constants';
 
 function mapStateToProps(state, props) {
   return {
@@ -29,15 +30,35 @@ class AdminPage extends React.Component {
     const { history } = this.props;
 
     const newGarageKey = firebase.database().ref('garages').push().key;
-    history.push('/admin/garage/' + newGarageKey);
+    const data = {};
+    data.hours = [
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+      { close: '', open: ''},
+    ];
+    data.locations = [
+      {
+        lat: AL_QUOZ_LOCATION[0],
+        long: AL_QUOZ_LOCATION[1],
+        address: 'Dubai',
+        neighborhood: 'Al Quoz',
+      },
+    ];
+    firebase.database().ref('garages/' + newGarageKey)
+    .update(data)
+    .then(() => history.push('/admin/garage/' + newGarageKey));
   }
 
   render() {
     const { garages } = this.props;
 
     return (
-      <div style={{ width: "100%", height: "100%", backgroundColor: "red", padding: 30 }}>
-        <div>
+      <div style={{ width: "100%", height: "100%", padding: 30 }}>
+        <div style={{ display: "flex", marginBottom: 30 }}>
           <h1>Garages</h1>
           <Button
             style={{ height: 30, minWidth: 130, marginLeft: 15 }}

@@ -26,7 +26,7 @@ export default class GarageList extends React.Component {
         style={{ ...style }}
         container
       >
-        {garages.map(garage => <GarageListItem garage={garage} urlBase={urlBase}/>)}
+        {garages.map(garage => <GarageListItem key={garage.uid} garage={garage} urlBase={urlBase}/>)}
       </Grid>
     );
   }

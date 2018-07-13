@@ -13,17 +13,21 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import firebase from 'datastore/database';
 
-function mapStateToProps(state, props) {
-  return {
-    garage: state.garages[props.match.params.id] || null,
-  };
-}
+const HOURS = [
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+];
 
 function Br() {
   return (
     <div style={{ height: 40 }}>
     </div>
   );
+}
+
+function mapStateToProps(state, props) {
+  return {
+    garage: state.garages[props.match.params.id] || null,
+  };
 }
 
 class GarageAdmin extends React.Component {
@@ -44,6 +48,7 @@ class GarageAdmin extends React.Component {
       { close: '', open: ''},
       { close: '', open: ''},
     ],
+    locations: [],
     images: [],
     name: '',
     phoneNumber: '',
@@ -51,6 +56,12 @@ class GarageAdmin extends React.Component {
     isHoursExpanded: false,
     website: '',
   };
+
+  componentDidMount = () => {
+    const { garage } = this.props;
+
+    this.populateState(garage);
+  }
 
   componentDidUpdate = prevProps => {
     const { garage } = this.props;
@@ -60,16 +71,23 @@ class GarageAdmin extends React.Component {
     }
 
     if (prevProps.garage === null || garage.uid !== prevProps.garage.uid) {
-      this.setState({
-        facebook: garage.facebook,
-        hours: garage.hours,
-        name: garage.name,
-        phoneNumber: garage.phoneNumber,
-        icon: garage.icon,
-        images: garage.images,
-        website: garage.website,
-      });
+      this.populateState(garage);
     }
+  }
+
+  populateState = garage => {
+    if (garage === null) { return; }
+
+    this.setState({
+      facebook: garage.facebook,
+      hours: garage.hours,
+      locations: garage.locations,
+      name: garage.name,
+      phoneNumber: garage.phoneNumber,
+      icon: garage.icon,
+      images: garage.images,
+      website: garage.website,
+    });
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
@@ -77,7 +95,8 @@ class GarageAdmin extends React.Component {
     console.log("Accepted: ", acceptedFiles, " rejected: ", rejectedFiles);
 
     const storageRef = firebase.storage().ref();
-    const imageRef = storageRef.child('/images/garage-icons/' + match.params.id);
+    const leUuid = uuid();
+    const imageRef = storageRef.child('garages/' + match.params.id + '/icons/' + leUuid);
     var dlUrl = null;
     imageRef.put(acceptedFiles[0]).then(snapshot => {
       return snapshot.task.snapshot.ref.getDownloadURL();
@@ -132,7 +151,20 @@ class GarageAdmin extends React.Component {
           </Dropzone>
         </div>
         <Br />
-        {icon && <img src={icon} style={{ height: 200, width: 200 }} alt="garage icon"/>}
+        {icon && 
+          <img
+            src={icon}
+            style={{ 
+              height: 200,
+              width: 200,
+              objectFit: "contain",
+              borderStyle: "solid",
+              borderWidth: 1,
+              borderColor: "gray",
+            }}
+            alt="garage icon"
+          />
+        }
         <Br />
       </div>
     );
@@ -184,7 +216,7 @@ class GarageAdmin extends React.Component {
             <div>
               <div style={{ paddingLeft: 30 }}>
                 <Br />
-                <h5>{index}</h5>
+                <h5>{HOURS[index]}</h5>
                 {this.renderHour(true, hours[index].open, index)}
                 {this.renderHour(false, hours[index].close, index)}
               </div>
@@ -201,7 +233,7 @@ class GarageAdmin extends React.Component {
 
     const storageRef = firebase.storage().ref();
     const leUuid = uuid();
-    const imageRef = storageRef.child('/images/garages/' + match.params.id + "/images/" + leUuid);
+    const imageRef = storageRef.child('garages/' + match.params.id + "/images/" + leUuid);
     imageRef.put(acceptedFiles[0]).then(snapshot => {
       return snapshot.task.snapshot.ref.getDownloadURL();
     }).then(downloadURL => {
@@ -216,7 +248,7 @@ class GarageAdmin extends React.Component {
     const garageUid = match.params.id;
 
     const dataRef = firebase.database().ref('garages/' + garageUid + '/images/' + imageUid);
-    const storageRef = firebase.storage().ref('images/garages/' + garageUid + '/images/' + imageUid);
+    const storageRef = firebase.storage().ref('garages/' + garageUid + '/images/' + imageUid);
     dataRef.remove().then(() => storageRef.delete()).then(() => window.location.reload());
   }
 
@@ -244,7 +276,7 @@ class GarageAdmin extends React.Component {
         <Br />
         {images && Object.entries(images).map(entry => {
           return (
-            <div style={{ width: 200, height: 200, position: "relative", display: "inline-block" }}>
+            <div key={entry[0]} style={{ width: 200, height: 200, position: "relative", display: "inline-block" }}>
               <img src={entry[1]} style={{ width: "100%", height: "100%" }} alt="garage image"/>
               <Button
                 label="Upload"
@@ -262,18 +294,47 @@ class GarageAdmin extends React.Component {
     );
   }
 
-  renderLocations = () => {
+  updateLocation = (propName, val, index) => {
+    const garageUid = this.props.match.params.id;
+    const { locations } = this.state;
+    const newLocations = [ ...locations ];
+    newLocations[index][propName] = val;
+    const update = {};
+    update[propName] = val;
+
+    this.setState({ locations: newLocations });
+    firebase.database().ref('garages/' + garageUid + "/locations/" + index).update(update);
+  }
+
+  renderLocation = (val, index) => {
+    const propNames = [ 'lat', 'long', 'address', 'neighborhood'];
+
     return (
       <div>
-        <h3>Branches</h3>
+        <h4>{index}</h4>
+        <Br />
+        {propNames.map(item => {
+          return (
+            <TextField
+              label={item}
+              onChange={(event, value) => this.updateLocation(item, event.target.value, index)}
+              value={val[item]}
+              style={{ display: "block", marginBottom: 15 }}
+            />
+          );
+        })}
       </div>
     );
   }
 
-  renderNeighborhoods = () => {
+  renderLocations = () => {
+    const { locations } = this.state;
+
     return (
       <div>
-        <h3>Neighborhoods</h3>
+        <h3>Branches</h3>
+        <Br />
+        {locations.map((item, index) => this.renderLocation(item, index))}
       </div>
     );
   }
@@ -285,20 +346,16 @@ class GarageAdmin extends React.Component {
       firebase.database().ref('garages/' + garageUid)
       .once('value')
       .then(snapshot => {
-        debugger;
         if (snapshot.val() && snapshot.val().images) {
-          debugger;
           const images = snapshot.val().images;
           Object.entries(images).map(entry => {
-            firebase.storage().ref('images/garages/' + garageUid + '/images/' + entry[0]).delete();
+            firebase.storage().ref('garages/' + garageUid + '/images/' + entry[0]).delete();
           });
           return null;
         }
       })
-      .then(() => {
-        debugger;
-        firebase.database().ref('garages/' + garageUid).remove();
-      });
+      .then(() => firebase.database().ref('garages/' + garageUid).remove())
+      .then(() => this.props.history.goBack());
     }
 
     this.setState({ dialogOpen: false});
@@ -307,7 +364,6 @@ class GarageAdmin extends React.Component {
   renderDialog = () => {
     return (
       <div>
-        <Button onClick={() => this.setState({ dialogOpen: false})}>Open alert dialog</Button>
         <Dialog
           open={this.state.dialogOpen}
           onClose={this.handleClose}
@@ -366,8 +422,6 @@ class GarageAdmin extends React.Component {
           {this.renderImages()}
           <Br />
           {this.renderLocations()}
-          <Br />
-          {this.renderNeighborhoods()}
         </div>
         {this.renderDialog()}
       </div>

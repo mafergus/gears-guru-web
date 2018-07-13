@@ -184,3 +184,11 @@ $gradient-end: rgba(0, 0, 0, 0.35);
   background: -moz-linear-gradient($gradient-start, $gradient-end); /* For Firefox 3.6 to 15 */
   background: linear-gradient($gradient-start, $gradient-end); /* Standard syntax */
 }
+
+.link {
+  text-decoration: none;
+
+  &:focus, &:hover, &:visited, &:link, &:active {
+      text-decoration: none;
+  }
+}

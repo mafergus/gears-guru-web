@@ -11,7 +11,7 @@ export default function GarageListItem({ garage, urlBase }) {
     width: "100%",
     margin: 10,
     position: "relative",
-    backgroundImage: `url(${Object.entries(garage.images)[0][1]})`,
+    backgroundImage: garage.images && `url(${Object.entries(garage.images)[0][1]})`,
     backgroundPosition: "50% 50%",
     backgroundSize: "cover",
   };
