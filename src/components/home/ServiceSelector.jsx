@@ -59,7 +59,7 @@ class ServiceSelector extends React.Component {
           <h1 style={{ textAlign: "center" }}>Find a top rated car repair garage near you</h1>
           <div style={{ marginTop: 55, display: "flex", width: "100%", alignItems: "center", pointerEvents: "auto" }}>
             <FormControl style={{ flexGrow: 1 }}>
-              <InputLabel htmlFor="age-native-simple">Service Required</InputLabel>
+              <InputLabel htmlFor="add-service">Service</InputLabel>
               <Select
                 native
                 value={service}
@@ -67,7 +67,7 @@ class ServiceSelector extends React.Component {
                 style={{ width: "100%" }}
                 inputProps={{
                   name: 'age',
-                  id: 'age-native-simple',
+                  id: 'add-service',
                 }}
               >
                 {categories.map((item, index) =>  <option value={index}>{item.name}</option>)}

@@ -10,6 +10,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import firebase from 'datastore/database';
 
@@ -28,9 +33,12 @@ function mapStateToProps(state, props) {
   const garage = state.garages[props.match.params.id] || null;
   return {
     garage,
+    allCategories: Object.entries(state.categories).map(entry => {
+      return { uid: entry[0], ...entry[1]};
+    }),
     categories: (garage && Object.keys(state.categories).length > 0) && Object.keys(garage.categories).map(categoryId => {
       const cat = state.categories[categoryId];
-      return cat;
+      return { uid: categoryId, ...cat};
     }),
   };
 }
@@ -59,6 +67,7 @@ class GarageAdmin extends React.Component {
     phoneNumber: '',
     icon: '',
     isHoursExpanded: false,
+    service: 0,
     website: '',
   };
 
@@ -395,15 +404,73 @@ class GarageAdmin extends React.Component {
     );
   }
 
+  addService = service => {
+    const garageUid = this.props.match.params.id;
+    const { uid } = service;
+    const leUpdate = {};
+    leUpdate[uid] = true;
+
+    firebase.database().ref('garages/' + garageUid + '/categories/').update(leUpdate);
+  }
+
+  removeService = service => {
+    const garageUid = this.props.match.params.id;
+    const { uid } = service;
+
+    firebase.database().ref('garages/' + garageUid + '/categories/' + uid).remove();
+  }
+
+
   renderServices = () => {
-    const { categories } = this.props;
+    const { allCategories, categories } = this.props;
+    const { service } = this.state;
     if (!categories) { return null; }
 
     return (
       <div>
-        <h4>Services</h4>
+        <h4 style={{ marginBottom: 15 }}>Services</h4>
+        <div style={{ display: "flex" }}>
+            <FormControl>
+              <InputLabel htmlFor="age-native-simple">Service Required</InputLabel>
+              <Select
+                native
+                value={service}
+                onChange={event => this.setState({ service: event.target.value })}
+                inputProps={{
+                  name: 'age',
+                  id: 'age-native-simple',
+                }}
+                style={{ marginRight: 15 }}
+              >
+                {allCategories.map((item, index) =>  <option value={index}>{item.name}</option>)}
+              </Select>
+            </FormControl>
+          <Button
+            variant="raised" 
+            color="secondary"
+            onClick={() => this.addService(allCategories[service])}
+          >
+            Add
+          </Button>
+        </div>
         <Br />
-        {categories.map(category => <p>{category.name}</p>)}
+        {categories.map((category, index) => { 
+          return (
+            <div style={{ display: "flex ", alignItems: "center" }}>
+              <IconButton
+                aria-label="Delete"
+                color="secondary"
+                onClick={() => { 
+                  const cat = allCategories.filter(item => item.uid === category.uid)[0];
+                  this.removeService(cat);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+              <p>{category.name}</p>
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -418,7 +485,7 @@ class GarageAdmin extends React.Component {
           <div style={{ display: "flex", marginBottom: 50 }}>
             <h1 style={{ marginRight: 15 }}>{garage ? "Edit" : "Add"} Garage</h1>
             <Button
-              label="Upload"
+              label="Delete"
               variant="raised" 
               color="secondary"
               onClick={() => this.setState({ dialogOpen: true })}
