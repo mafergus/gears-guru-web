@@ -48,6 +48,11 @@ class AdminPage extends React.Component {
         neighborhood: 'Al Quoz',
       },
     ];
+    data.categories = {
+      categoryId1: true,
+      categoryId2: true,
+      categoryId3: true,
+    };
     firebase.database().ref('garages/' + newGarageKey)
     .update(data)
     .then(() => history.push('/admin/garage/' + newGarageKey));

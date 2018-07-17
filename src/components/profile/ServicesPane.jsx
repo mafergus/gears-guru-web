@@ -102,7 +102,7 @@ class ServicesPane extends React.Component {
             <hr style={{ marginTop: 6 }}/>
             <ServicesList style={{ width: "100%", marginTop: 10 }} categories={categories}/>
           </TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
+        {value === 1 && <TabContainer>Check back later for special discounts!</TabContainer>}
       </div>
     );
   }

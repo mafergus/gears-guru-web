@@ -11,9 +11,11 @@ import 'static/index.scss';
 
 function mapStateToProps(state, props) {
   const id = props.match.params.id || null;
+  const garage = id && state.garages[id];
+
   return {
     browser: state.browser,
-    garage: id ? { ...state.garages[id], uid: id } : {},
+    garage: garage && { ...state.garages[id], uid: id },
   };
 }
 
@@ -23,6 +25,10 @@ class GaragePage extends React.Component {
     browser: PropTypes.object.isRequired,
     garage: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    garage: null,
   };
   
   locationClick = locationObj => {

@@ -17,20 +17,10 @@ export default class TopPane extends React.Component {
     garage: PropTypes.object.isRequired,
   };
 
-  static defaultProps = {
-    garage: {
-      name: 'Placeholder',
-      images: [],
-      rating: 5,
-      garageTypes: [],
-      neighborhoods: [],
-    }
-  };
-
   renderTitleDiv() {
     const { garage } = this.props;
     const types = commaSeparatedString(garage.garageTypes, 'type');
-    const neighborhoods = commaSeparatedString(garage.neighborhoods, 'name');
+    const neighborhoods = garage.locations.map(item => item.neighborhood);
 
     return (
       <div style={{ padding: 20, width: "100%", display: "flex" }}>
@@ -50,7 +40,7 @@ export default class TopPane extends React.Component {
           <div style={{ height: "100%", display: "flex", flexDirection: "column", paddingTop: 5, paddingBottom: 5 }}>
             <h1 style={{ flexGrow: 1 }}>{garage.name}</h1>
             <h5 style={{ color: textDark.secondary }}>{types}</h5>
-            <h5 style={{ color: textDark.secondary, marginTop: 6 }}>{neighborhoods}</h5>
+            <h5 style={{ color: textDark.secondary, marginTop: 6 }}>Neighborhoods: {neighborhoods}</h5>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>

@@ -25,8 +25,13 @@ function Br() {
 }
 
 function mapStateToProps(state, props) {
+  const garage = state.garages[props.match.params.id] || null;
   return {
-    garage: state.garages[props.match.params.id] || null,
+    garage,
+    categories: (garage && Object.keys(state.categories).length > 0) && Object.keys(garage.categories).map(categoryId => {
+      const cat = state.categories[categoryId];
+      return cat;
+    }),
   };
 }
 
@@ -316,6 +321,7 @@ class GarageAdmin extends React.Component {
         {propNames.map(item => {
           return (
             <TextField
+              key={item}
               label={item}
               onChange={(event, value) => this.updateLocation(item, event.target.value, index)}
               value={val[item]}
@@ -389,6 +395,19 @@ class GarageAdmin extends React.Component {
     );
   }
 
+  renderServices = () => {
+    const { categories } = this.props;
+    if (!categories) { return null; }
+
+    return (
+      <div>
+        <h4>Services</h4>
+        <Br />
+        {categories.map(category => <p>{category.name}</p>)}
+      </div>
+    );
+  }
+
   render() {
     const { garage } = this.props;
     const { facebook, name, phoneNumber, website } = this.state;
@@ -422,6 +441,8 @@ class GarageAdmin extends React.Component {
           {this.renderImages()}
           <Br />
           {this.renderLocations()}
+          <Br />
+          {this.renderServices()}
         </div>
         {this.renderDialog()}
       </div>

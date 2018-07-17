@@ -99,14 +99,17 @@ export default class LocationPane extends React.Component {
     const { className, garage, style } = this.props;
     if (!garage) { return null; }
     const locations = garage.locations;
-    const mapCenter = (locations && locations.length > 0) ? { lat: locations[0].lat, lng: locations[0].long } 
+    const mapCenter = (locations && locations.length > 0) 
+      ? { lat: parseFloat(locations[0].lat), lng: parseFloat(locations[0].long) } 
       : { lat: AL_QUOZ_LOCATION[0], lng: AL_QUOZ_LOCATION[1] };
 
     return (
       <div className={classNames(className, 'border')} style={{ ...style, padding: 7 }}>
-        {locations && <SimpleMap center={mapCenter} style={{ width: "100%", height: 250 }}>
-          {locations.map(item => <MapMarker key={item.lat + item.long} lat={item.lat} lng={item.long}/>)}
-        </SimpleMap>}
+        {locations && 
+          <SimpleMap center={mapCenter} style={{ width: "100%", height: 250 }}>
+            {locations.map(item => <MapMarker key={item.lat + item.long} lat={parseFloat(item.lat)} lng={parseFloat(item.long)}/>)}
+          </SimpleMap>
+        }
         {this.renderItem(<LocationOn />, this.renderAddress())}
         <hr />
         {this.renderItem(<Schedule />, this.renderHours())}
