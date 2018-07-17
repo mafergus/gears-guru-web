@@ -43,13 +43,10 @@ class GaragePage extends React.Component {
     return (
       <Grid container style={{ width: "100%", marginTop: 12 }} className="centered-container">
         <Grid item sm={12} lg={9}>
-          <TopPane garage={garage}/>
+          <TopPane garage={garage} browser={browser}/>
           <div style={{ display: "flex", width: "100%", flexDirection: browser.lessThan.medium ? "column" : "row" }}>
             <Grid item sm={12} lg={9}>
-              <ServicesPane 
-                style={{ height: 250 }}
-                garage={garage}
-              />
+              <ServicesPane garage={garage} />
               <div style={{ height: 7 }} />
               <ReviewsPane garageId={garage.uid}/>
             </Grid>

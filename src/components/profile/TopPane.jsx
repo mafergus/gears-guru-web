@@ -14,16 +14,22 @@ const commaSeparatedString = (objArr, propName) => {
 export default class TopPane extends React.Component {
 
   static propTypes = {
+    browser: PropTypes.object.isRequired,
     garage: PropTypes.object.isRequired,
   };
 
   renderTitleDiv() {
-    const { garage } = this.props;
+    const { browser, garage } = this.props;
     const types = commaSeparatedString(garage.garageTypes, 'type');
     const neighborhoods = garage.locations.map(item => item.neighborhood);
+    const buttonStyle = {
+      position: browser.greaterThan.small ? "absolute" : "inherit",
+      right: browser.greaterThan.small ? 20 : 0,
+      left: browser.greaterThan.small ? 20 : 0,
+    }
 
     return (
-      <div style={{ padding: 20, width: "100%", display: "flex" }}>
+      <div style={{ height: "100%", width: "100%", padding: 20, position: "relative" }}>
         <img 
           src={garage.icon}
           style={{ 
@@ -36,49 +42,68 @@ export default class TopPane extends React.Component {
           className="border"
           alt="Garage Icon"
         />
-        <div style={{ display: "inline-block", flexGrow: 1 }}>
-          <div style={{ height: "100%", display: "flex", flexDirection: "column", paddingTop: 5, paddingBottom: 5 }}>
-            <h1 style={{ flexGrow: 1 }}>{garage.name}</h1>
-            <h5 style={{ color: textDark.secondary }}>{types}</h5>
-            <h5 style={{ color: textDark.secondary, marginTop: 6 }}>Neighborhoods: {neighborhoods}</h5>
-          </div>
+        <div 
+          style={{ 
+            height: 100,
+            width: 200,
+            display: "inline-block",
+            verticalAlign: "top",
+            position: "relative",
+            paddingTop: 5,
+            paddingBottom: 5,
+          }}
+        >
+          <h1 style={{ position: "absolute", top: 5, left: 5  }}>{garage.name}</h1>
+          <h5 style={{ color: textDark.secondary, position: "absolute", bottom: 5, left: 5 }}>Neighborhoods: {neighborhoods}</h5>
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ padding: 7, paddingRight: 0, textAlign: "right" }}>
+        <div 
+          style={{ 
+            position: browser.greaterThan.small ? "absolute" : "inherit",
+            right: browser.greaterThan.small ? 20 : 0,
+            bottom: browser.greaterThan.small ? 20 : 0,
+            marginTop: browser.greaterThan.small ? 0 : 13,
+          }}
+        >
+          {/*<div style={{ padding: 7, paddingRight: 0, textAlign: "right" }}>
             <span style={{ 
               color: "white",
               backgroundColor: "green",
               padding: 7,
               borderRadius: 3,
             }}>{garage.rating}<span style={{ fontSize: "0.6em" }}>/10</span></span>
-          </div>
-          <div style={{ display: "flex", flexGrow: 1, alignItems: "flex-end" }}>
-            <Button
-              style={{ height: 30, marginRight: 7 }}
-              variant="raised"
-              onClick={() => alert("Book!")}
-              color="secondary"
-            >
-              <Today style={{ marginRight: 6, height: 22, width: 22 }} />
-              Book
-            </Button>
-            <Button 
-              style={{ height: 30 }}
-              variant="raised"
-              onClick={() => alert("Book!")}
-              color="secondary"
-            >
-              <MonetizationOn style={{ marginRight: 6, height: 22, width: 22 }} />
-              Quote
-            </Button>
-          </div>
+          </div>*/}
+          <Button
+            style={{ 
+              height: 30,
+              width: browser.greaterThan.small ? "inherit" : "calc((100% - 7px) / 2)",
+              marginRight: 7,
+            }}
+            variant="raised"
+            onClick={() => alert("Book!")}
+            color="secondary"
+          >
+            <Today style={{ marginRight: 6, height: 22, width: 22 }} />
+            Book
+          </Button>
+          <Button 
+            style={{ 
+              height: 30,
+              width: browser.greaterThan.small ? "inherit" : "calc((100% - 7px) / 2)",
+            }}
+            variant="raised"
+            onClick={() => alert("Book!")}
+            color="secondary"
+          >
+            <MonetizationOn style={{ marginRight: 6, height: 22, width: 22 }} />
+            Quote
+          </Button>
         </div>
       </div>
     );
   }
 
   render() {
-    const { garage } = this.props;
+    const { browser, garage } = this.props;
 
     if (!Object.keys(garage).length) {
       return null;
@@ -93,7 +118,7 @@ export default class TopPane extends React.Component {
         style={{ width: "100%", marginBottom: 7, position: "relative", backgroundColor: "white" }}
         className="border"
       >
-        <HorizontalSlider data={data} />
+        <HorizontalSlider browser={browser} data={data} />
         <hr />
         {this.renderTitleDiv()}
       </div>

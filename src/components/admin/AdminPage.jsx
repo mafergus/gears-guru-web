@@ -52,6 +52,18 @@ class AdminPage extends React.Component {
       categoryId1: true,
       categoryId2: true,
       categoryId3: true,
+      categoryId4: true,
+      categoryId5: true,
+      categoryId6: true,
+      categoryId7: true,
+      cid8: true,
+      cid9: true,
+      cid10: true,
+      cid11: true,
+      cid12: true,
+      cid14: true,
+      cid15: true,
+      cid16: true,
     };
     firebase.database().ref('garages/' + newGarageKey)
     .update(data)

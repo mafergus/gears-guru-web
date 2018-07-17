@@ -48,7 +48,7 @@ class ServicesList extends React.Component {
         key={service.name}
         avatar={
           <img 
-            src="https://firebasestorage.googleapis.com/v0/b/gears-guru-991bc.appspot.com/o/icons%2Ficon-shipping.svg?alt=media&token=25b5fcc4-8490-43df-84fb-52f4fefe9d0e"
+            src={service.icon}
             style={GLYPH_STYLE}
             alt="" 
           />

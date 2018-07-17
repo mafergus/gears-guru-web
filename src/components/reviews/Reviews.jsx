@@ -1,72 +1,76 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import autoBind from "react-autobind";
-import TextField from '@material-ui/core/TextField';
+import ReviewsContainer from "components/reviews/ReviewsContainer";
+import ReviewsItem from "components/reviews/ReviewsItem";
+import { addReviewMessage, addReviewMessageReply } from "util/api";
 
-export default class Reviews extends React.Component {
+function mapStateToProps(state, props) {
+  const rawReviews = state.reviews[props.reviewsId] || [];
+  const reviews = [];
+  rawReviews.forEach((item, key) => { 
+    reviews.push({ id: key, ...item });
+  });
+  const users = {};
+  reviews.forEach(item => { users[item.userId] = state.users.get(item.userId); });
+  return {
+    authedUser: state.authedUser,
+    reviews,
+    users,
+  };
+}
+
+export class Reviews extends React.Component {
 
   static propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    style: PropTypes.object,
-    authedUserPhoto: PropTypes.string,
-    onSendMessage: PropTypes.func.isRequired,
-    hideMessageBar: PropTypes.bool.isRequired,
+    authedUser: PropTypes.object,
+    reviewsId: PropTypes.string.isRequired,
+    reviews: PropTypes.array.isRequired,
+    users: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
-    authedUserPhoto: "",
-    className: "",
-    style: {},
-    children: null,
+    authedUser: {
+      photo: "https://firebasestorage.googleapis.com/v0/b/erfara-2aa21.appspot.com/o/placeholder.png?alt=media&token=3bc07900-7743-4936-b877-fce51a0e4903"
+    }
   };
-
+  
   constructor() {
     super();
     autoBind(this);
-    this.state = { message: "" };
   }
 
-  onKeyPress(event) {
-    const { onSendMessage } = this.props;
-    if (event.charCode === 13 && this.state.message.length > 2) { // enter key pressed
-      onSendMessage(this.state.message);
-      this.setState({ message: "" });
-    } 
+  sendMessage(text) {
+    const { authedUser, reviewsId } = this.props;
+    addReviewMessage(reviewsId, authedUser.uid, text, new Date());
   }
 
-  renderMessageBar() {
-    const { authedUserPhoto } = this.props;
-    const STYLE = {
-      display: "flex",
-      justifyContent: "center",
-      margin: "1em 0em",
-      ...this.props.style,
-    };
-    return <div style={STYLE}>
-      <img
-        src={authedUserPhoto}
-        alt="You"
-        style={{ height: 50, width: 50, margin: 10, borderRadius: "50%" }}
-      />
-      <div style={{ flexGrow: "1", height: "100%", alignSelf: "center" }}>
-        <TextField 
-          placeholder="Message"
-          value={this.state.message}
-          style={{ width: "90%", marginLeft: 10, marginRight: 10 }}
-          onChange={(event, value) => { this.setState({ message: value }); }}
-        />
-      </div>
-    </div>;
+  sendReply(reviewItemId, text) {
+    const { authedUser, reviewsId } = this.props;
+    addReviewMessageReply(reviewsId, reviewItemId, authedUser.uid, text, new Date());
   }
 
   render() {
-    const { style, className, children, hideMessageBar } = this.props;
-
-    return <div className={className} style={{ ...style, backgroundColor: "white" }}>
-      {hideMessageBar ? null : this.renderMessageBar()}
-      <hr style={{ margin: "0.8em 0em" }} />
-      {children}
-    </div>;
+    const { reviews, authedUser, users } = this.props;
+    return <ReviewsContainer
+      authedUserPhoto={authedUser.photo}
+      onSendMessage={this.sendMessage}
+      hideMessageBar={!authedUser.hasOwnProperty("uid")}
+    >
+      {reviews.map(item => {
+        const user = users[item.userId];
+        return <ReviewsItem
+          key={item.id}
+          authedUserPhoto={authedUser.photo}
+          reviewsItem={item}
+          username={user.name}
+          image={user.photo}
+          onReply={this.sendReply}
+        />;
+      })}
+    </ReviewsContainer>;
   }
 }
+
+export default connect(mapStateToProps)(Reviews);

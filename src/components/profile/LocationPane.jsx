@@ -81,6 +81,20 @@ export default class LocationPane extends React.Component {
     );
   };
 
+  renderEmail = () => {
+    const { garage } = this.props;
+    return (
+      <p style={{ color: textDark.secondary }}>
+        <a
+          href={garage.website}
+          target="_blank"
+        >
+          info@garage.com
+        </a>
+      </p>
+    );
+  };
+
   renderFacebook = () => {
     const { garage } = this.props;
     return (
@@ -117,6 +131,8 @@ export default class LocationPane extends React.Component {
         {this.renderItem(<Phone />, this.renderPhone())}
         <hr />
         {this.renderItem(<Web />, this.renderWebsite())}
+        <hr />
+        {this.renderItem(<Web />, this.renderEmail())}
         <hr />
         {this.renderItem(<Face />, this.renderFacebook())}
         <hr />
