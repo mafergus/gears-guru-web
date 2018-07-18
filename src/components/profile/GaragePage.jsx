@@ -52,7 +52,11 @@ class GaragePage extends React.Component {
             </Grid>
             <div style={{ width: 12 }} />
             <LocationPane
-              style={{ width: "30%", backgroundColor: "white" }}
+              style={{ 
+                width: browser.greaterThan.small ? "30%" : "100%",
+                marginTop: browser.greaterThan.small ? 0 : 7,
+                backgroundColor: "white",
+              }}
               garage={garage}
               onLocationClick={this.locationClick}
             />
