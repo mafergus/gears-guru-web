@@ -28,7 +28,7 @@ class HomePage extends React.Component {
     const { garages } = this.props;
 
     return (
-      <div style={{ height: "100%", width: "100%", backgroundColor: "red" }}>
+      <div style={{ height: "100%", width: "100%" }}>
         <div 
           style={{ 
             width: "100%",
