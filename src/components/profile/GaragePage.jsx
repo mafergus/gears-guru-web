@@ -48,18 +48,23 @@ class GaragePage extends React.Component {
             <Grid item sm={12} lg={9}>
               <ServicesPane garage={garage} />
               <div style={{ height: 7 }} />
-              <ReviewsPane garageId={garage.uid}/>
+              {browser.greaterThan.small && <ReviewsPane garageId={garage.uid}/>}
             </Grid>
             <div style={{ width: 12 }} />
             <LocationPane
               style={{ 
                 width: browser.greaterThan.small ? "30%" : "100%",
-                marginTop: browser.greaterThan.small ? 0 : 7,
                 backgroundColor: "white",
               }}
               garage={garage}
               onLocationClick={this.locationClick}
             />
+            {browser.lessThan.medium && 
+              <ReviewsPane
+                style={{ marginTop: browser.lessThan.medium ? 7 : 0 }}
+                garageId={garage.uid}
+              />
+            }
           </div>
         </Grid>
       </Grid>

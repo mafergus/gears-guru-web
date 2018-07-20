@@ -17,3 +17,9 @@ export function ShippingIcon(props) {
     </g>
   </svg>;
 }
+
+export function LocationPin(props) {
+  return <svg width="35" height="50" viewBox="0 0 35 50" fill={props.color} {...props}>
+    <path d="M17.5 0C7.8 0 0 7.83 0 17.5 0 30.61 17.5 50 17.5 50S35 30.63 35 17.5A17.5 17.5 0 0 0 17.5 0zm0 23.74a6.26 6.26 0 1 1 0-12.51 6.26 6.26 0 0 1 0 12.51z" />
+  </svg>;
+}

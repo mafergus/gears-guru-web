@@ -9,6 +9,7 @@ import { AL_QUOZ_LOCATION } from 'util/constants';
 
 function mapStateToProps(state, props) {
   return {
+    browser: state.browser,
     garages: Object.entries(state.garages).map(entry => {
       const garage = entry[1];
       return { ...garage, uid: entry[0] };
@@ -19,6 +20,7 @@ function mapStateToProps(state, props) {
 class AdminPage extends React.Component {
 
   static propTypes = {
+    browser: PropTypes.object.isRequired,
     garages: PropTypes.array,
   };
 
@@ -71,7 +73,7 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    const { garages } = this.props;
+    const { browser, garages } = this.props;
 
     return (
       <div style={{ width: "100%", height: "100%", padding: 30 }}>
@@ -86,7 +88,7 @@ class AdminPage extends React.Component {
             Add Garage
           </Button>
         </div>
-        <GarageList garages={garages} urlBase="admin/garage/"/>
+        <GarageList browser={browser} garages={garages} urlBase="admin/garage/"/>
       </div>
     );
   }

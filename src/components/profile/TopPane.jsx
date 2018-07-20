@@ -6,10 +6,7 @@ import MonetizationOn from '@material-ui/icons/MonetizationOn';
 
 import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSlider';
 import { textDark } from 'util/colors';
-
-const commaSeparatedString = (objArr, propName) => {
-  return objArr ? objArr.reduce((acc, curr, idx, array) => acc + curr[propName] + (idx !== array.length-1 ? ", " : ""), '') : '';
-}
+import { commaSeparatedString } from 'util/util';
 
 export default class TopPane extends React.Component {
 

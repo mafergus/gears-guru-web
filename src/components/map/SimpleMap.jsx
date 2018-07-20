@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import { GOOGLE_MAPS_API_KEY } from 'util/constants';
+import { GOOGLE_MAPS_API_KEY, DEFAULT_LOCATION } from 'util/constants';
 // import MapCard from 'components/Map/MapCard';
 
 export default class SimpleMap extends Component {
@@ -70,7 +70,8 @@ export default class SimpleMap extends Component {
       <div style={{ ...style }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: [GOOGLE_MAPS_API_KEY] }}
-          defaultCenter={center}
+          center={center}
+          defaultCenter={DEFAULT_LOCATION}
           defaultZoom={zoom}
           onChildMouseEnter={this._onChildMouseEnter}
           onChildMouseLeave={this._onChildMouseLeave}

@@ -1,4 +1,5 @@
 import firebase from 'datastore/database';
+import store from 'datastore/store';
 
 const PLACEHOLDER_PHOTO = "https://s-media-cache-ak0.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg";
 const PIXABAY_KEY = "4423887-ab96e540ffbe404d644032133";
@@ -116,6 +117,12 @@ export function checkUserExists(uid) {
       }
     });
   });
+}
+
+export function signOut() {
+  firebase.auth().signOut()
+  .then(() => store.dispatch({ type: "SIGN_OUT_USER" }))
+  .catch(error => console.log("Error! ", error));
 }
 
 function getRandomInt(min, max) {

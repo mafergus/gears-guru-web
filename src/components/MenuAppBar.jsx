@@ -14,8 +14,7 @@ import { connect } from 'react-redux';
 import AuthModal from 'components/auth/AuthModal';
 import { Logo } from 'assets/Logo';
 import { primary } from 'util/colors';
-
-// import { signOut } from 'util/Api';
+import { signOut } from 'util/api';
 
 function mapStateToProps(state, props) {
   return {
@@ -55,7 +54,7 @@ class MenuAppBar extends React.Component {
 
   handleClick = () => {
     this.handleClose();
-    // signOut();
+    signOut();
   }
 
   renderLogin = () => {

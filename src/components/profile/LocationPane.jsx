@@ -62,7 +62,8 @@ export default class LocationPane extends React.Component {
     const { garage } = this.props;
     return (
       <div>
-        <p style={{ color: textDark.secondary }}>{garage.phoneNumber}</p>
+        <a href="tel:+1-800-555-5555" style={{ color: textDark.secondary }}>Call 1-800-555-5555</a>
+        {/*<p style={{ color: textDark.secondary }}>{garage.phoneNumber}</p>*/}
       </div>
     );
   };
