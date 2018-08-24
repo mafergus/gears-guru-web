@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+import LandingPage from 'components/landing/LandingPage';
 import HomePage from 'components/home/HomePage';
 import GaragePage from 'components/profile/GaragePage';
 import MenuAppBar from 'components/MenuAppBar';
@@ -14,25 +15,29 @@ import GarageAdmin from 'components/admin/GarageAdmin';
 const routes = [
   {
     path: '/',
-    main: HomePage,
+    main: LandingPage,
     exact: true,
-    title: 'Home'
+    title: 'Landing',
+    appBar: () => <MenuAppBar transparent />,
   },
   {
     path: '/garage/:id',
     main: GaragePage,
-    title: 'Garage'
+    title: 'Garage',
+    appBar: () => <MenuAppBar />,
   },
   {
     path: '/admin',
     exact: true,
     main: AdminPage,
     title: 'Admin',
+    appBar: () => <MenuAppBar />,
   },
   {
     path: '/admin/garage/:id',
     main: GarageAdmin,
     title: 'Garage Admin',
+    appBar: () => <MenuAppBar />,
   },
 ];
 
@@ -46,7 +51,7 @@ const MainPage = () => (
           key={index}
           path={route.path}
           exact={route.exact}
-          component={() => <MenuAppBar title={route.title} />}
+          component={route.appBar}
         />
       ))}
       {routes.map((route, index) => (

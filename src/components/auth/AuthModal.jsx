@@ -47,6 +47,17 @@ export default class AuthModal extends React.Component {
       firebase.onAuthSuccess(user.uid);
       throw new Error("User exists, logging in");
     })
+    .then(() => fetch(userData.photo))
+    .then(response => {
+      debugger;
+      if (response && response.ok) {
+        return response.blob();
+      }
+    })
+    .then(blob => {
+      const storageRef = firebase.storage().ref('/users/' + userData.uid + "/profile_photo");
+      return storageRef.put(blob);
+    })
     .then(() => getPhoto())
     .then(blob => uploadFile(blob))
     .then(url => {

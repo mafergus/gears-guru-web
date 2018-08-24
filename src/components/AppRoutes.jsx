@@ -28,7 +28,7 @@ class AppRoutes extends React.Component {
     // const isMobile = state.browser.is.extraSmall;
 
     return (
-      <div style={{ height: "100%", width: "100%", backgroundColor: "#EEEEEE" }}>
+      <div style={{ height: "100%", width: "100%" }}>
         <DocumentTitle title="Gears Guru - Find the best car repair garages in Dubai!" />
         <Helmet>
           <meta name="description" content="Best Car and Auto Repair Services and Workshops Dubai" />

@@ -56,7 +56,7 @@ class ServiceSelector extends React.Component {
           style={{ display: "flex", flexDirection: "column", backgroundColor: "rgba(255, 255, 255, 0.85)", padding: 30, borderRadius: 3 }}
           className="centered-container"
         >
-          <h1 style={{ textAlign: "center" }}>Find a top rated car repair garage near you</h1>
+          <h1 style={{ textAlign: "center" }}>Find a top rated mechanic near you</h1>
           <div style={{ marginTop: 55, display: "flex", width: "100%", alignItems: "center", pointerEvents: "auto" }}>
             <FormControl style={{ flexGrow: 1 }}>
               <InputLabel htmlFor="add-service">Service</InputLabel>

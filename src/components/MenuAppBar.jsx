@@ -27,10 +27,12 @@ class MenuAppBar extends React.Component {
   static propTypes = {
     style: PropTypes.object,
     title: PropTypes.string.isRequired,
+    transparent: PropTypes.bool,
   };
 
   static defaultProps = {
     style: {},
+    transparent: false,
   };
 
   state = {
@@ -125,11 +127,17 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { style } = this.props;
+    const { style, transparent } = this.props;
+    let appBarStyle = { ...style };
+    appBarStyle.zIndex = transparent ? 0 : 1000;
+    if (transparent) {
+      appBarStyle.boxShadow = "none";
+      appBarStyle.backgroundColor = "transparent";
+    }
 
     return (
-      <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
-        <Toolbar style={{ backgroundColor: primary[500] }}>
+      <AppBar position="static" style={appBarStyle}>
+        <Toolbar>
           <Link
             to="/"
             style={{ 

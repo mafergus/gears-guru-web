@@ -7,6 +7,7 @@ import GarageList from 'components/home/GarageList';
 import { AL_QUOZ_LOCATION } from 'util/constants';
 import { primary } from 'util/colors';
 import ServiceSelector from 'components/home/ServiceSelector';
+import GarageListFilters from 'components/GarageListFilters';
 
 function mapStateToProps(state, props) {
   return {
@@ -56,7 +57,7 @@ class HomePage extends React.Component {
           style={{ 
             width: "100%",
             height: 450,
-            marginBottom: 55,
+            marginBottom: 25,
             position: "relative",
             display: "flex",
             alignItems: "center",
@@ -91,6 +92,7 @@ class HomePage extends React.Component {
           />
           <ServiceSelector onSubmit={service => alert(service.uid + " " + service.name)}/>
         </div>
+        <GarageListFilters style={{ marginBottom: 10 }}/>
         <GarageList browser={browser} garages={garages} location={location} />
       </div>
     );

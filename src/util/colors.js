@@ -25,7 +25,12 @@ export const textDark = {
 
 export const dividerColor = styles.divider;
 
+export const darkGray = "rgb(74, 81, 85)";
+export const gray = "rgb(109, 117, 121)";
+
 export const text = {
+  darkGray: "rgb(74, 81, 85)",
+  gray: "rgb(109, 117, 121)",
   primary: {
     light: "white",
     dark: "rgba(0, 0, 0, 0.87)",
