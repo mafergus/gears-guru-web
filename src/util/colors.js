@@ -24,7 +24,7 @@ export const textDark = {
 };
 
 export const dividerColor = styles.divider;
-
+export const darkWhite = "rgb(250, 251, 252)";
 export const darkGray = "rgb(74, 81, 85)";
 export const gray = "rgb(109, 117, 121)";
 

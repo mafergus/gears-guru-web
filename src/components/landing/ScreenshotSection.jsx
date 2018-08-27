@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 
 import { text, darkGray, gray }  from 'util/colors';
 import screenshot from 'assets/screenshot.png';
@@ -10,9 +11,12 @@ const styles = {
     width: "100%",
     height: 650,
     padding: 20,
-    backgroundColor: "#FAFBFC"
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#FAFBFC",
   },
   title: {
+    minWidth: 350,
     textAlign: "center",
     fontWeight: 500,
     fontSize: "1.6em",
@@ -27,8 +31,9 @@ const styles = {
   },
   section: {
     container: {
+      display: "flex",
       marginTop: 35,
-      marginBottom: 35
+      marginBottom: 35,
     },
     title: {
       color: darkGray,
@@ -36,40 +41,47 @@ const styles = {
       marginBottom: 10
     },
     text: { 
-      width: 500,
       color: gray,
       fontWeight: 300
     },
   }
 };
 
-export default function ScreenshotSection(browser) {
+export default function ScreenshotSection({ style, browser }) {
 
-  const renderText = (title, text) => {
+  const renderText = (index, title, text) => {
     return (
       <div style={styles.section.container}>
-        <h4 style={styles.section.title}>{title}</h4>
-        <h4 style={styles.section.text}>{text}</h4>
+        <div className="number-circle">{index}</div>
+        <div style={{ marginLeft: 25 }}>
+          <h4 style={styles.section.title}>{title}</h4>
+          <h4 style={styles.section.text}>{text}</h4>
+        </div>
       </div>
     );
   };
 
   return (
-    <div style={styles.container}>
+    <Grid container style={{ ...styles.container, ...style }}>
 
       <h3 style={styles.title}>Life's too short to spend it at the repair shop</h3>
 
       <div style={{ display: "flex" }}>
-        <img style={styles.image} src={screenshot} />
-        <div style={{ width: "50%", padding: 20 }}>
+        {browser.greaterThan.medium && <img style={styles.image} src={screenshot} />}
+        <Grid
+          xs={12}
+          xl={6}
+          style={{ padding: 20 }}
+          item
+        >
           <h4 style={{ color: text.gray, fontWeight: 300 }}>{TITLE}</h4>
           <br />
-          {renderText("GET A QUOTE", "Tell us what your car needs or ask for a diagnostic. Receive a free, fast, fair & transparent price quote.")}
-          {renderText("BOOK APPOINTMENT", "Provide your home or office location. Tell us when to meet you there.")}
-          {renderText("GET YOUR CAR FIXED", "That’s it. No more waiting in repair shops - our mechanics come to you")}
-        </div>
+          {renderText(1, "GET A QUOTE", "Tell us what your car needs or ask for a diagnostic. Receive a free, fast, fair & transparent price quote.")}
+          {renderText(2, "BOOK APPOINTMENT", "Provide your home or office location. Tell us when to meet you there.")}
+          {renderText(3, "GET YOUR CAR FIXED", "That’s it. No more waiting in repair shops - our mechanics come to you")}
+        </Grid>
       </div>
 
-    </div>
+    </Grid>
   );
 }

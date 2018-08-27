@@ -42,7 +42,7 @@ const styles = {
   },
 }
 
-export default function BoxesSection(browser) {
+export default function BoxesSection({ style }) {
 
   const renderBox = (image, title, text) => {
     const Image = image;
@@ -65,7 +65,7 @@ export default function BoxesSection(browser) {
 
   return (
     <Grid 
-      style={styles.gridContainer}
+      style={{ ...styles.gridContainer, ...style }}
       container
     >
       {renderBox(
