@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import { primary } from 'util/colors';
 
 const BP = {
-  sm: 9,
-  md: 8,
-  lg: 7,
+  sm: 11,
+  md: 10,
+  lg: 8,
 };
 
 export default function Footer({ style, browser }) {
@@ -20,6 +20,10 @@ export default function Footer({ style, browser }) {
     footerContainer: {
       display: "flex",
       paddingBottom: 50,
+    },
+    footerInnerContainer: {
+      display: "flex",
+      justifyContent: "left",
     },
     postFooter: {
       width: "100%",
@@ -57,12 +61,12 @@ export default function Footer({ style, browser }) {
     return (
       <Grid
         item
-        sm={11}
-        md={10}
-        lg={8}
+        sm={BP.sm}
+        md={BP.md}
+        lg={BP.lg}
         style={{ ...style, ...STYLE.footerContainer }}
       >
-        <Grid container style={{ display: "flex", justifyContent: "center" }}>
+        <Grid container style={STYLE.footerInnerContainer}>
           {children}
         </Grid>
       </Grid> 
@@ -70,15 +74,14 @@ export default function Footer({ style, browser }) {
 
   }
 
-  const Section = ({ children }) => {
+  const Section = ({ style, children }) => {
     return (
       <Grid
         item
         xs={6}
-        sm={6}
-        md={6}
-        lg={3}
-        xl={2}
+        md={3}
+        lg={2}
+        style={style}
       >
         {children}
       </Grid>
@@ -96,6 +99,8 @@ export default function Footer({ style, browser }) {
       </div>
     );
   };
+
+  const marginTop = browser.lessThan.large ? 50 : 0;
 
   return (
     <Grid container style={{ ...style, ...STYLE.footer }}>
@@ -115,13 +120,13 @@ export default function Footer({ style, browser }) {
           <Section.Link>Mechanic Home</Section.Link>
         </Section>
 
-        <Section>
+        <Section style={{ marginTop }}>
           <Section.Title>Terms</Section.Title>
           <Section.Link>Privacy Policy</Section.Link>
           <Section.Link>Terms of Use</Section.Link>
         </Section>
 
-        <Section>
+        <Section style={{ marginTop }}>
           <Section.Title>Social</Section.Title>
           <Section.Link>Angel List</Section.Link>
           <Section.Link>Facebook</Section.Link>

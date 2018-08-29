@@ -4,10 +4,14 @@ import Grid from '@material-ui/core/Grid';
 
 import icons from 'util/car-icons';
 import { text, darkGray, gray }  from 'util/colors';
+import Button from 'components/ui/Button';
 
 const styles = {
   container: {
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     paddingLeft: 80,
     paddingRight: 80,
     paddingTop: 40,
@@ -50,6 +54,7 @@ export default function CarMakesSection({ style, browser }) {
       >
         {icons.map(icon => renderBox(icon))}
       </Grid>
+      <Button style={{ marginTop: 70 }}>BOOK NOW</Button>
     </div>
   );
 }

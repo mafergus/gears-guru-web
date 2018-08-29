@@ -177,6 +177,24 @@ div {
   }
 }
 
+.button {
+  background-color: #2196F3;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.button-ios {
+  background-color: white;
+  border: 1px solid #2196F3;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 .hoverable {
   -webkit-transition: all .1s ease-in-out;
           transition: all .1s ease-in-out;
