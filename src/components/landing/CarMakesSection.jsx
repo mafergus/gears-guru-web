@@ -10,7 +10,7 @@ const styles = {
     width: "100%",
     paddingLeft: 80,
     paddingRight: 80,
-    paddingTop: 30,
+    paddingTop: 40,
     paddingBottom: 50,
     backgroundColor: "white",
   },
@@ -19,7 +19,7 @@ const styles = {
     fontWeight: 500,
     fontSize: "1.6em",
     color: text.darkGray,
-    marginBottom: 70,
+    marginBottom: 55,
   },
 }
 

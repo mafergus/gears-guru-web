@@ -67,7 +67,23 @@ a {
 
 a:hover {
   cursor: pointer;
-  color: black;
+  color: $primary-color-100;
+}
+
+.sm {
+  font-size: 0.9em;
+}
+
+.md {
+  font-size: 1em;
+}
+
+.lg {
+  font-size: 1.3em;
+}
+
+.xl {
+  font-size: 1.5em;
 }
 
 h1 {
@@ -77,30 +93,31 @@ h1 {
 }
 
 h2 {
+  @extend .xl;
   margin: 0;
-  font-size: 1.5em;
 }
 
 h3 {
+  @extend .lg;
   margin: 0;
-  font-size: 1.3em;
 }
 
 h4 {
+  @extend .md;
   margin: 0;
-  font-size: 1em;
+  font-weight: 400;
 }
 
 h5 {
+  @extend .sm;
   margin: 0;
-  font-size: 0.9em;
   margin: 0;
   font-weight: 500;
 }
 
 p {
+  @extend .sm;
   margin: 0;
-  font-size: 0.9em;
 }
 
 hr {

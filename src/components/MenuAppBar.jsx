@@ -26,12 +26,13 @@ class MenuAppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     transparent: PropTypes.bool,
   };
 
   static defaultProps = {
     style: {},
+    title: "",
     transparent: false,
   };
 

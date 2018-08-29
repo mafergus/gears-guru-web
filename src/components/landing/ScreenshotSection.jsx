@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { text, darkGray, gray }  from 'util/colors';
 import screenshot from 'assets/screenshot.png';
+import { withBrowser } from 'util/withBrowser';
 
 const TITLE = "Enjoy convenient car repair and maintenance at your home or office. It's as easy as 1-2-3."
 const TEXT1 = "GET A QUOTE Tell us what your car needs or ask for a diagnostic. Receive a free, fast, fair & transparent price quote. 2 BOOK APPOINTMENT Provide your home or office location. Tell us when to meet you there. 3 GET YOUR CAR FIXED That’s it. No more waiting in repair shops - our mechanics come to you";
