@@ -9,7 +9,6 @@ import MapMarker from 'components/map/MapMarker';
 const styles = {
   container: {
     width: "100%",
-    paddingTop: 30,
   },
   title: {
     textAlign: "center",
@@ -22,14 +21,14 @@ const styles = {
 }
 
 export default function MapSection({ style, locations }) {
-  const mapCenter = { lat: AL_QUOZ_LOCATION[0], lng: AL_QUOZ_LOCATION[1] }
+  const mapCenter = { lat: AL_QUOZ_LOCATION[0], lng: AL_QUOZ_LOCATION[1] };
 
   return (
     <div style={{ ...styles.container, ...style }}>
-      <h4 style={styles.title}>Locations Near You</h4>
+      {/*<h5 style={styles.title}>Locations Near You</h5>*/}
       <SimpleMap
         center={mapCenter}
-        style={{ height: 350 }}
+        style={{ height: 400 }}
         options={{ scrollwheel: false }}
       >
         {locations.map(item => <MapMarker key={item.lat + item.long} lat={parseFloat(item.lat)} lng={parseFloat(item.long)}/>)}

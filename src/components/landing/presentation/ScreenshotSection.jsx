@@ -12,6 +12,7 @@ const styles = {
   container: {
     width: "100%",
     padding: 20,
+    paddingBottom: 50,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

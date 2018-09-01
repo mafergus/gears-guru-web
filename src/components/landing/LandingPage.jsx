@@ -7,6 +7,7 @@ import BoxesSection from 'components/landing/presentation/BoxesSection';
 import ScreenshotSection from 'components/landing/presentation/ScreenshotSection';
 import CarMakesSection from 'components/landing/presentation/CarMakesSection';
 import MapSection from 'components/landing/container/MapSection';
+import CategoriesSection from 'components/landing/container/CategoriesSection';
 import Footer from 'components/Footer';
 import { allWithBrowser, withBrowser } from 'util/withBrowser';
 
@@ -18,7 +19,6 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: "purple",
   },
 };
 
@@ -35,12 +35,28 @@ class LandingPage extends React.Component {
 
     return (
       <div style={styles.container}>
-        <JumboSection browser={browser} />
+        <JumboSection
+          browser={browser}
+        />
         <BoxesSection />
-        <ScreenshotSection style={{ backgroundColor: darkWhite }} browser={browser} />
-        <MapSection style={{ backgroundColor: "white" }}/>
-        <CarMakesSection browser={browser} style={{ backgroundColor: darkWhite }} />
-        <Footer browser={browser}/>
+        <ScreenshotSection
+          style={{ backgroundColor: darkWhite }}
+          browser={browser}
+        />
+        <MapSection
+          style={{ backgroundColor: "white" }}
+        />
+        <CategoriesSection
+          browser={browser}
+          style={{ backgroundColor: darkWhite }}
+        />
+        <CarMakesSection
+          browser={browser}
+          style={{ backgroundColor: "white" }}
+        />
+        <Footer
+          browser={browser}
+        />
       </div>
     );
   }
