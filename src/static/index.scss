@@ -22,6 +22,8 @@ $rating-good-color: green;
 $rating-average-color: yellow;
 $rating-poor-color: red;
 
+$button-blue: #2196F3;
+
 :export {
   primary50: $primary-color-50;
   primary100: $primary-color-100;
@@ -45,6 +47,8 @@ $rating-poor-color: red;
   ratingPoorColor: $rating-poor-color;
 
   divider: $divider-color;
+
+  buttonBlue: $button-blue;
 }
 
 @font-face {
@@ -177,9 +181,14 @@ div {
   }
 }
 
-.button {
-  background-color: #2196F3;
+.button-base {
   cursor: pointer;
+  border-radius: 46px,
+}
+
+.button {
+  @extend .button-base;
+  background-color: $button-blue;
 
   &:hover {
     opacity: 0.9;
@@ -187,12 +196,18 @@ div {
 }
 
 .button-ios {
+  @extend .button-base;
   background-color: white;
-  border: 1px solid #2196F3;
+  border: 1px solid $button-blue;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.5;
   }
+}
+
+.button-square {
+  @extend .button;
+  border-radius: 0px;
 }
 
 .hoverable {

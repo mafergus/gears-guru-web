@@ -9,7 +9,6 @@ const STYLE = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "46px",
   },
   text: {
     color: "white",
@@ -19,7 +18,11 @@ const STYLE = {
 export default function Button({ style, classname, children, variant }) {
 
   const getClass = variant => {
-    return variant === "ios" ? "button-ios" : "button";
+    switch (variant) {
+      case "ios": return "button-ios";
+      case "square": return "button-square";
+      default: return "button";
+    }
   };
 
   return (

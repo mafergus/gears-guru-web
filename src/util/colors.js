@@ -24,11 +24,11 @@ export const textDark = {
 };
 
 export const dividerColor = styles.divider;
-export const darkWhite = "rgb(250, 251, 252)";
+export const darkWhite = "rgb(246, 248, 249)";
 export const darkGray = "rgb(74, 81, 85)";
 export const gray = "rgb(109, 117, 121)";
 
-export const buttonBlue = "#2196F3";
+export const buttonBlue = styles.buttonBlue;
 
 export const text = {
   darkGray: "rgb(74, 81, 85)",

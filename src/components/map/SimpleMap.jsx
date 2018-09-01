@@ -10,6 +10,7 @@ export default class SimpleMap extends Component {
   static propTypes = {
     center: PropTypes.object,
     children: PropTypes.node,
+    options: PropTypes.object,
     style: PropTypes.object,
     zoom: PropTypes.number,
   };
@@ -17,6 +18,7 @@ export default class SimpleMap extends Component {
   static defaultProps = {
     center: {},
     children: null,
+    options: {},
     style: {},
     zoom: 13,
   };
@@ -38,33 +40,8 @@ export default class SimpleMap extends Component {
     this.setState({ hoveredMarker: -1 });
   }
 
-  renderEventCard() {
-    // const { hoveredMarker } = this.state;
-
-    // if (this.state.hoveredMarker !== -1) {
-    //   return <MapCard 
-    //     key={hoveredMarker.id}
-    //     lat={hoveredMarker.geoCoordinates.latitude}
-    //     lng={hoveredMarker.geoCoordinates.longitude}
-    //     event={hoveredMarker}
-    //     eventUid={hoveredMarker.id}
-    //   />;
-    // }
-  }
-
   render() {
     const { center, children, style, zoom } = this.props;
-    // const markers = events.map(item => {
-    //   return item[1].geoCoordinates && <MapMarker
-    //     key={item[0]}
-    //     lat={item[1].geoCoordinates.latitude}
-    //     lng={item[1].geoCoordinates.longitude}
-    //     event={{ ...item[1], id: item[0] }}
-    //     hovered={item[0] === this.state.hoveredMarker.uid}
-    //     onMouseOver={this.onMarkerEnter}
-    //     onMouseExit={this.onMarkerExit}
-    //   />;
-    // });
 
     return (
       <div style={{ ...style }}>
@@ -75,10 +52,10 @@ export default class SimpleMap extends Component {
           defaultZoom={zoom}
           onChildMouseEnter={this._onChildMouseEnter}
           onChildMouseLeave={this._onChildMouseLeave}
+          options={{ scrollwheel: false }}
         >
           {/*markers*/}
           {children}
-          {this.renderEventCard()}
         </GoogleMapReact>
       </div>
     );

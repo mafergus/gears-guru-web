@@ -3,12 +3,13 @@ import Grid from '@material-ui/core/Grid';
 
 import { BalanceSheet, Places, Shield } from 'util/Glyphs';
 import { text } from 'util/colors';
+import Button from 'components/ui/Button';
 
 const styles = {
   gridContainer: { 
     width: "100%",
     paddingTop: 30,
-    paddingBottom: 60,
+    paddingBottom: 30,
     backgroundColor: "white",
     display: "flex",
     justifyContent: "center",
@@ -44,7 +45,7 @@ const styles = {
 
 export default function BoxesSection({ style }) {
 
-  const renderBox = (image, title, text) => {
+  const renderBox = (image, title, text, buttonText) => {
     const Image = image;
 
     return (
@@ -59,6 +60,7 @@ export default function BoxesSection({ style }) {
         <Image style={styles.image} />
         <h3 style={styles.title}>{title}</h3>
         <p style={styles.body}>{text}</p>
+        <Button variant="ios" style={{ width: 200, marginTop: 50 }}>LEARN MORE</Button>
       </Grid>
     );
   };
@@ -71,7 +73,7 @@ export default function BoxesSection({ style }) {
       {renderBox(
         Places,
         "WE MAKE IT EASY",
-        "Get a quote and book a service online 24/7. Our mechanics will come to your home or office, even on evenings and weekends."
+        "Get a quote and book a service online 24/7. Our mechanics will come to your home or office, even on evenings and weekends.",
       )}
       {renderBox(
         BalanceSheet,

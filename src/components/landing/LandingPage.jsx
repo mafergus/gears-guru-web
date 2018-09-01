@@ -6,6 +6,7 @@ import JumboSection from 'components/landing/container/JumboSection';
 import BoxesSection from 'components/landing/presentation/BoxesSection';
 import ScreenshotSection from 'components/landing/presentation/ScreenshotSection';
 import CarMakesSection from 'components/landing/presentation/CarMakesSection';
+import MapSection from 'components/landing/container/MapSection';
 import Footer from 'components/Footer';
 import { allWithBrowser, withBrowser } from 'util/withBrowser';
 
@@ -37,7 +38,8 @@ class LandingPage extends React.Component {
         <JumboSection browser={browser} />
         <BoxesSection />
         <ScreenshotSection style={{ backgroundColor: darkWhite }} browser={browser} />
-        <CarMakesSection browser={browser} />
+        <MapSection style={{ backgroundColor: "white" }}/>
+        <CarMakesSection browser={browser} style={{ backgroundColor: darkWhite }} />
         <Footer browser={browser}/>
       </div>
     );

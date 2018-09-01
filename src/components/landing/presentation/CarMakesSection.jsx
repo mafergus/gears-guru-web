@@ -14,7 +14,7 @@ const styles = {
     alignItems: "center",
     paddingLeft: 80,
     paddingRight: 80,
-    paddingTop: 40,
+    paddingTop: 60,
     paddingBottom: 50,
     backgroundColor: "white",
   },

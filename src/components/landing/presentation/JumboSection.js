@@ -4,13 +4,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import jumboImage from 'assets/hero.jpg';
+import Button from 'components/ui/Button';
 
 const styles = {
   title: {
     textAlign: "center",
     color: "white",
-    fontSize: "2.5em",
     fontWeight: 400,
+    marginLeft: 15,
+    marginRight: 15,
   },
   subtitle: {
     color: "white",
@@ -57,13 +59,14 @@ export default function JumboSection({ style, browser, make, model, handleChange
 
   const marginRight = browser.lessThan.large ? 0 : 7;
   const marginBottom = browser.lessThan.large ? 10 : 0;
+  const titleSize = browser.lessThan.medium ? "1.8em" : "2.5em";
 
   return (
     <div style={{ ...styles.heroContainer, ...style }}>
       <img src={jumboImage} style={styles.heroImage}/>
       <div style={styles.heroImageOverlay}></div>
       <Grid style={styles.innerContainer} container>
-        <h1 style={styles.title}>FIND THE BEST MECHANICS IN DUBAI</h1>
+        <h1 style={{ ...styles.title, fontSize: titleSize  }}>FIND THE BEST MECHANICS IN DUBAI</h1>
         <h3 style={styles.subtitle}>Fast. Verified. Best Price.</h3>
         <Grid container style={{ display: "flex", justifyContent: "center" }}>
           
@@ -101,8 +104,12 @@ export default function JumboSection({ style, browser, make, model, handleChange
             xs={10}
             md={3}
             item
-            style={{ backgroundColor: "purple", height: 50, width: 175 }}
-          ></Grid>
+          >
+            <Button
+              style={{ height: 50, width: "100%" }}
+              variant="square"
+            >FIND A TIME</Button>
+          </Grid>
           
         </Grid>
       </Grid>
