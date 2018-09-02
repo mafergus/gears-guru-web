@@ -19,13 +19,15 @@ import { signOut } from 'util/api';
 function mapStateToProps(state, props) {
   return {
     authedUser: state.authedUser || {},
-  }
+    browser: state.browser,
+  };
 }
 
 class MenuAppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
+    browser: PropTypes.object.isRequired,
     title: PropTypes.string,
     transparent: PropTypes.bool,
   };
@@ -61,7 +63,7 @@ class MenuAppBar extends React.Component {
   }
 
   renderLogin = () => {
-    const { authedUser } = this.props;
+    const { authedUser, browser } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 

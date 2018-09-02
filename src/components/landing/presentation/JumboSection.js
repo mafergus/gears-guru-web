@@ -106,7 +106,7 @@ export default function JumboSection({ style, browser, ...props }) {
               name: 'make',
             }}
           >
-            <option value="">{placeholder}</option>
+            <option value="" disabled>{placeholder}</option>
             {allValues.map(val => {
               return <option value={val.uid}>{val[propName]}</option>;
             })}
