@@ -23,6 +23,15 @@ firebase.init = () => {
     }
   });
 
+  firebase.database().ref('cars').on('value', snapshot => {
+    if (snapshot.exists()) {
+      const cars = snapshot.val();
+      if (cars) {
+        store.dispatch({ type: "GET_CARS_SUCCESS", cars });
+      }
+    }
+  });
+
   firebase.database().ref('categories').on('value', snapshot => {
     if (snapshot.exists()) {
       const categories = snapshot.val();

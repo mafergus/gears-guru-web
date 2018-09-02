@@ -95,7 +95,7 @@ export default function Footer({ style, browser }) {
   Section.Link = ({ children, to }) => {
     return (
       <div style={{ marginTop: 5, marginBottom: 5 }}>
-        <a className="sm" style={{ fontWeight: 300, color: "white" }} href={to}>{children}</a>
+        <a className="sm" style={{ fontWeight: 300 }} href={to}>{children}</a>
       </div>
     );
   };

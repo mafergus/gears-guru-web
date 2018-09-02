@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -116,3 +117,18 @@ export default function JumboSection({ style, browser, make, model, handleChange
     </div>
   );
 }
+
+JumboSection.propTypes = {
+  style: PropTypes.object,
+  browser: PropTypes.object.isRequired,
+  make: PropTypes.string,
+  model: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+JumboSection.defaultProps = {
+  style: {},
+  make: "",
+  model: "",
+};

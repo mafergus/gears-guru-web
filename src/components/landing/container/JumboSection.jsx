@@ -22,16 +22,17 @@ class JumboSection extends React.Component {
   handleChange = propName => {
   }
 
-  onSubmit = () => {}
-  
+  onSubmit = () => {};
+
   render() {
     const { browser } = this.props;
+    const { allTheCars } = this.state;
 
     return (
       <Presentation
         browser={browser}
-        handleChange={this.handleChange}
-        onSubmit={this.onSubmit}
+        handleChange={() => {}}
+        onSubmit={() => {}}
       />
     );
   }

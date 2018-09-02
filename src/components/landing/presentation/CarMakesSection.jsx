@@ -34,7 +34,6 @@ export default function CarMakesSection({ style, browser }) {
       <Grid 
         item
         xs={6}
-        sm={6}
         md={4}
         lg={2}
         style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: 30 }}
@@ -44,13 +43,32 @@ export default function CarMakesSection({ style, browser }) {
     );
   };
 
-  const padding = browser.lessThan.small ? 20 : 80;
+  const getPadding = browser => {
+    switch (browser.mediaType) {
+      case "small":
+        return 40;
+      case "medium":
+        return 80;
+      case "large":
+        return 200;
+      case "infinity":
+        return 300;
+      default:
+        return 80;
+    }
+  };
+
+  const padding = 0;
 
   return (
     <div style={{ ...styles.container, ...style, paddingLeft: padding, paddingRight: padding }}>
       <h4 style={styles.title}>We service most makes and models</h4>
       <Grid 
         container
+        sm={12}
+        md={10}
+        lg={8}
+        xl={6}
       >
         {icons.map(icon => renderBox(icon))}
       </Grid>
