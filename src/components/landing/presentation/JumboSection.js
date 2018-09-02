@@ -7,107 +7,149 @@ import Select from '@material-ui/core/Select';
 import jumboImage from 'assets/hero.jpg';
 import Button from 'components/ui/Button';
 
-const styles = {
-  title: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: 400,
-    marginLeft: 15,
-    marginRight: 15,
-  },
-  subtitle: {
-    color: "white",
-    fontWeight: 400,
-    marginTop: 25,
-    marginBottom: 130,
-  },
-  heroContainer: { 
-    position: "relative",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 600,
-    width: "100%",
-  },
-  heroImage: {
-    width: "100%",
-    height: 600,
-    objectFit: "cover",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  heroImageOverlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  innerContainer: {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
+const getStyles = browser => {
+
+  const styles = {
+    title: {
+      fontSize: browser.lessThan.medium ? "1.8em" : "2.5em",
+      textAlign: "center",
+      color: "white",
+      fontWeight: 400,
+      marginLeft: 15,
+      marginRight: 15,
+    },
+    subtitle: {
+      color: "white",
+      fontWeight: 400,
+      marginTop: 25,
+      marginBottom: 130,
+    },
+    heroContainer: { 
+      position: "relative",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: 600,
+      width: "100%",
+    },
+    heroImage: {
+      width: "100%",
+      height: 600,
+      objectFit: "cover",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+    heroImageOverlay: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    innerContainer: {
+      position: "absolute",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    dropDown: {
+      display: "flex",
+      alignItems: "center",
+      backgroundColor: "white",
+      height: boxHeight,
+      width: 225,
+      paddingLeft: 12,
+      paddingRight: 5,
+      marginRight: browser.lessThan.large ? 0 : 7,
+      marginBottom: browser.lessThan.large ? 10 : 0
+    }
+  };
+
+  return styles;
 };
 
-export default function JumboSection({ style, browser, make, model, handleChange, onSubmit }) {
+const boxHeight = 38;
 
-  const marginRight = browser.lessThan.large ? 0 : 7;
-  const marginBottom = browser.lessThan.large ? 10 : 0;
-  const titleSize = browser.lessThan.medium ? "1.8em" : "2.5em";
+export default function JumboSection({ style, browser, ...props }) {
+  const {
+    allMakes,
+    models,
+    selectedMake,
+    selectedModel,
+    handleChangeMake,
+    handleChangeModel,
+    onSubmit
+  } = props;
+  const styles = getStyles(browser);
+
+  const DropDown = ({ style, allValues, selected, handleChange, placeholder, propName }) => {
+    return (
+      <Grid
+        xs={10}
+        md={2}
+        item
+        style={style}
+      >
+        <FormControl style={{ width: "100%" }}>
+          <Select
+            native
+            disableUnderline
+            value={selected}
+            onChange={event => handleChange(event.target.value)}
+            inputProps={{
+              name: 'make',
+            }}
+          >
+            <option value="">{placeholder}</option>
+            {allValues.map(val => {
+              return <option value={val.uid}>{val[propName]}</option>;
+            })}
+          </Select>
+        </FormControl>
+      </Grid>
+    );
+  }
 
   return (
     <div style={{ ...styles.heroContainer, ...style }}>
       <img src={jumboImage} style={styles.heroImage}/>
       <div style={styles.heroImageOverlay}></div>
       <Grid style={styles.innerContainer} container>
-        <h1 style={{ ...styles.title, fontSize: titleSize  }}>FIND THE BEST MECHANICS IN DUBAI</h1>
+        <h1 style={styles.title}>FIND THE BEST MECHANICS IN DUBAI</h1>
         <h3 style={styles.subtitle}>Fast. Verified. Best Price.</h3>
         <Grid container style={{ display: "flex", justifyContent: "center" }}>
           
-          <Grid
-            xs={10}
-            md={3}
-            item
-            style={{ backgroundColor: "white", height: 50, width: 225, marginRight, marginBottom }}
-          >
-            <FormControl>
-              <Select
-                native
-                value={make}
-                onChange={handleChange("make")}
-                inputProps={{
-                  name: 'make',
-                }}
-              >
-                <option value="" />
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
-              </Select>
-            </FormControl>
-          </Grid>
+          <DropDown
+            allValues={allMakes}
+            selected={selectedMake}
+            handleChange={handleChangeMake}
+            propName="make"
+            placeholder="Car Make"
+            style={styles.dropDown}
+          />
+          
+          <DropDown
+            allValues={models}
+            selected={selectedModel}
+            handleChange={handleChangeModel}
+            propName="name"
+            placeholder="Car Model"
+            style={styles.dropDown}
+          />
           
           <Grid
             xs={10}
-            md={3}
-            item
-            style={{ backgroundColor: "white", height: 50, width: 225, marginRight, marginBottom }}
-          ></Grid>
-          
-          <Grid
-            xs={10}
-            md={3}
+            md={2}
             item
           >
             <Button
-              style={{ height: 50, width: "100%" }}
+              style={{ height: boxHeight, width: "100%" }}
               variant="square"
             >FIND A TIME</Button>
           </Grid>
@@ -120,15 +162,15 @@ export default function JumboSection({ style, browser, make, model, handleChange
 
 JumboSection.propTypes = {
   style: PropTypes.object,
+  allMakes: PropTypes.array.isRequired,
+  modes: PropTypes.array.isRequired,
   browser: PropTypes.object.isRequired,
-  make: PropTypes.string,
-  model: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
+  selectedMake: PropTypes.string.isRequired,
+  selectedModel: PropTypes.string.isRequired,
+  handleChangeMake: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 JumboSection.defaultProps = {
   style: {},
-  make: "",
-  model: "",
 };
