@@ -23,6 +23,39 @@ function mapStateToProps(state, props) {
   };
 }
 
+const getStyles = browser => {
+  const style = {
+    container: { 
+      position: "absolute",
+      right: 10
+    },
+    link: { 
+      display: "flex",
+      position: "relative",
+      alignItems: "center",
+      textDecoration: "none",
+      color: "white"
+    },
+    logo: {
+      height: browser.lessThan.small ? 20 : 35,
+      width: 31,
+      marginRight: browser.lessThan.small ? 0 : 12,
+    },
+    signUpButton: {
+      height: 30,
+      marginLeft: 15
+    },
+    gearsGuru: {
+      flex: 1,
+      fontFamily: "Good-Times",
+      fontSize: browser.lessThan.small ? "0.8em" : "1.1em",
+      textDecoration: "none"
+    },
+  };
+
+  return style;
+}
+
 class MenuAppBar extends React.Component {
 
   static propTypes = {
@@ -62,13 +95,13 @@ class MenuAppBar extends React.Component {
     signOut();
   }
 
-  renderLogin = () => {
+  renderLogin = style => {
     const { authedUser, browser } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
-      <div style={{ position: "absolute", right: 10}}>
+      <div style={style.container}>
         {authedUser.hasOwnProperty("uid") ?
           <div>
             <IconButton
@@ -106,7 +139,7 @@ class MenuAppBar extends React.Component {
               Log In
             </Button>
             <Button 
-              style={{ height: 30, marginLeft: 15 }}
+              style={style.signUpButton}
               variant="raised"
               onClick={() => this.setState({ signUpModalOpen: true })}
               color="secondary"
@@ -130,8 +163,9 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    const { style, transparent } = this.props;
-    let appBarStyle = { ...style };
+    const { browser, transparent } = this.props;
+    const style = getStyles(browser);
+    let appBarStyle = {};
     appBarStyle.zIndex = transparent ? 0 : 1000;
     if (transparent) {
       appBarStyle.boxShadow = "none";
@@ -139,32 +173,26 @@ class MenuAppBar extends React.Component {
     }
 
     return (
-      <AppBar position="static" style={appBarStyle}>
-        <Toolbar>
+      <AppBar position="static" style={{ ...appBarStyle }}>
+        <Toolbar disableGutters={browser.lessThan.small}>
           <Link
             to="/"
-            style={{ 
-              display: "flex",
-              position: "relative",
-              alignItems: "center",
-              textDecoration: "none",
-              color: "white"
-            }}
+            style={style.link}
           >
             <Logo
-              style={{ height: 35, width: 31, marginRight: 12 }}
+              style={style.logo}
               fill="white"
               stroke="white"
             />
             <Typography
               variant="title"
               color="inherit"
-              style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em", textDecoration: "none" }}
+              style={style.gearsGuru}
             >
               Gears Guru
             </Typography>
           </Link>
-          {this.renderLogin()}
+          {this.renderLogin(style)}
         </Toolbar>
       </AppBar>
     );
