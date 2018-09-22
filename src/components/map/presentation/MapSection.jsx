@@ -28,10 +28,9 @@ export default function MapSection({ style, locations }) {
       {/*<h5 style={styles.title}>Locations Near You</h5>*/}
       <SimpleMap
         center={mapCenter}
-        style={{ height: 400 }}
         options={{ scrollwheel: false }}
       >
-        {locations.map(item => <MapMarker key={item.lat + item.long} lat={parseFloat(item.lat)} lng={parseFloat(item.long)}/>)}
+        {locations.map(item => <MapMarker key={item.garageUid} lat={parseFloat(item.lat)} lng={parseFloat(item.long)}/>)}
       </SimpleMap>
     </div>
   )

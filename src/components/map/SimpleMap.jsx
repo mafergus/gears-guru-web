@@ -20,7 +20,7 @@ export default class SimpleMap extends Component {
     children: null,
     options: {},
     style: {},
-    zoom: 13,
+    zoom: 12,
   };
 
   constructor() {
@@ -44,7 +44,7 @@ export default class SimpleMap extends Component {
     const { center, children, style, zoom } = this.props;
 
     return (
-      <div style={{ ...style }}>
+      <div style={{ height: "100%", ...style }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: [GOOGLE_MAPS_API_KEY] }}
           center={center}

@@ -4,19 +4,16 @@ import 'es5-shim';
 import 'es6-shim';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter } from 'react-router-redux';
+import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import 'static/index.scss';
-import AppRoutes from 'components/AppRoutes';
+import MainPage from 'components/MainPage';
 import store from 'datastore/store';
 import firebase from 'datastore/database';
+import history from 'datastore/history';
 import { primary, secondary } from 'util/colors';
-
-// Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory();
 
 firebase.init();
 
@@ -43,11 +40,10 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <Provider store={store}>
-    { /* ConnectedRouter will use the store from Provider automatically */ }
     <MuiThemeProvider theme={theme}>
-      <ConnectedRouter history={history}>
-        <AppRoutes />
-      </ConnectedRouter>
+      <BrowserRouter history={history}>
+        <MainPage />
+      </BrowserRouter>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')

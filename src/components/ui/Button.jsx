@@ -15,7 +15,7 @@ const STYLE = {
   },
 };
 
-export default function Button({ style, classname, children, variant }) {
+export default function Button({ style, classname, children, variant, onClick }) {
 
   const getClass = variant => {
     switch (variant) {
@@ -26,7 +26,7 @@ export default function Button({ style, classname, children, variant }) {
   };
 
   return (
-    <div style={{ ...STYLE.button, ...style }} className={getClass(variant)}>
+    <div style={{ ...STYLE.button, ...style }} className={getClass(variant)} onClick={onClick}>
       <p style={{ color: variant === "ios" ? buttonBlue : "white" }}>{children}</p>
     </div>
   );

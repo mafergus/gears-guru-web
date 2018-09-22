@@ -6,7 +6,7 @@ import JumboSection from 'components/landing/container/JumboSection';
 import BoxesSection from 'components/landing/presentation/BoxesSection';
 import ScreenshotSection from 'components/landing/presentation/ScreenshotSection';
 import CarMakesSection from 'components/landing/presentation/CarMakesSection';
-import MapSection from 'components/landing/container/MapSection';
+import MapSection from 'components/map/container/MapSection';
 import CategoriesSection from 'components/landing/container/CategoriesSection';
 import Footer from 'components/Footer';
 import { allWithBrowser, withBrowser } from 'util/withBrowser';

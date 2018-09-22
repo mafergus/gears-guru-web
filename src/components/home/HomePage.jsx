@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import SimpleMap from 'components/map/SimpleMap';
-import GarageList from 'components/home/GarageList';
 import { AL_QUOZ_LOCATION } from 'util/constants';
 import { primary } from 'util/colors';
 import ServiceSelector from 'components/home/ServiceSelector';
-import GarageListFilters from 'components/GarageListFilters';
+import { GarageList, GarageListFilters } from 'components/garage-list';
+import history from 'datastore/history';
+import MapSection from 'components/map/container/MapSection';
 
 function mapStateToProps(state, props) {
   return {
     browser: state.browser,
-    garages: Object.entries(state.garages).map(entry => entry[1]),
   };
 }
 
@@ -20,11 +20,6 @@ class HomePage extends React.Component {
 
   static propTypes = {
     browser: PropTypes.object.isRequired,
-    garages: PropTypes.array,
-  };
-
-  static defaultProps = {
-    garages: [],
   };
 
   constructor() {
@@ -45,7 +40,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { browser, garages } = this.props;
+    const { browser } = this.props;
     const { location } = this.state;
     const mapCenter = location ?
       { lat: location.coords.latitude, lng: location.coords.longitude } :
@@ -64,8 +59,7 @@ class HomePage extends React.Component {
             justifyContent: "center" 
           }}
         >
-          <SimpleMap 
-            center={mapCenter}
+          <MapSection
             style={{ 
               height: "100%",
               width: "100%",
@@ -92,8 +86,14 @@ class HomePage extends React.Component {
           />
           <ServiceSelector onSubmit={service => alert(service.uid + " " + service.name)}/>
         </div>
-        <GarageListFilters style={{ marginBottom: 10 }}/>
-        <GarageList browser={browser} garages={garages} location={location} />
+        <GarageListFilters
+          style={{ marginBottom: 10 }}
+        />
+        <GarageList
+          browser={browser}
+          currentLocation={location}
+          onItemClick={garageUid => history.push('garage/' + garageUid)}
+        />
       </div>
     );
   }

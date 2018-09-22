@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Presentation from 'components/landing/presentation/JumboSection';
 import { withBrowser } from 'util/withBrowser';
+import history from 'datastore/history';
 
 function compare(a,b) {
   return (a.make < b.make) ? -1 : ((a.make > b.make) ? 1 : 0);
@@ -56,7 +57,7 @@ class JumboSection extends React.Component {
         selectedModel={selectedModel}
         handleChangeMake={this.handleChangeMake}
         handleChangeModel={this.handleChangeModel}
-        onSubmit={() => {}}
+        onSubmit={() => history.push('/s/')}
       />
     );
   }

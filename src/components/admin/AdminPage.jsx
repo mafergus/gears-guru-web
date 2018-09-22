@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
-import GarageList from 'components/home/GarageList';
 import firebase from 'datastore/database';
 import { AL_QUOZ_LOCATION } from 'util/constants';
+import history from 'datastore/history';
+import { GarageList } from 'components/garage-list';
 
 function mapStateToProps(state, props) {
   return {
@@ -29,8 +30,6 @@ class AdminPage extends React.Component {
   };
 
   addGarage = () => {
-    const { history } = this.props;
-
     const newGarageKey = firebase.database().ref('garages').push().key;
     const data = {};
     data.hours = [
@@ -88,7 +87,7 @@ class AdminPage extends React.Component {
             Add Garage
           </Button>
         </div>
-        <GarageList browser={browser} garages={garages} urlBase="admin/garage/"/>
+        <GarageList onItemClick={garageUid => history.push('/admin/garage/' + garageUid)} />
       </div>
     );
   }

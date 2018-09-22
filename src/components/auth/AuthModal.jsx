@@ -18,10 +18,6 @@ export default class AuthModal extends React.Component {
     handleClose: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
-
   handleSignUpFacebook = () => {
     let userData = {};
 
@@ -49,7 +45,6 @@ export default class AuthModal extends React.Component {
     })
     .then(() => fetch(userData.photo))
     .then(response => {
-      debugger;
       if (response && response.ok) {
         return response.blob();
       }

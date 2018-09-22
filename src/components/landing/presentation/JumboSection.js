@@ -6,7 +6,9 @@ import Select from '@material-ui/core/Select';
 
 import jumboImage from 'assets/hero.jpg';
 import Button from 'components/ui/Button';
-
+import DateDropDown from 'components/landing/container/DateDropDown';
+import TimeDropDown from 'components/landing/container/TimeDropDown';
+import { dividerColor } from 'util/colors';
 
 const getStyles = browser => {
 
@@ -74,7 +76,7 @@ const getStyles = browser => {
   return styles;
 };
 
-const boxHeight = 38;
+const boxHeight = 45;
 
 export default function JumboSection({ style, browser, ...props }) {
   const {
@@ -124,24 +126,19 @@ export default function JumboSection({ style, browser, ...props }) {
         <h1 style={styles.title}>FIND THE BEST MECHANICS IN DUBAI</h1>
         <h3 style={styles.subtitle}>Fast. Verified. Best Price.</h3>
         <Grid container style={{ display: "flex", justifyContent: "center" }}>
+
+          <DateDropDown width={400} />
+
+          <TimeDropDown style={{ borderLeft: `1px solid ${dividerColor}` }} width={400} />
           
-          <DropDown
-            allValues={allMakes}
-            selected={selectedMake}
-            handleChange={handleChangeMake}
-            propName="make"
-            placeholder="Car Make"
-            style={styles.dropDown}
-          />
-          
-          <DropDown
+          {/*<DropDown
             allValues={models}
             selected={selectedModel}
             handleChange={handleChangeModel}
             propName="name"
             placeholder="Car Model"
             style={styles.dropDown}
-          />
+          />*/}
           
           <Grid
             xs={10}
@@ -151,7 +148,8 @@ export default function JumboSection({ style, browser, ...props }) {
             <Button
               style={{ height: boxHeight, width: "100%" }}
               variant="square"
-            >FIND A TIME</Button>
+              onClick={onSubmit}
+            >LET'S GO</Button>
           </Grid>
           
         </Grid>

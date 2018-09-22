@@ -6,6 +6,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
+import history from 'datastore/history';
+
 function mapStateToProps(state, props) {
   return {
      categories: Object.entries(state.categories).map(entry => {
@@ -39,6 +41,16 @@ class GarageListFilters extends React.Component {
   };
 
   handleChangeSort = event => {
+    switch (event.target.value.toLowerCase()) {
+      case 'distance':
+        history.push('?sortBy=distance');
+        break;
+      case 'top rated':
+        history.push('?sortBy=top-rated');
+        break;
+      default:
+        break;
+    }
     this.setState({ sort: event.target.value });
   };
 
@@ -70,7 +82,7 @@ class GarageListFilters extends React.Component {
               id: 'sort-list',
             }}
           >
-            {SORT.map((item, index) =>  <option value={index}>{item}</option>)}
+            {SORT.map((item, index) =>  <option value={item}>{item}</option>)}
           </Select>
         </FormControl>
         <h4 style={{ fontWeight: 400, marginRight: 10, marginLeft: 20 }}>Service Type:</h4>

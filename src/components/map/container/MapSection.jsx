@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Presentation from 'components/landing/presentation/MapSection';
+import Presentation from 'components/map/presentation/MapSection';
 
 function mapStateToProps(state, props) {
   const locations = [];
   Object.entries(state.garages).forEach(entry => {
-    entry[1].locations.map(item => locations.push(item));
+    entry[1].locations.map(item => locations.push({ ...item, garageUid: entry[0] }));
   });
 
   return {
