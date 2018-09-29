@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Acura from 'assets/car-icons/acura.png';
 import BMW from 'assets/car-icons/bmw.png';
 import Chevy from 'assets/car-icons/chevy.png';

@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import queryString from 'query-string'
 
 import GarageListView from 'components/garage-list/GarageListView';
 
 const mapStateToProps = (state, props) => {
-  const { location } = props;
-  const values = queryString.parse(location.search)
   return {
     browser: state.browser,
     garages: Object.entries(state.garages).map(entry => entry[1]),

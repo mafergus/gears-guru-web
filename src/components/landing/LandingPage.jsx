@@ -9,7 +9,6 @@ import CarMakesSection from 'components/landing/presentation/CarMakesSection';
 import MapSection from 'components/map/container/MapSection';
 import CategoriesSection from 'components/landing/container/CategoriesSection';
 import Footer from 'components/Footer';
-import { allWithBrowser, withBrowser } from 'util/withBrowser';
 
 const styles = {
   container: {

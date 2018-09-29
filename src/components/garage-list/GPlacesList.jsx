@@ -1,18 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import loadjs from 'loadjs';
 
 import { AL_QUOZ_LOCATION } from 'util/constants';
-
-const ListItem = ({ style, name, image }) => {
-  return (
-    <div style={{ height: 150, width: 650, display: "flex" }}>
-      <img style={{ height: 128, width: 128, objectFit: "cover", marginRight: 15 }} src={image} />
-      <div>
-        <h2>{name}</h2>
-      </div>
-    </div>
-  );
-}
 
 const key = "AIzaSyDsjdI2R4TNd9bpKcHtVMI6qthrV44C8IY";
 const fields = [
@@ -35,10 +25,36 @@ const fields = [
   'international_phone_number'
 ];
 
+const ListItem = ({ style, name, image, onClick }) => {
+  return (
+    <div
+      style={{ height: 150, width: 650, display: "flex" }}
+      onClick={onClick}
+    >
+      <img
+        style={{ height: 128, width: 128, objectFit: "cover", marginRight: 15 }}
+        src={image}
+        alt="garage"
+      />
+      <div>
+        <h2>{name}</h2>
+      </div>
+    </div>
+  );
+}
+
 export default class GPlacesList extends React.Component {
 
   state = {
     places: [],
+  };
+
+  static propTypes = {
+    onItemClick: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onItemClick: () => {},
   };
 
   componentDidMount() {
@@ -73,6 +89,7 @@ export default class GPlacesList extends React.Component {
   }
 
   render() {
+    const { onItemClick } = this.props;
     const { places } = this.state;
 
     return (
@@ -84,6 +101,7 @@ export default class GPlacesList extends React.Component {
             <ListItem
               name={garage.name}
               image={imgSrc}
+              onClick={() => onItemClick(garage.place_id)}
             />
           );
         })}

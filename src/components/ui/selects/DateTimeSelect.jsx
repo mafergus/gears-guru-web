@@ -70,7 +70,7 @@ const getStyles = width => {
   return style;
 }
 
-export default function DropDown({ children, style, width, browser, icon, text, onChange, date }) {
+export default function DateTimeSelect({ children, style, width, browser, icon }) {
 
   const styles = getStyles(width);
   const Icon = icon;
@@ -102,3 +102,19 @@ export default function DropDown({ children, style, width, browser, icon, text, 
     </MuiThemeProvider>
   )
 }
+
+DateTimeSelect.propTypes = {
+  children: PropTypes.node,
+  style: PropTypes.object,
+  width: PropTypes.number,
+  browser: PropTypes.object,
+  icon: PropTypes.string,
+};
+
+DateTimeSelect.defaultProps = {
+  children: null,
+  style: {},
+  width: 150,
+  browser: {},
+  icon: "",
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
-import { text, darkGray, gray, dividerColor }  from 'util/colors';
+import { text, dividerColor }  from 'util/colors';
 
 const borderRadius = "3px";
 
@@ -71,7 +71,7 @@ export default function CategoriesSection({ style, browser, categories }) {
         lg={2}
       >
         <div style={style} className="light-shadow hoverable">
-          <img src={category.image} style={style.image}/>
+          <img src={category.image} style={style.image} alt="category" />
           <div style={style.textContainer}>
             <h4 style={style.title}>{category.name}</h4>
           </div>

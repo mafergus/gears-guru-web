@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
 import icons from 'util/car-icons';
-import { text, darkGray, gray }  from 'util/colors';
+import { text }  from 'util/colors';
 import Button from 'components/ui/Button';
 
 const styles = {
@@ -38,24 +38,9 @@ export default function CarMakesSection({ style, browser }) {
         lg={2}
         style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: 30 }}
       >
-        <img src={icon} />
+        <img src={icon} alt="Car make icon" />
       </Grid>
     );
-  };
-
-  const getPadding = browser => {
-    switch (browser.mediaType) {
-      case "small":
-        return 40;
-      case "medium":
-        return 80;
-      case "large":
-        return 200;
-      case "infinity":
-        return 300;
-      default:
-        return 80;
-    }
   };
 
   const padding = 0;

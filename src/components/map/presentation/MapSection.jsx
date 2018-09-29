@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SimpleMap from 'components/map/SimpleMap';
 import { AL_QUOZ_LOCATION } from 'util/constants';
-import { text, darkGray, gray }  from 'util/colors';
+import { text }  from 'util/colors';
 import MapMarker from 'components/map/MapMarker';
 
 const styles = {

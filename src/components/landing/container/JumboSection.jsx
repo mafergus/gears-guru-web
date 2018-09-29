@@ -1,20 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Presentation from 'components/landing/presentation/JumboSection';
 import { withBrowser } from 'util/withBrowser';
 import history from 'datastore/history';
-
-function compare(a,b) {
-  return (a.make < b.make) ? -1 : ((a.make > b.make) ? 1 : 0);
-}
-
-function mapStateToProps(state, props) {
-  return {
-    allMakes: state.cars,
-  };
-}
 
 class JumboSection extends React.Component {
 
@@ -26,41 +15,38 @@ class JumboSection extends React.Component {
     super(props);
 
     this.state = {
-      models: [],
-      selectedMake: "",
-      selectedModel: "",
+      date: null,
+      time: "",
     };
   }
 
-  handleChangeMake = uid => {
-    const { allMakes } = this.props;
-    this.setState({ models: allMakes[uid].models, selectedMake: uid });
+  handleChangeDate = date => {
+    this.setState({ date });
   }
 
-  handleChangeModel = uid => {
-    this.setState({ selectedModel: uid });
+  handleChangeTime = date => {
+    this.setState({ time: date });
   }
 
-  onSubmit = () => {};
+  onSubmit = () => {
+    const { date, time } = this.state;
+    const dateStr = encodeURI(date.toISOString());
+    const timeStr = encodeURI(time.toISOString());
+    history.push('/s/?date=' + dateStr + '&time=' + timeStr);
+  }
 
   render() {
-    const { allMakes, browser } = this.props;
-    const { models, selectedMake, selectedModel } = this.state;
-    const makesArr = Object.values(allMakes).sort(compare);
+    const { browser } = this.props;
 
     return (
       <Presentation
-        allMakes={makesArr}
-        models={models}
         browser={browser}
-        selectedMake={selectedMake}
-        selectedModel={selectedModel}
-        handleChangeMake={this.handleChangeMake}
-        handleChangeModel={this.handleChangeModel}
-        onSubmit={() => history.push('/s/')}
+        handleChangeDate={this.handleChangeDate}
+        handleChangeTime={this.handleChangeTime}
+        onSubmit={this.onSubmit}
       />
     );
   }
 }
 
-export default connect(mapStateToProps)(withBrowser(JumboSection));
+export default withBrowser(JumboSection);

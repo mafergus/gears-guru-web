@@ -12,6 +12,8 @@ import MenuAppBar from 'components/MenuAppBar';
 import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
 import SearchPage from 'components/search/SearchPage';
+import { BookingPage } from 'pages';
+import Footer from 'components/Footer';
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -57,6 +59,12 @@ const routes = [
     title: 'Search',
     appBar: () => <MenuAppBar />,
   },
+  {
+    path: '/booking',
+    main: BookingPage,
+    title: 'Booking',
+    appBar: () => <MenuAppBar />,
+  },
 ];
 
 const Routes = () => (
@@ -97,6 +105,7 @@ const Main = () => (
     <CssBaseline />
     {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
     <Routes />
+    <Footer />
   </div>
 )
 

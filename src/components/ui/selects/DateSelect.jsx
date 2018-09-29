@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CalendarToday from '@material-ui/icons/CalendarToday';
-import moment from 'moment';
 import MaterialDatePicker from 'material-ui/DatePicker';
 
-import DropDown from 'components/landing/presentation/DropDown';
+import { DateTimeSelect } from 'components/ui/selects';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function mapStateToProps(state, props) {
@@ -14,13 +13,17 @@ function mapStateToProps(state, props) {
   };
 }
 
-class DateDropDown extends React.Component {
+class DateSelect extends React.Component {
 
   static propTypes = {
+    onChange: PropTypes.func,
+    value: PropTypes.object,
     width: PropTypes.number,
   };
 
   static defaultProps = {
+    onChange: () => {},
+    value: null,
     width: 225,
   };
 
@@ -28,12 +31,22 @@ class DateDropDown extends React.Component {
     date: new Date()
   }
 
+  componentDidMount() {
+    this.update(undefined, new Date());
+  }
+
+  update = (placeholder, date) => {
+    const { onChange } = this.props;
+    this.setState({ date });
+    onChange(date);
+  }
+
   render() {
-    const { browser, width } = this.props;
+    const { value, width } = this.props;
     const { date } = this.state;
 
     return (
-      <DropDown
+      <DateTimeSelect
         icon={CalendarToday}
         width={width}
       >
@@ -41,17 +54,17 @@ class DateDropDown extends React.Component {
           name="date"
           minDate={new Date()}
           underlineShow={false} 
-          onChange={(placeholder, date) => this.setState({ date })}
-          value={date}
+          onChange={this.update}
+          value={value ? value : date}
           formatDate={new Intl.DateTimeFormat('en-US', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
           }).format}
         />
-      </DropDown>
+      </DateTimeSelect>
     );
   }
 }
 
-export default connect(mapStateToProps)(DateDropDown);
+export default connect(mapStateToProps)(DateSelect);

@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import jumboImage from 'assets/hero.jpg';
 import Button from 'components/ui/Button';
-import DateDropDown from 'components/landing/container/DateDropDown';
-import TimeDropDown from 'components/landing/container/TimeDropDown';
+import { DateSelect, TimeSelect } from 'components/ui/selects';
 import { dividerColor } from 'util/colors';
 
 const getStyles = browser => {
@@ -78,68 +75,33 @@ const getStyles = browser => {
 
 const boxHeight = 45;
 
-export default function JumboSection({ style, browser, ...props }) {
+export default function JumboSection(props) {
   const {
-    allMakes,
-    models,
-    selectedMake,
-    selectedModel,
-    handleChangeMake,
-    handleChangeModel,
-    onSubmit
+    browser,
+    handleChangeDate,
+    handleChangeTime,
+    onSubmit,
+    style
   } = props;
   const styles = getStyles(browser);
 
-  const DropDown = ({ style, allValues, selected, handleChange, placeholder, propName }) => {
-    return (
-      <Grid
-        xs={10}
-        md={2}
-        item
-        style={style}
-      >
-        <FormControl style={{ width: "100%" }}>
-          <Select
-            native
-            disableUnderline
-            value={selected}
-            onChange={event => handleChange(event.target.value)}
-            inputProps={{
-              name: 'make',
-            }}
-          >
-            <option value="" disabled>{placeholder}</option>
-            {allValues.map(val => {
-              return <option value={val.uid}>{val[propName]}</option>;
-            })}
-          </Select>
-        </FormControl>
-      </Grid>
-    );
-  }
-
   return (
     <div style={{ ...styles.heroContainer, ...style }}>
-      <img src={jumboImage} style={styles.heroImage}/>
+      <img src={jumboImage} style={styles.heroImage} alt="hero" />
       <div style={styles.heroImageOverlay}></div>
       <Grid style={styles.innerContainer} container>
         <h1 style={styles.title}>FIND THE BEST MECHANICS IN DUBAI</h1>
         <h3 style={styles.subtitle}>Fast. Verified. Best Price.</h3>
         <Grid container style={{ display: "flex", justifyContent: "center" }}>
-
-          <DateDropDown width={400} />
-
-          <TimeDropDown style={{ borderLeft: `1px solid ${dividerColor}` }} width={400} />
-          
-          {/*<DropDown
-            allValues={models}
-            selected={selectedModel}
-            handleChange={handleChangeModel}
-            propName="name"
-            placeholder="Car Model"
-            style={styles.dropDown}
-          />*/}
-          
+          <DateSelect
+            width={300}
+            onChange={handleChangeDate}
+          />
+          <TimeSelect
+            style={{ borderLeft: `1px solid ${dividerColor}` }}
+            width={300}
+            onChange={handleChangeTime}
+          />
           <Grid
             xs={10}
             md={2}
@@ -160,12 +122,9 @@ export default function JumboSection({ style, browser, ...props }) {
 
 JumboSection.propTypes = {
   style: PropTypes.object,
-  allMakes: PropTypes.array.isRequired,
-  modes: PropTypes.array.isRequired,
   browser: PropTypes.object.isRequired,
-  selectedMake: PropTypes.string.isRequired,
-  selectedModel: PropTypes.string.isRequired,
-  handleChangeMake: PropTypes.func.isRequired,
+  handleChangeDate: PropTypes.func.isRequired,
+  handleChangeTime: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

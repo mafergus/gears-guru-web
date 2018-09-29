@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
 import { primary } from 'util/colors';
@@ -9,7 +10,15 @@ const BP = {
   lg: 8,
 };
 
-export default function Footer({ style, browser }) {
+const mapStateToProps = (state, props) => {
+  return {
+    browser: state.browser,
+  };
+}
+
+function Footer({ browser }) {
+  if (!browser) { return null; }
+
   const STYLE = {
     footer: {
       display: "flex",
@@ -103,7 +112,7 @@ export default function Footer({ style, browser }) {
   const marginTop = browser.lessThan.large ? 50 : 0;
 
   return (
-    <Grid container style={{ ...style, ...STYLE.footer }}>
+    <Grid container style={{ ...STYLE.footer }}>
       <Footer>
         <Section>
           <Section.Title>Gears Guru</Section.Title>
@@ -139,3 +148,5 @@ export default function Footer({ style, browser }) {
     </Grid>
   );
 }
+
+export default connect(mapStateToProps)(Footer);

@@ -72,8 +72,6 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    const { browser, garages } = this.props;
-
     return (
       <div style={{ width: "100%", height: "100%", padding: 30 }}>
         <div style={{ display: "flex", marginBottom: 30 }}>

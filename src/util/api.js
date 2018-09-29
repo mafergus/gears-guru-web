@@ -53,6 +53,16 @@ export function addUser(user) {
   };
 }
 
+export async function addReservation(reservation) {
+  const key = firebase.database().ref('/reservations').push().key;
+  const snap = await firebase.database().ref('/reservations/' + key).update(reservation);
+}
+
+export async function getCars() {
+  const snap = await firebase.database().ref('/cars/cars').once('value');
+  return snap.val();
+}
+
 export function getPhoto(searchTerm) {
   return new Promise((resolve, reject) => {
     getPhotoUrl(searchTerm)

@@ -3,11 +3,9 @@ import Grid from '@material-ui/core/Grid';
 
 import { text, darkGray, gray }  from 'util/colors';
 import screenshot from 'assets/screenshot.png';
-import { withBrowser } from 'util/withBrowser';
 import Button from 'components/ui/Button';
 
 const TITLE = "Enjoy convenient car repair and maintenance at your home or office. It's as easy as 1-2-3."
-const TEXT1 = "GET A QUOTE Tell us what your car needs or ask for a diagnostic. Receive a free, fast, fair & transparent price quote. 2 BOOK APPOINTMENT Provide your home or office location. Tell us when to meet you there. 3 GET YOUR CAR FIXED That’s it. No more waiting in repair shops - our mechanics come to you";
 const styles = {
   container: {
     width: "100%",
@@ -71,7 +69,7 @@ export default function ScreenshotSection({ style, browser }) {
       <h3 style={styles.title}>Life's too short to spend it at the repair shop</h3>
 
       <div style={{ display: "flex" }}>
-        {browser.greaterThan.medium && <img style={styles.image} src={screenshot} />}
+        {browser.greaterThan.medium && <img style={styles.image} src={screenshot} alt="Screenshot" />}
         <Grid
           xs={12}
           xl={6}

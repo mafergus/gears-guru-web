@@ -6,12 +6,14 @@ import { listsReducer } from 'reducers/listsReducer';
 import { reviewsReducer } from 'reducers/reviewsReducer';
 import { authedUserReducer } from 'reducers/authedUserReducer'; 
 import { carsReducer } from 'reducers/carsReducer';
+import { reducer as formReducer } from 'redux-form'
 
 const appReducer = combineReducers({
   authedUser: authedUserReducer,
   browser: responsiveStateReducer,
   cars: carsReducer,
   categories: categoriesReducer,
+  form: formReducer,
   reviews: reviewsReducer,
   garages: garagesReducer,
   lists: listsReducer,

@@ -1,4 +1,4 @@
-import styles from 'static/index.scss';
+import styles from 'static/colors.scss';
 
 export const primary = {
   50: styles.primary50,

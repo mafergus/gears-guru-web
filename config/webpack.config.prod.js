@@ -93,6 +93,7 @@ module.exports = {
       'assets': path.resolve('src/assets'),
       'components': path.resolve('src/components'),
       'datastore': path.resolve('src/datastore'),
+      'pages': path.resolve('src/pages'),
       'reducers': path.resolve('src/reducers'),
       'static': path.resolve('src/static'),
       'util': path.resolve('src/util'),

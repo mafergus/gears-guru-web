@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 
 import AuthModal from 'components/auth/AuthModal';
 import { Logo } from 'assets/Logo';
-import { primary } from 'util/colors';
 import { signOut } from 'util/api';
 
 function mapStateToProps(state, props) {
@@ -96,7 +95,7 @@ class MenuAppBar extends React.Component {
   }
 
   renderLogin = style => {
-    const { authedUser, browser } = this.props;
+    const { authedUser } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 

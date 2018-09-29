@@ -6,7 +6,6 @@ import MonetizationOn from '@material-ui/icons/MonetizationOn';
 
 import HorizontalSlider from 'components/profile/horizontal-slider/HorizontalSlider';
 import { textDark } from 'util/colors';
-import { commaSeparatedString } from 'util/util';
 
 export default class TopPane extends React.Component {
 
@@ -17,13 +16,7 @@ export default class TopPane extends React.Component {
 
   renderTitleDiv() {
     const { browser, garage } = this.props;
-    const types = commaSeparatedString(garage.garageTypes, 'type');
     const neighborhoods = garage.locations.map(item => item.neighborhood);
-    const buttonStyle = {
-      position: browser.greaterThan.small ? "absolute" : "inherit",
-      right: browser.greaterThan.small ? 20 : 0,
-      left: browser.greaterThan.small ? 20 : 0,
-    }
 
     return (
       <div style={{ height: "100%", width: "100%", padding: 20, position: "relative" }}>

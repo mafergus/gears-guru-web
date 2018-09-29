@@ -5,7 +5,7 @@ import Schedule from '@material-ui/icons/Schedule';
 import moment from 'moment';
 import TimePicker from 'material-ui/TimePicker';
 
-import DropDown from 'components/landing/presentation/DropDown';
+import { DateTimeSelect } from 'components/ui/selects';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function mapStateToProps(state, props) {
@@ -14,15 +14,19 @@ function mapStateToProps(state, props) {
   };
 }
 
-class TimeDropDown extends React.Component {
+class TimeSelect extends React.Component {
 
   static propTypes = {
+    onChange: PropTypes.func,
     style: PropTypes.object,
+    value: PropTypes.object,
     width: PropTypes.number,
   };
 
   static defaultProps = {
+    onChange: () => {},
     style: {},
+    value: null,
     width: 140,
   };
 
@@ -30,12 +34,22 @@ class TimeDropDown extends React.Component {
     date: moment().add(1, 'hours').minute(0).toDate()
   };
 
+  componentDidMount() {
+    this.update(undefined, new Date());
+  }
+
+  update = (placeholder, date) => {
+    const { onChange } = this.props;
+    this.setState({ date });
+    onChange(date);
+  }
+
   render() {
-    const { browser, style, width } = this.props;
+    const { style, value, width } = this.props;
     const { date } = this.state;
 
     return (
-      <DropDown
+      <DateTimeSelect
         icon={Schedule}
         style={{ borderRadius: 0, ...style }}
         width={width}
@@ -43,13 +57,13 @@ class TimeDropDown extends React.Component {
         <TimePicker 
           name="date"
           underlineShow={false} 
-          onChange={(placeholder, date) => this.setState({ date })}
+          onChange={this.update}
           minutesStep={30}
-          value={date}
+          value={value ? value : date}
         />
-      </DropDown>
+      </DateTimeSelect>
     );
   }
 }
 
-export default connect(mapStateToProps)(TimeDropDown);
+export default connect(mapStateToProps)(TimeSelect);

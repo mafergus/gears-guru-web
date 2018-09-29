@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import SimpleMap from 'components/map/SimpleMap';
-import { AL_QUOZ_LOCATION } from 'util/constants';
 import { primary } from 'util/colors';
 import ServiceSelector from 'components/home/ServiceSelector';
 import { GarageList, GarageListFilters } from 'components/garage-list';
@@ -42,9 +40,6 @@ class HomePage extends React.Component {
   render() {
     const { browser } = this.props;
     const { location } = this.state;
-    const mapCenter = location ?
-      { lat: location.coords.latitude, lng: location.coords.longitude } :
-      { lat: AL_QUOZ_LOCATION[0], lng: AL_QUOZ_LOCATION[1] };
 
     return (
       <div style={{ height: "100%", width: "100%" }}>

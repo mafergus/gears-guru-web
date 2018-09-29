@@ -291,7 +291,7 @@ class GarageAdmin extends React.Component {
         {images && Object.entries(images).map(entry => {
           return (
             <div key={entry[0]} style={{ width: 200, height: 200, position: "relative", display: "inline-block" }}>
-              <img src={entry[1]} style={{ width: "100%", height: "100%" }} alt="garage image"/>
+              <img src={entry[1]} style={{ width: "100%", height: "100%" }} alt="garage"/>
               <Button
                 label="Upload"
                 variant="raised" 
@@ -363,9 +363,7 @@ class GarageAdmin extends React.Component {
       .then(snapshot => {
         if (snapshot.val() && snapshot.val().images) {
           const images = snapshot.val().images;
-          Object.entries(images).map(entry => {
-            firebase.storage().ref('garages/' + garageUid + '/images/' + entry[0]).delete();
-          });
+          Object.entries(images).map(entry => firebase.storage().ref('garages/' + garageUid + '/images/' + entry[0]).delete());
           return null;
         }
       })
