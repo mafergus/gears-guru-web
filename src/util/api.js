@@ -3,6 +3,7 @@ import store from 'datastore/store';
 
 const PLACEHOLDER_PHOTO = "https://s-media-cache-ak0.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg";
 const PIXABAY_KEY = "4423887-ab96e540ffbe404d644032133";
+const API_BASE = "https://us-central1-gears-guru-991bc.cloudfunctions.net";
 
 export function addReviewMessage(reviewId, userId, message, timestamp) {
   const messageData = {
@@ -54,8 +55,17 @@ export function addUser(user) {
 }
 
 export async function addReservation(reservation) {
-  const key = firebase.database().ref('/reservations').push().key;
-  const snap = await firebase.database().ref('/reservations/' + key).update(reservation);
+
+  const opts = Object.entries(reservation).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
+  const response = await fetch(`${API_BASE}/api/addReservation?${opts}`, { method: 'post' })
+  
+  debugger;
+
+  const json = await response.json();
+
+  debugger;
+  
+  return json;
 }
 
 export async function getCars() {

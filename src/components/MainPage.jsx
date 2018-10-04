@@ -12,7 +12,7 @@ import MenuAppBar from 'components/MenuAppBar';
 import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
 import SearchPage from 'components/search/SearchPage';
-import { BookingPage } from 'pages';
+import { BookingPage, GarageLandingPage } from 'pages';
 import Footer from 'components/Footer';
 
 // Each logical "route" has two components, one for
@@ -65,6 +65,12 @@ const routes = [
     title: 'Booking',
     appBar: () => <MenuAppBar />,
   },
+  {
+    path: '/garages',
+    main: GarageLandingPage,
+    title: 'For Garages',
+    appBar: () => <MenuAppBar transparent />,
+  },
 ];
 
 const Routes = () => (
@@ -90,6 +96,7 @@ const Routes = () => (
           component={route.main}
         />
       ))}
+      <Footer />
     </div>
   </Router>
 );
@@ -105,7 +112,6 @@ const Main = () => (
     <CssBaseline />
     {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
     <Routes />
-    <Footer />
   </div>
 )
 

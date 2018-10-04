@@ -8,16 +8,12 @@ import ScreenshotSection from 'components/landing/presentation/ScreenshotSection
 import CarMakesSection from 'components/landing/presentation/CarMakesSection';
 import MapSection from 'components/map/container/MapSection';
 import CategoriesSection from 'components/landing/container/CategoriesSection';
-import Footer from 'components/Footer';
 
 const styles = {
   container: {
     width: "100%",
     zIndex: -1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
+    marginTop: -64,
   },
 };
 
@@ -52,9 +48,6 @@ class LandingPage extends React.Component {
         <CarMakesSection
           browser={browser}
           style={{ backgroundColor: "white" }}
-        />
-        <Footer
-          browser={browser}
         />
       </div>
     );

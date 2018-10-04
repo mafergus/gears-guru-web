@@ -48,9 +48,22 @@ class BookingPage extends React.Component {
   }
 
   onSubmit = ({ name, phoneNumber, selectedMake, selectedModel }) => {
-    debugger;
+    const values = queryString.parse(this.props.location.search);
     const { garage } = this.props;
-    addReservation({ name, phoneNumber, carModel: selectedModel, carMake: selectedMake });
+    const time = moment(values.time);
+    let appointment = moment(values.date)
+                      .hour(time.hour())
+                      .minute(time.minute())
+                      .toISOString();
+    debugger;
+    addReservation({
+      name,
+      phoneNumber,
+      dateTime: appointment,
+      guid: garage.uid,
+      carModel: selectedModel,
+      carMake: selectedMake
+    });
   }
 
   render() {

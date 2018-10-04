@@ -12,7 +12,6 @@ import 'static/index.scss';
 import MainPage from 'components/MainPage';
 import store from 'datastore/store';
 import firebase from 'datastore/database';
-import history from 'datastore/history';
 import { primary, secondary } from 'util/colors';
 
 firebase.init();
@@ -41,7 +40,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <BrowserRouter history={history}>
+      <BrowserRouter>
         <MainPage />
       </BrowserRouter>
     </MuiThemeProvider>

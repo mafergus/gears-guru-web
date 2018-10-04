@@ -50,6 +50,9 @@ const getStyles = browser => {
       fontSize: browser.lessThan.small ? "0.8em" : "1.1em",
       textDecoration: "none"
     },
+    toolbar: {
+      zIndex: 9999
+    },
   };
 
   return style;
@@ -165,7 +168,6 @@ class MenuAppBar extends React.Component {
     const { browser, transparent } = this.props;
     const style = getStyles(browser);
     let appBarStyle = {};
-    appBarStyle.zIndex = transparent ? 0 : 1000;
     if (transparent) {
       appBarStyle.boxShadow = "none";
       appBarStyle.backgroundColor = "transparent";
@@ -173,7 +175,7 @@ class MenuAppBar extends React.Component {
 
     return (
       <AppBar position="static" style={{ ...appBarStyle }}>
-        <Toolbar disableGutters={browser.lessThan.small}>
+        <Toolbar disableGutters={browser.lessThan.small} style={style.toolbar}>
           <Link
             to="/"
             style={style.link}

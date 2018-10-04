@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
-import TextInput from 'components/forms/TextInput';
+import { TextInput } from 'components/ui/form';
 import { PhoneNumberTextField } from 'phone-number-input';
 import { SelectInput } from 'components/ui/selects';
 import { gray } from 'util/colors';
@@ -122,12 +122,12 @@ export default class BookingForm extends React.Component {
           <MenuItem key="42" value="42" style={{ color: gray }}>Select Model</MenuItem>
           {carModels.map(item => <MenuItem key={item.uid} value={item.uid}>{item.name}</MenuItem>)}
         </SelectInput>
-        <PhoneNumberTextField
+        {/*<PhoneNumberTextField
           error={false}
           preferredCountries={['US', 'GB']}
           placeholder={'555-555-5555'}
           onChange={this.onPhoneNumberChange}
-        />
+        />*/}
         <Button 
          variant="raised"
          color="secondary"
