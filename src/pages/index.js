@@ -3,5 +3,5 @@ import GarageLandingPage from 'pages/GarageLandingPage';
 
 export {
   BookingPage,
-  GarageLandingPage
+  GarageLandingPage,
 };

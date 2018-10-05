@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
 import { Form, Text, Phone, Password, TextInput } from 'components/ui/form';
+import { PhoneNumberInput } from 'phone-number-input';
 
 export default class RegisterGarageForm extends React.Component {
 
   onSubmit = values => {
     debugger;
     console.log("WTF SON");
+  }
+
+  listEm = countries => {
   }
 
   render() {
@@ -31,6 +35,7 @@ export default class RegisterGarageForm extends React.Component {
           name="phoneNumber"
           required
         />
+        <PhoneNumberInput onListCountries={this.listEm} />
         <Text
           style={{ width: "100%", marginRight: 14 }}
           errorText="Enter username"

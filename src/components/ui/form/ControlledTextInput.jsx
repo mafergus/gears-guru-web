@@ -24,7 +24,7 @@ export default class ControlledTextInput extends React.Component {
   };
 
   state = {
-    value: null,
+    value: '',
     error: false,
   };
 

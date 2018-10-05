@@ -108,7 +108,7 @@ DateTimeSelect.propTypes = {
   style: PropTypes.object,
   width: PropTypes.number,
   browser: PropTypes.object,
-  icon: PropTypes.string,
+  icon: PropTypes.any,
 };
 
 DateTimeSelect.defaultProps = {
@@ -116,5 +116,5 @@ DateTimeSelect.defaultProps = {
   style: {},
   width: 150,
   browser: {},
-  icon: "",
+  icon: null,
 };
