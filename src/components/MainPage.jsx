@@ -12,7 +12,7 @@ import MenuAppBar from 'components/MenuAppBar';
 import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
 import SearchPage from 'components/search/SearchPage';
-import { BookingPage, GarageLandingPage } from 'pages';
+import { BookingPage } from 'pages';
 import Footer from 'components/Footer';
 
 // Each logical "route" has two components, one for
@@ -65,41 +65,37 @@ const routes = [
     title: 'Booking',
     appBar: () => <MenuAppBar />,
   },
-  {
-    path: '/garages',
-    main: GarageLandingPage,
-    title: 'For Garages',
-    appBar: () => <MenuAppBar transparent />,
-  },
 ];
 
-const Routes = () => (
-  <Router>
-    <div style={{ width: "100%", height: "100%" }}>
-      {routes.map((route, index) => (
-        // Render more <Route>s with the same paths as
-        // above, but different components this time.
-        <Route
-          key={index}
-          path={route.path}
-          exact={route.exact}
-          component={route.appBar}
-        />
-      ))}
-      {routes.map((route, index) => (
-        // Render more <Route>s with the same paths as
-        // above, but different components this time.
-        <Route
-          key={index}
-          path={route.path}
-          exact={route.exact}
-          component={route.main}
-        />
-      ))}
-      <Footer />
-    </div>
-  </Router>
-);
+function Routes() {
+  return (
+    <Router>
+      <div style={{ width: "100%", height: "100%" }}>
+        {routes.map((route, index) => (
+          // Render more <Route>s with the same paths as
+          // above, but different components this time.
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={route.appBar}
+          />
+        ))}
+        {routes.map((route, index) => (
+          // Render more <Route>s with the same paths as
+          // above, but different components this time.
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={route.main}
+          />
+        ))}
+        <Footer />
+      </div>
+    </Router>
+  );
+};
 
 const Main = () => (
   <div style={{ height: "100%", width: "100%" }}>

@@ -28,8 +28,6 @@ export const darkWhite = "rgb(246, 248, 249)";
 export const darkGray = "rgb(74, 81, 85)";
 export const gray = "rgb(109, 117, 121)";
 
-export const buttonBlue = styles.buttonBlue;
-
 export const text = {
   darkGray: "rgb(74, 81, 85)",
   gray: "rgb(109, 117, 121)",

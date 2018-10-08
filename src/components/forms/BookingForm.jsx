@@ -4,8 +4,7 @@ import { reduxForm } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
-import { TextInput } from 'components/ui/form';
-import { PhoneNumberTextField } from 'phone-number-input';
+import { PhoneNumberTextField, TextInput } from 'gg-common';
 import { SelectInput } from 'components/ui/selects';
 import { gray } from 'util/colors';
 

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import queryString from 'query-string';
 
-import GGButton from 'components/ui/Button';
+import { Button as GGButton } from 'gg-common';
 import { DateSelect, TimeSelect } from 'components/ui/selects';
 import { dividerColor } from 'util/colors';
 import GPlacesList from 'components/garage-list/GPlacesList';

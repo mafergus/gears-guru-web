@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { text, darkGray, gray }  from 'util/colors';
 import screenshot from 'assets/screenshot.png';
-import Button from 'components/ui/Button';
+import { Button } from 'gg-common';
 
 const TITLE = "Enjoy convenient car repair and maintenance at your home or office. It's as easy as 1-2-3."
 const styles = {

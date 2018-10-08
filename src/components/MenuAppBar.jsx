@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -10,9 +8,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { MenuAppBar } from 'gg-common';
 
 import AuthModal from 'components/auth/AuthModal';
-import { Logo } from 'assets/Logo';
 import { signOut } from 'util/api';
 
 function mapStateToProps(state, props) {
@@ -28,37 +26,23 @@ const getStyles = browser => {
       position: "absolute",
       right: 10
     },
-    link: { 
-      display: "flex",
-      position: "relative",
-      alignItems: "center",
-      textDecoration: "none",
-      color: "white"
-    },
     logo: {
       height: browser.lessThan.small ? 20 : 35,
-      width: 31,
       marginRight: browser.lessThan.small ? 0 : 12,
     },
     signUpButton: {
       height: 30,
       marginLeft: 15
     },
-    gearsGuru: {
-      flex: 1,
-      fontFamily: "Good-Times",
+    title: {
       fontSize: browser.lessThan.small ? "0.8em" : "1.1em",
-      textDecoration: "none"
-    },
-    toolbar: {
-      zIndex: 9999
     },
   };
 
   return style;
 }
 
-class MenuAppBar extends React.Component {
+class AppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
@@ -167,37 +151,17 @@ class MenuAppBar extends React.Component {
   render() {
     const { browser, transparent } = this.props;
     const style = getStyles(browser);
-    let appBarStyle = {};
-    if (transparent) {
-      appBarStyle.boxShadow = "none";
-      appBarStyle.backgroundColor = "transparent";
-    }
 
     return (
-      <AppBar position="static" style={{ ...appBarStyle }}>
-        <Toolbar disableGutters={browser.lessThan.small} style={style.toolbar}>
-          <Link
-            to="/"
-            style={style.link}
-          >
-            <Logo
-              style={style.logo}
-              fill="white"
-              stroke="white"
-            />
-            <Typography
-              variant="title"
-              color="inherit"
-              style={style.gearsGuru}
-            >
-              Gears Guru
-            </Typography>
-          </Link>
-          {this.renderLogin(style)}
-        </Toolbar>
-      </AppBar>
+      <MenuAppBar
+        style={style}
+        transparent={transparent}
+        disableGutters={browser.lessThan.small}
+      >
+        {this.renderLogin(style)}
+      </MenuAppBar>
     );
   }
 }
 
-export default connect(mapStateToProps)(MenuAppBar);
+export default connect(mapStateToProps)(AppBar);

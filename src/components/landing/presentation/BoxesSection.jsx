@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { BalanceSheet, Places, Shield } from 'util/Glyphs';
 import { text } from 'util/colors';
-import Button from 'components/ui/Button';
+import { Button } from 'gg-common';
 
 const styles = {
   gridContainer: { 

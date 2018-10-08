@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
 import jumboImage from 'assets/hero.jpg';
-import Button from 'components/ui/Button';
+import { Button } from 'gg-common';
 import { DateSelect, TimeSelect } from 'components/ui/selects';
 import { dividerColor } from 'util/colors';
 

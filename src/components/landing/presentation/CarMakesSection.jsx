@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import icons from 'util/car-icons';
 import { text }  from 'util/colors';
-import Button from 'components/ui/Button';
+import { Button } from 'gg-common';
 
 const styles = {
   container: {

@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import { Footer, PostFooter, Section, Title, Link } from 'gg-common';
 
 import { primary } from 'util/colors';
-
-const BP = {
-  sm: 11,
-  md: 10,
-  lg: 8,
-};
 
 const mapStateToProps = (state, props) => {
   return {
@@ -16,7 +11,7 @@ const mapStateToProps = (state, props) => {
   };
 }
 
-function Footer({ browser }) {
+function GGFooter({ browser }) {
   if (!browser) { return null; }
 
   const STYLE = {
@@ -26,127 +21,46 @@ function Footer({ browser }) {
       backgroundColor: primary[500],
       paddingTop: 40,
     },
-    footerContainer: {
-      display: "flex",
-      paddingBottom: 50,
-    },
-    footerInnerContainer: {
-      display: "flex",
-      justifyContent: "left",
-    },
-    postFooter: {
-      width: "100%",
-      height: 50,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: primary[700],
-      text: {
-        color: primary[300],
-      },
-    },
   };
   
-  const PostFooter = ({ style }) => {
-    return (
-      <Grid container style={style}>
-        <Grid
-          item
-          sm={BP.sm}
-          md={BP.md}
-          lg={BP.lg}
-        >
-          <PostFooter.Title>Gears Guru © 2018. Made for the UAE, with love in Silicon Valley</PostFooter.Title>
-        </Grid>
-      </Grid>
-    );
-  };
-
-  PostFooter.Title = ({ style, children }) => {
-    return <p style={{ ...STYLE.postFooter.text, ...style }}>{children}</p>;
-  }
-
-  const Footer = ({ style, children }) => {
-    return (
-      <Grid
-        item
-        sm={BP.sm}
-        md={BP.md}
-        lg={BP.lg}
-        style={{ ...style, ...STYLE.footerContainer }}
-      >
-        <Grid container style={STYLE.footerInnerContainer}>
-          {children}
-        </Grid>
-      </Grid> 
-    );
-
-  }
-
-  const Section = ({ style, children }) => {
-    return (
-      <Grid
-        item
-        xs={6}
-        md={3}
-        lg={2}
-        style={style}
-      >
-        {children}
-      </Grid>
-    );
-  };
-
-  Section.Title = ({ style, children }) => {
-    return <h4 style={{ fontWeight: 400, marginBottom: 20, color: "white", ...style }}>{children}</h4>;
-  };
-
-  Section.Link = ({ children, to }) => {
-    return (
-      <div style={{ marginTop: 5, marginBottom: 5 }}>
-        <a className="sm" style={{ fontWeight: 300 }} href={to}>{children}</a>
-      </div>
-    );
-  };
-
   const marginTop = browser.lessThan.large ? 50 : 0;
 
   return (
     <Grid container style={{ ...STYLE.footer }}>
       <Footer>
         <Section>
-          <Section.Title>Gears Guru</Section.Title>
-          <Section.Link>About Us</Section.Link>
-          <Section.Link>Press</Section.Link>
-          <Section.Link>Blog</Section.Link>
-          <Section.Link>Careers</Section.Link>
+          <Title>Gears Guru</Title>
+          <Link>About Us</Link>
+          <Link>Press</Link>
+          <Link>Blog</Link>
+          <Link>Careers</Link>
         </Section>
 
         <Section>
-          <Section.Title>For Mechanics</Section.Title>
-          <Section.Link>Partner with Us</Section.Link>
-          <Section.Link>Download App</Section.Link>
-          <Section.Link>Mechanic Home</Section.Link>
+          <Title>For Mechanics</Title>
+          <Link>Partner with Us</Link>
+          <Link>Download App</Link>
+          <Link>Mechanic Home</Link>
         </Section>
 
         <Section style={{ marginTop }}>
-          <Section.Title>Terms</Section.Title>
-          <Section.Link>Privacy Policy</Section.Link>
-          <Section.Link>Terms of Use</Section.Link>
+          <Title>Terms</Title>
+          <Link>Privacy Policy</Link>
+          <Link>Terms of Use</Link>
         </Section>
 
         <Section style={{ marginTop }}>
-          <Section.Title>Social</Section.Title>
-          <Section.Link>Angel List</Section.Link>
-          <Section.Link>Facebook</Section.Link>
-          <Section.Link>LinkedIn</Section.Link>
-          <Section.Link>Twitter</Section.Link>
-          <Section.Link>Instagram</Section.Link>
+          <Title>Social</Title>
+          <Link>Angel List</Link>
+          <Link>Facebook</Link>
+          <Link>LinkedIn</Link>
+          <Link>Twitter</Link>
+          <Link>Instagram</Link>
         </Section>
       </Footer>
-      <PostFooter style={STYLE.postFooter} />
+      <PostFooter />
     </Grid>
   );
 }
 
-export default connect(mapStateToProps)(Footer);
+export default connect(mapStateToProps)(GGFooter);
