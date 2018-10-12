@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,7 +13,9 @@ import { DateSelect, TimeSelect } from 'components/ui/selects';
 import { dividerColor } from 'util/colors';
 import GPlacesList from 'components/garage-list/GPlacesList';
 import history from 'datastore/history';
-
+import SearchBgImage from 'assets/search-header-bg.jpg';
+import { primary } from 'util/colors';
+import ListHeader from 'components/search/ListHeader';
 
 const styles = theme => ({
   paper: {
@@ -25,6 +28,14 @@ const styles = theme => ({
 });
 
 class SearchPage extends React.Component {
+
+  static propTypes = {
+    style: PropTypes.object,
+  };
+
+  static defaultProps = {
+    style: {},
+  };
 
   state = {
     modalOpen: false,
@@ -51,6 +62,10 @@ class SearchPage extends React.Component {
   }
 
   submit = () => {
+
+  }
+
+  onSortChange = sortBy => {
 
   }
 
@@ -94,30 +109,44 @@ class SearchPage extends React.Component {
   renderDateTimeSelect = () => {
     const values = queryString.parse(this.props.location.search);
     return (
-      <Grid container style={{ width: "67%", display: "flex", justifyContent: "center" }}>
-        <DateSelect
-          width={300}
-          onChange={() => {}}
-          value={new Date(values.date)}
-        />
-        <TimeSelect
-          style={{ borderLeft: `1px solid ${dividerColor}` }}
-          width={300}
-          onChange={() => {}}
-          value={new Date(values.time)}
-        />
-        <Grid
-          xs={10}
-          md={2}
-          item
-        >
-          <GGButton
-            style={{ height: 45, width: "100%" }}
-            variant="square"
-            onClick={() => {}}
-          >SEARCH</GGButton>
+      <div
+        style={{
+          display: "flex",
+          position: "relative",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "25px 0px",
+          backgroundImage: `url(${SearchBgImage})`,
+          backgroundSize: "cover",
+        }}
+      >
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: primary[500], opacity: 0.5 }}>
+        </div>
+        <Grid container style={{ width: "67%", display: "flex", justifyContent: "center" }}>
+          <DateSelect
+            width={300}
+            onChange={() => {}}
+            value={new Date(values.date)}
+          />
+          <TimeSelect
+            style={{ borderLeft: `1px solid ${dividerColor}` }}
+            width={300}
+            onChange={() => {}}
+            value={new Date(values.time)}
+          />
+          <Grid
+            xs={10}
+            md={2}
+            item
+          >
+            <GGButton
+              style={{ height: 45, width: "100%" }}
+              variant="square"
+              onClick={() => {}}
+            >SEARCH</GGButton>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 
@@ -127,15 +156,20 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    const { location, style } = this.props;
+
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", ...style }}>
         <div style={{ width: "100%" }}>
           {this.renderDateTimeSelect()}
         </div>
         <div style={{ height: "100%", width: "67%", display: "flex" }}>
           <div style={{ width: "33%", backgroundColor: "blue" }}>
           </div>
-          <GPlacesList style={{ width: "67%" }} onItemClick={this.onItemClick}/>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <ListHeader count={12} onSortChange={this.onSortChange} location={location} />
+            <GPlacesList style={{ width: "67%" }} onItemClick={this.onItemClick}/>
+          </div>
         </div>
         {this.renderModal()}
       </div>

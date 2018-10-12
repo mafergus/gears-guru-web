@@ -11,14 +11,24 @@ import GaragePage from 'components/profile/GaragePage';
 import MenuAppBar from 'components/MenuAppBar';
 import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
-import SearchPage from 'components/search/SearchPage';
-import { BookingPage } from 'pages';
+import { BookingPage, SearchPage } from 'pages';
 import Footer from 'components/Footer';
 
-// Each logical "route" has two components, one for
-// the sidebar and one for the main area. We want to
-// render both of them in different places when the
-// path matches the current URL.
+function withMarginTop(WrappedComponent) {
+  class HOC extends React.Component {
+    render() {
+      return (
+        <WrappedComponent
+          { ...this.props }
+          style={{ ...this.props.style, marginTop: 64 }}
+        />
+      );
+    }
+  }
+
+  return HOC;
+}
+
 const routes = [
   {
     path: '/',
@@ -88,7 +98,7 @@ function Routes() {
             key={index}
             path={route.path}
             exact={route.exact}
-            component={route.main}
+            component={withMarginTop(route.main)}
           />
         ))}
         <Footer />

@@ -28,7 +28,7 @@ class JumboSection extends React.Component {
     const { date, time } = this.state;
     const dateStr = encodeURI(date.toISOString());
     const timeStr = encodeURI(time.toISOString());
-    history.push('/s/?date=' + dateStr + '&time=' + timeStr);
+    history.push('/s/?date=' + dateStr + '&time=' + timeStr + '&sortBy=popular');
   }
 
   render() {

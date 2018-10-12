@@ -29,7 +29,7 @@ GGSelect.propTypes = {
 
 GGSelect.defaultProps = {
   selected: '',
-  handleChangeMake: () => {},
+  handleChange: () => {},
   id: '',
   style: {},
 };

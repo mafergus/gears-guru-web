@@ -24,7 +24,7 @@ const getStyles = browser => {
   const style = {
     container: { 
       position: "absolute",
-      right: 10
+      top: 0,
     },
     logo: {
       height: browser.lessThan.small ? 20 : 35,
@@ -116,7 +116,7 @@ class MenuAppBar extends React.Component {
 
     return (
       <AppBar
-        style={style}
+        style={style.container}
         browser={browser}
         transparent={transparent}
         disableGutters={browser.lessThan.small}

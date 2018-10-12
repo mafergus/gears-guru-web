@@ -13,7 +13,6 @@ const styles = {
   container: {
     width: "100%",
     zIndex: -1,
-    marginTop: -64,
   },
 };
 
