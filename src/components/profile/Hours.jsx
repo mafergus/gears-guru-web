@@ -37,10 +37,12 @@ export default class Hours extends React.Component {
   expand = () => this.setState({ isExpanded: !this.state.isExpanded });
 
   renderItem = (item, index) => {
+    const text = (item.open !== '' && item.close !== '') ? `${item.open} - ${item.close}` : 'Closed';
+
     return (
-      <p style={{ padding: 6, width: "100%", display: "flex", color: textDark.secondary }}>
+      <p key={daysOfWeek[index]} style={{ padding: 6, width: "100%", display: "flex", color: textDark.secondary }}>
         <span>{daysOfWeek[index]}</span>
-        <span style={{ flexGrow: 1, textAlign: "right" }}>{item.open} - {item.close}</span>
+        <span style={{ flexGrow: 1, textAlign: "right" }}>{text}</span>
       </p>
     );
   };

@@ -87,6 +87,7 @@ module.exports = {
       'assets': path.resolve('src/assets'),
       'components': path.resolve('src/components'),
       'datastore': path.resolve('src/datastore'),
+      'pages': path.resolve('src/pages'),
       'reducers': path.resolve('src/reducers'),
       'static': path.resolve('src/static'),
       'util': path.resolve('src/util'),
@@ -100,7 +101,6 @@ module.exports = {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
     ],
   },
   module: {

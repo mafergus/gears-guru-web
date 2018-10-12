@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import FeedContainer from 'components/feed/FeedContainer';
+import Reviews from 'components/reviews/Reviews';
 
 const styles = theme => ({
   root: {
@@ -39,7 +39,7 @@ class ReviewsPane extends React.Component {
       <div className={classNames(classes.root, className, 'border')} style={{ ...style, padding: 10 }}>
         <h4 style={{ fontWeight: 400, margin: 10 }}>Reviews</h4>
         <hr style={{ marginTop: 20 }}/>
-        <FeedContainer feedId={garageId} />
+        <Reviews feedId={garageId} />
       </div>
     );
   }

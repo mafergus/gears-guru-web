@@ -1,31 +1,33 @@
 import firebase from 'datastore/database';
+import store from 'datastore/store';
 
 const PLACEHOLDER_PHOTO = "https://s-media-cache-ak0.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg";
 const PIXABAY_KEY = "4423887-ab96e540ffbe404d644032133";
+const API_BASE = "https://us-central1-gears-guru-991bc.cloudfunctions.net";
 
-export function addFeedMessage(feedId, userId, message, timestamp) {
+export function addReviewMessage(reviewId, userId, message, timestamp) {
   const messageData = {
     message,
     userId,
     timestamp,
   };
-  const newFeedItemKey = firebase.database().ref(`feeds/${feedId}`).push().key;
+  const newReviewItemKey = firebase.database().ref(`reviews/${reviewId}`).push().key;
   const updates = {};
-  updates[`feeds/${feedId}/` + newFeedItemKey] = messageData;
+  updates[`reviews/${reviewId}/` + newReviewItemKey] = messageData;
 
   return firebase.database().ref().update(updates);
 }
 
-export function addFeedMessageReply(feedId, feedItemId, userId, message, timestamp) {
-  const url = `feeds/${feedId}/${feedItemId}/replies/`;
+export function addReviewMessageReply(reviewId, reviewItemId, userId, message, timestamp) {
+  const url = `reviews/${reviewId}/${reviewItemId}/replies/`;
   const messageData = {
     message,
     userId,
     timestamp,
   };
-  const newFeedItemKey = firebase.database().ref(url).push().key;
+  const newReviewItemKey = firebase.database().ref(url).push().key;
   const updates = {};
-  updates[url + newFeedItemKey] = messageData;
+  updates[url + newReviewItemKey] = messageData;
 
   return firebase.database().ref().update(updates);
 }
@@ -34,8 +36,6 @@ export function addUser(user) {
   return dispatch => {
     if (Object.keys(user).length === 0) { return dispatch({ type: "ADD_AUTHED_USER_SUCCESS", user }); }
 
-    // debugger;
-    
     const updates = {};
     updates["users/" + user.uid + "/name"] = user.name;
     updates["users/" + user.uid + "/uid"] = user.uid;
@@ -52,6 +52,25 @@ export function addUser(user) {
       firebase.onAuthSuccess(user.uid);
     });
   };
+}
+
+export async function addReservation(reservation) {
+
+  const opts = Object.entries(reservation).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
+  const response = await fetch(`${API_BASE}/api/addReservation?${opts}`, { method: 'post' })
+  
+  debugger;
+
+  const json = await response.json();
+
+  debugger;
+  
+  return json;
+}
+
+export async function getCars() {
+  const snap = await firebase.database().ref('/cars/cars').once('value');
+  return snap.val();
 }
 
 export function getPhoto(searchTerm) {
@@ -117,6 +136,51 @@ export function checkUserExists(uid) {
         resolve(user);
       }
     });
+  });
+}
+
+export function signOut() {
+  firebase.auth().signOut()
+  .then(() => store.dispatch({ type: "SIGN_OUT_USER" }))
+  .catch(error => console.log("Error! ", error));
+}
+
+export function fetchGarage(garageId) {
+  return firebase.database().ref('/garages/' + garageId).once('value')
+  .then(snapshot => {
+    if (snapshot.exists()) {
+      const garage = snapshot.val();
+      return garage;
+    }
+  })
+  .catch(error => {
+    console.log("Error fecthing garage: ", error);
+  });
+}
+
+export function fetchCustomers(garageId) {
+  return firebase.database().ref("/garages/" + garageId + "/customers").once("value")
+  .then(snapshot => {
+    console.log("Snapshot: ", snapshot);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+  })
+  .then(customers => {
+    Object.keys(customers).forEach(key => {
+      firebase.database().ref('customers/' + key).once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          console.log("Got key: ", key);
+          console.log("Got customer: ", snapshot.val());
+          store.dispatch({ type: "ADD_CUSTOMER", customer: snapshot.val(), id: key });
+        }
+      })
+      .catch(error => console.log("Error adding customer: ", error));
+    });
+  })
+  .catch(error => {
+    console.log("Error fetching customers: ", error);
   });
 }
 

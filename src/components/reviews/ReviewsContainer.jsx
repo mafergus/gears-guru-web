@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import autoBind from "react-autobind";
 import TextField from '@material-ui/core/TextField';
 
-export default class Feed extends React.Component {
+export default class ReviewsContainer extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,

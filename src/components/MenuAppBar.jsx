@@ -1,36 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { AppBar } from 'gg-common';
 
 import AuthModal from 'components/auth/AuthModal';
-import { Logo } from 'assets/Logo';
-import { primary } from 'util/colors';
-import { connect } from 'react-redux';
-
-// import { signOut } from 'util/Api';
+import { signOut } from 'util/api';
 
 function mapStateToProps(state, props) {
   return {
     authedUser: state.authedUser || {},
-  }
+    browser: state.browser,
+  };
+}
+
+const getStyles = browser => {
+  const style = {
+    container: { 
+      position: "absolute",
+      right: 10
+    },
+    logo: {
+      height: browser.lessThan.small ? 20 : 35,
+      marginRight: browser.lessThan.small ? 0 : 12,
+    },
+    signUpButton: {
+      height: 30,
+      marginLeft: 15
+    },
+    title: {
+      fontSize: browser.lessThan.small ? "0.8em" : "1.1em",
+    },
+  };
+
+  return style;
 }
 
 class MenuAppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
-    title: PropTypes.string.isRequired,
+    browser: PropTypes.object.isRequired,
+    title: PropTypes.string,
+    transparent: PropTypes.bool,
   };
 
   static defaultProps = {
     style: {},
+    title: "",
+    transparent: false,
   };
 
   state = {
@@ -44,7 +68,7 @@ class MenuAppBar extends React.Component {
     this.setState({ auth: checked });
   };
 
-  handleMenu = event => {
+  onMenuClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -54,88 +78,63 @@ class MenuAppBar extends React.Component {
 
   handleClick = () => {
     this.handleClose();
-    // signOut();
+    signOut();
   }
 
-  renderLogin = () => {
-    const { authedUser } = this.props;
+  renderMenu = () => {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
-      <div>
-        {authedUser.hasOwnProperty("uid") ?
-          <div>
-            <IconButton
-              aria-owns={open ? 'menu-appbar' : null}
-              aria-haspopup="true"
-              onClick={this.handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={this.handleClose}
-            >
-              <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
-            </Menu>
-          </div> :
-          <div>
-            <Button
-              style={{ color: "white" }}
-              variant="outlined"
-              color="secondary"
-              onClick={() => this.setState({ logInModalOpen: true })}
-            >
-              Log In
-            </Button>
-            <Button 
-              style={{ height: 30, marginLeft: 15 }}
-              variant="raised"
-              onClick={() => this.setState({ signUpModalOpen: true })}
-              color="secondary"
-            >
-              Sign Up
-            </Button>
-            <AuthModal
-              title="Log In"
-              isOpen={this.state.logInModalOpen}
-              handleClose={() => this.setState({ logInModalOpen: false })}
-            />
-            <AuthModal 
-              title="Sign Up"
-              isOpen={this.state.signUpModalOpen}
-              handleClose={() => this.setState({ signUpModalOpen: false })} 
-            />
-          </div>
-        }
-      </div>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        onClose={this.handleClose}
+      >
+        <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
+      </Menu>
     );
   }
 
+  onLogInClick = () => this.setState({ logInModalOpen: true });
+
+  onSignUpClick = () => this.setState({ signUpModalOpen: true });
+
   render() {
-    const { authedUser, style } = this.props;
+    const { browser, transparent } = this.props;
+    const { logInModalOpen, signUpModalOpen } = this.state;
+    const style = getStyles(browser);
 
     return (
-      <AppBar position="static" style={{ ...style, backgroundColor: "white" }}>
-        <Toolbar style={{ backgroundColor: primary[500] }}>
-          <Logo style={{ height: 35, width: 31, marginRight: 12 }} fill="white" stroke="white" />
-          <Typography variant="title" color="inherit" style={{ flex: 1, fontFamily: "Good-Times", fontSize: "1.1em" }}>
-            Gears Guru
-          </Typography>
-          {this.renderLogin()}
-        </Toolbar>
+      <AppBar
+        style={style}
+        browser={browser}
+        transparent={transparent}
+        disableGutters={browser.lessThan.small}
+        onLogInClick={this.onLogInClick}
+        onSignUpClick={this.onSignUpClick}
+        onMenuClick={this.onMenuClick}
+        menu={this.renderMenu}
+      >
+        <AuthModal
+          title="Log In"
+          isOpen={logInModalOpen}
+          handleClose={() => this.setState({ logInModalOpen: false })}
+        />
+        <AuthModal 
+          title="Sign Up"
+          isOpen={signUpModalOpen}
+          handleClose={() => this.setState({ signUpModalOpen: false })} 
+        />
       </AppBar>
     );
   }

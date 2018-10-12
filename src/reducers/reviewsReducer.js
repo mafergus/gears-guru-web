@@ -1,9 +1,9 @@
 
-export function feedReducer(state = {}, action) {
+export function reviewsReducer(state = {}, action) {
   switch (action.type) {
-    case "GET_FEEDS_SUCCESS": {
+    case "GET_REVIEWS_SUCCESS": {
       let newState = state;
-      Object.entries(action.feeds).forEach(entry => {
+      Object.entries(action.reviews).forEach(entry => {
         newState[entry[0]] = entry[1];
       });
       return newState;

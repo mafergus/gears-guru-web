@@ -9,6 +9,7 @@ import RightArrow from 'assets/right-arrow.png';
 export default class HorzontalSlider extends React.Component {
 
   static propTypes = {
+    browser: PropTypes.object.isRequired,
     data: PropTypes.array,
     style: PropTypes.object,
   };
@@ -76,11 +77,11 @@ export default class HorzontalSlider extends React.Component {
   }
   
   render() {
-    const { data, style } = this.props;
+    const { browser, data, style } = this.props;
 
     return (
       <div style={{ width: "100%", overflow: "hidden", ...style }}>
-        {this.renderLeftArrow()}
+        {data.length > 5 && this.renderLeftArrow()}
         <ul style={{ 
           height: 210,
           overflowX: "scroll",
@@ -92,10 +93,20 @@ export default class HorzontalSlider extends React.Component {
           whiteSpace: "nowrap",
         }}>
           {
-            data.map((item, index) => <Image ref={`node${index}`} src={item} number={index} style={{ marginRight: 10 }}/>)
+            data.map((item, index) => {
+              return (
+                <Image
+                  ref={`node${index}`}
+                  src={item.url}
+                  browser={browser}
+                  number={index}
+                  style={{ marginRight: 10 }}
+                />
+              );
+            })
           }
         </ul>
-        {this.renderRightArrow()}
+        {data.length > 5 && this.renderRightArrow()}
       </div>
     );
   }

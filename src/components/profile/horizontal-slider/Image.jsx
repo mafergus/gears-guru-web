@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 export default class Image extends React.Component {
 
   static propTypes = {
+    browser: PropTypes.object.isRequired,
     src: PropTypes.string.isRequired,
     style: PropTypes.object,
   };
@@ -13,10 +14,11 @@ export default class Image extends React.Component {
   };
   
   render() {
-    const { style, src } = this.props;
+    const { browser, style, src } = this.props;
+    const width = (browser && browser.greaterThan.small) ? 200 : "100%";
 
     return (
-      <li style={{ height: 200, width: 200, display: "inline-block", borderRadius: 3, ...style }}>
+      <li style={{ width, height: 200, display: "inline-block", borderRadius: 3, ...style }}>
         <img 
           src={src}
           style={{ 

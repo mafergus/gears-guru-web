@@ -100,9 +100,15 @@ class ServicesPane extends React.Component {
         {value === 0 && <TabContainer>
             <TopCategoriesList style={{ width: "100%" }} lists={lists} />
             <hr style={{ marginTop: 6 }}/>
-            <ServicesList style={{ width: "100%", marginTop: 10 }} categories={categories}/>
+            <ServicesList style={{ width: "100%", height: "100%", marginTop: 10 }} categories={categories}/>
           </TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
+        {value === 1 && 
+          <TabContainer>
+            <div style={{ width: "100%", height: 150, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <p>Check back later for special discounts!</p>
+            </div>
+          </TabContainer>
+        }
       </div>
     );
   }

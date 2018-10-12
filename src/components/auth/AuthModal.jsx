@@ -4,7 +4,6 @@ import firebase from 'datastore/database';
 import Dialog from '@material-ui/core/Dialog';
 import { addUser, getPhoto, uploadFile, checkUserExists } from 'util/api';
 import store from "datastore/store";
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { text } from 'util/colors';
 
@@ -17,10 +16,6 @@ export default class AuthModal extends React.Component {
     title: PropTypes.string.isRequired,
     isOpen: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
   };
 
   handleSignUpFacebook = () => {
@@ -47,6 +42,16 @@ export default class AuthModal extends React.Component {
       store.dispatch({ type: "ADD_AUTHED_USER_SUCCESS", user });
       firebase.onAuthSuccess(user.uid);
       throw new Error("User exists, logging in");
+    })
+    .then(() => fetch(userData.photo))
+    .then(response => {
+      if (response && response.ok) {
+        return response.blob();
+      }
+    })
+    .then(blob => {
+      const storageRef = firebase.storage().ref('/users/' + userData.uid + "/profile_photo");
+      return storageRef.put(blob);
     })
     .then(() => getPhoto())
     .then(blob => uploadFile(blob))

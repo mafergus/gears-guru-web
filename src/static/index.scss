@@ -1,51 +1,4 @@
-$primary-color-50: #C8CBCD;
-$primary-color-100: #92979C;
-$primary-color-300: #6F777E;
-$primary-color-500: #545D66;
-$primary-color-700: #3C454E;
-$primary-color-900: #212932;
-
-$secondary-color-100: #A64343;
-$secondary-color-300: #822424;
-$secondary-color-500: #5C0C0C;
-$secondary-color-700: #390000;
-$secondary-color-900: #1C0000;
-
-$quartinary-color: rgba(0, 0, 0, 0.12);
-
-$primary-text-dark: rgba(0, 0, 0, 0.87);
-$secondary-text-dark: rgba(0, 0, 0, 0.6);
-$tertiary-text-dark: rgba(0, 0, 0, 0.38);
-$divider-color: rgba(0, 0, 0, 0.08);
-
-$rating-good-color: green;
-$rating-average-color: yellow;
-$rating-poor-color: red;
-
-:export {
-  primary50: $primary-color-50;
-  primary100: $primary-color-100;
-  primary300: $primary-color-300;
-  primary500: $primary-color-500;
-  primary700: $primary-color-700;
-  primary900: $primary-color-900;
-
-  secondary100: $secondary-color-100;
-  secondary300: $secondary-color-300;
-  secondary500: $secondary-color-500;
-  secondary700: $secondary-color-700;
-  secondary900: $secondary-color-900;
-
-  textDarkPrimary: $primary-text-dark;
-  textDarkSecondary: $secondary-text-dark;
-  textDarkTertiary: $tertiary-text-dark;
-
-  ratingGoodColor: $rating-good-color;
-  ratingAverageColor: $rating-average-color;
-  ratingPoorColor: $rating-poor-color;
-
-  divider: $divider-color;
-}
+@import 'src/static/colors';
 
 @font-face {
     font-family: 'Good-Times'; /*a name to be used later*/
@@ -62,12 +15,29 @@ body {
 }
 
 a { 
+  color: white;
   text-decoration: none;
 }
 
 a:hover {
   cursor: pointer;
-  color: black;
+  color: $primary-color-100;
+}
+
+.sm {
+  font-size: 0.9em;
+}
+
+.md {
+  font-size: 1em;
+}
+
+.lg {
+  font-size: 1.3em;
+}
+
+.xl {
+  font-size: 1.5em;
 }
 
 h1 {
@@ -77,30 +47,31 @@ h1 {
 }
 
 h2 {
+  @extend .xl;
   margin: 0;
-  font-size: 1.5em;
 }
 
 h3 {
+  @extend .lg;
   margin: 0;
-  font-size: 1.3em;
 }
 
 h4 {
+  @extend .md;
   margin: 0;
-  font-size: 1em;
+  font-weight: 400;
 }
 
 h5 {
+  @extend .sm;
   margin: 0;
-  font-size: 0.9em;
   margin: 0;
   font-weight: 500;
 }
 
 p {
+  @extend .sm;
   margin: 0;
-  font-size: 0.9em;
 }
 
 hr {
@@ -109,6 +80,16 @@ hr {
   background-color: $divider-color;
   font-size: 0;
   border: 0;
+}
+
+.border-box {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+div {
+  @extend .border-box;
 }
 
 .border {
@@ -148,4 +129,96 @@ hr {
     outline: none;
     opacity: 0.4;
   }
+}
+
+.button-base {
+  cursor: pointer;
+  border-radius: 46px,
+}
+
+.button {
+  @extend .button-base;
+  background-color: $button-blue;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.button-ios {
+  @extend .button-base;
+  background-color: white;
+  border: 1px solid $button-blue;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.button-square {
+  @extend .button;
+  border-radius: 0px;
+}
+
+.hoverable {
+  -webkit-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
+  &:hover {
+    -webkit-transform: scale(1.01);
+        -ms-transform: scale(1.01);
+            transform: scale(1.01);
+           box-shadow: 5px 5px 8px #C7C7C7;
+  }
+}
+
+.light-shadow {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.shadow {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+$gradient-start: rgba(0, 0, 0, 0);
+$gradient-end: rgba(0, 0, 0, 0.35);
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($gradient-start, $gradient-end); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($gradient-start, $gradient-end); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($gradient-start, $gradient-end); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($gradient-start, $gradient-end); /* Standard syntax */
+}
+
+.link {
+  text-decoration: none;
+
+  &:focus, &:hover, &:visited, &:link, &:active {
+      text-decoration: none;
+  }
+}
+
+.number-circle {
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid #4A5155;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  color: #4A5155;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 8px;
+  vertical-align: middle;
+  float: left;
+  font-family: "proxima-nova",Avenir,"Helvetica-Neue","Helvetica","Arial",sans-serif;
+  font-style: normal;
+  font-weight: 600;
 }

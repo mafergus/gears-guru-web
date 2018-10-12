@@ -11,9 +11,11 @@ import 'static/index.scss';
 
 function mapStateToProps(state, props) {
   const id = props.match.params.id || null;
+  const garage = id && state.garages[id];
+
   return {
     browser: state.browser,
-    garage: id ? { ...state.garages[id], uid: id } : {},
+    garage: garage && { ...state.garages[id], uid: id },
   };
 }
 
@@ -24,6 +26,10 @@ class GaragePage extends React.Component {
     garage: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
   };
+
+  static defaultProps = {
+    garage: null,
+  };
   
   locationClick = locationObj => {
 
@@ -31,26 +37,34 @@ class GaragePage extends React.Component {
 
   render() {
     const { browser, garage } = this.props;
+
+    if (!garage) { return null; }
     
     return (
       <Grid container style={{ width: "100%", marginTop: 12 }} className="centered-container">
         <Grid item sm={12} lg={9}>
-          <TopPane garage={garage}/>
+          <TopPane garage={garage} browser={browser}/>
           <div style={{ display: "flex", width: "100%", flexDirection: browser.lessThan.medium ? "column" : "row" }}>
             <Grid item sm={12} lg={9}>
-              <ServicesPane 
-                style={{ height: 250 }}
-                garage={garage}
-              />
+              <ServicesPane garage={garage} />
               <div style={{ height: 7 }} />
-              <ReviewsPane garageId={garage.uid}/>
+              {browser.greaterThan.small && <ReviewsPane garageId={garage.uid}/>}
             </Grid>
             <div style={{ width: 12 }} />
             <LocationPane
-              style={{ width: "30%", backgroundColor: "white" }}
+              style={{ 
+                width: browser.greaterThan.small ? "30%" : "100%",
+                backgroundColor: "white",
+              }}
               garage={garage}
               onLocationClick={this.locationClick}
             />
+            {browser.lessThan.medium && 
+              <ReviewsPane
+                style={{ marginTop: browser.lessThan.medium ? 7 : 0 }}
+                garageId={garage.uid}
+              />
+            }
           </div>
         </Grid>
       </Grid>
