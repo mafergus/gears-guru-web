@@ -16,17 +16,13 @@ class JumboSection extends React.Component {
 
     this.state = {
       date: null,
-      time: "",
+      time: null,
     };
   }
 
-  handleChangeDate = date => {
-    this.setState({ date });
-  }
+  handleChangeDate = date => this.setState({ date });
 
-  handleChangeTime = date => {
-    this.setState({ time: date });
-  }
+  handleChangeTime = time => this.setState({ time });
 
   onSubmit = () => {
     const { date, time } = this.state;

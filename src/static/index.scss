@@ -222,27 +222,3 @@ $gradient-end: rgba(0, 0, 0, 0.35);
   font-style: normal;
   font-weight: 600;
 }
-
-.input {
-  height: 40px;
-  width: 200px;
-  border: 1px solid #d8d9db;
-  border-radius: 2px;
-  padding: 0px 16px;
-  outline: none;
-  font-size: 1em;
-
-  &:hover {
-    border-color: $primary-color-100;
-  }
-
-  &:focus {
-    border-color: $primary-color-500;
-  }
-}
-
-.input-error {
-  @extend .input;
-  
-  border-color: red;
-}

@@ -30,6 +30,7 @@ function GGFooter({ browser }) {
       <Footer>
         <Section>
           <Title>Gears Guru</Title>
+          <Link>Contact Us</Link>
           <Link>About Us</Link>
           <Link>Press</Link>
           <Link>Blog</Link>

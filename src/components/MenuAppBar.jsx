@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MenuAppBar } from 'gg-common';
+import { AppBar } from 'gg-common';
 
 import AuthModal from 'components/auth/AuthModal';
 import { signOut } from 'util/api';
@@ -42,7 +42,7 @@ const getStyles = browser => {
   return style;
 }
 
-class AppBar extends React.Component {
+class MenuAppBar extends React.Component {
 
   static propTypes = {
     style: PropTypes.object,
@@ -68,7 +68,7 @@ class AppBar extends React.Component {
     this.setState({ auth: checked });
   };
 
-  handleMenu = event => {
+  onMenuClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -81,87 +81,63 @@ class AppBar extends React.Component {
     signOut();
   }
 
-  renderLogin = style => {
-    const { authedUser } = this.props;
+  renderMenu = () => {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
-      <div style={style.container}>
-        {authedUser.hasOwnProperty("uid") ?
-          <div>
-            <IconButton
-              aria-owns={open ? 'menu-appbar' : null}
-              aria-haspopup="true"
-              onClick={this.handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={this.handleClose}
-            >
-              <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
-            </Menu>
-          </div> :
-          <div>
-            <Button
-              style={{ color: "white" }}
-              variant="outlined"
-              color="secondary"
-              onClick={() => this.setState({ logInModalOpen: true })}
-            >
-              Log In
-            </Button>
-            <Button 
-              style={style.signUpButton}
-              variant="raised"
-              onClick={() => this.setState({ signUpModalOpen: true })}
-              color="secondary"
-            >
-              Sign Up
-            </Button>
-            <AuthModal
-              title="Log In"
-              isOpen={this.state.logInModalOpen}
-              handleClose={() => this.setState({ logInModalOpen: false })}
-            />
-            <AuthModal 
-              title="Sign Up"
-              isOpen={this.state.signUpModalOpen}
-              handleClose={() => this.setState({ signUpModalOpen: false })} 
-            />
-          </div>
-        }
-      </div>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        onClose={this.handleClose}
+      >
+        <MenuItem onClick={this.handleClick}>Sign Out</MenuItem>
+      </Menu>
     );
   }
 
+  onLogInClick = () => this.setState({ logInModalOpen: true });
+
+  onSignUpClick = () => this.setState({ signUpModalOpen: true });
+
   render() {
     const { browser, transparent } = this.props;
+    const { logInModalOpen, signUpModalOpen } = this.state;
     const style = getStyles(browser);
 
     return (
-      <MenuAppBar
+      <AppBar
         style={style}
+        browser={browser}
         transparent={transparent}
         disableGutters={browser.lessThan.small}
+        onLogInClick={this.onLogInClick}
+        onSignUpClick={this.onSignUpClick}
+        onMenuClick={this.onMenuClick}
+        menu={this.renderMenu}
       >
-        {this.renderLogin(style)}
-      </MenuAppBar>
+        <AuthModal
+          title="Log In"
+          isOpen={logInModalOpen}
+          handleClose={() => this.setState({ logInModalOpen: false })}
+        />
+        <AuthModal 
+          title="Sign Up"
+          isOpen={signUpModalOpen}
+          handleClose={() => this.setState({ signUpModalOpen: false })} 
+        />
+      </AppBar>
     );
   }
 }
 
-export default connect(mapStateToProps)(AppBar);
+export default connect(mapStateToProps)(MenuAppBar);

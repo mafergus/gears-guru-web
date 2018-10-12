@@ -34,6 +34,10 @@ class TimeSelect extends React.Component {
     date: moment().add(1, 'hours').minute(0).toDate()
   };
 
+  componentDidMount() {
+    this.update(undefined, moment().add(1, 'hours').minute(0).toDate());
+  }
+
   update = (placeholder, date) => {
     const { onChange } = this.props;
     this.setState({ date });
