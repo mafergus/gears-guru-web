@@ -4,7 +4,6 @@ import 'es5-shim';
 import 'es6-shim';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -40,9 +39,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <BrowserRouter>
-        <MainPage />
-      </BrowserRouter>
+      <MainPage />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')

@@ -12,7 +12,7 @@ import CategoriesSection from 'components/landing/container/CategoriesSection';
 const styles = {
   container: {
     width: "100%",
-    zIndex: -1,
+    marginTop: -64,
   },
 };
 

@@ -152,7 +152,7 @@ class SearchPage extends React.Component {
 
   onItemClick = gid => {
     const values = queryString.parse(this.props.location.search);
-    history.replace('/booking?date=' + values.date + '&time=' + values.time + '&gid=-LHGNq7Y2HUiDIVAzW6z');
+    history.push('/booking?date=' + values.date + '&time=' + values.time + '&gid=-LHGNq7Y2HUiDIVAzW6z');
   }
 
   render() {

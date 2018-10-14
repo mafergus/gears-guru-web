@@ -23,8 +23,7 @@ function mapStateToProps(state, props) {
 const getStyles = browser => {
   const style = {
     container: { 
-      position: "absolute",
-      top: 0,
+      position: "relative",
     },
     logo: {
       height: browser.lessThan.small ? 20 : 35,

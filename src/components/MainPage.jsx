@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Helmet } from 'react-helmet';
@@ -13,14 +13,15 @@ import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
 import { BookingPage, SearchPage } from 'pages';
 import Footer from 'components/Footer';
+import history from 'datastore/history';
 
-function withMarginTop(WrappedComponent) {
+function withPageStyle(WrappedComponent) {
   class HOC extends React.Component {
     render() {
       return (
         <WrappedComponent
           { ...this.props }
-          style={{ ...this.props.style, marginTop: 64 }}
+          style={{ ...this.props.style }}
         />
       );
     }
@@ -77,10 +78,10 @@ const routes = [
   },
 ];
 
-function Routes() {
+function Routes({ location }) {
   return (
-    <Router>
-      <div style={{ width: "100%", height: "100%" }}>
+    <BrowserRouter style={{ width: "100%", height: "100%" }}>
+      <React.Fragment>
         {routes.map((route, index) => (
           // Render more <Route>s with the same paths as
           // above, but different components this time.
@@ -98,27 +99,44 @@ function Routes() {
             key={index}
             path={route.path}
             exact={route.exact}
-            component={withMarginTop(route.main)}
+            component={withPageStyle(route.main)}
           />
         ))}
         <Footer />
-      </div>
-    </Router>
+      </React.Fragment>
+    </BrowserRouter>
   );
 };
 
-const Main = () => (
-  <div style={{ height: "100%", width: "100%" }}>
-    <DocumentTitle title="Gears Guru - Find the best car repair garages in Dubai!" />
-    <Helmet>
-      <meta name="description" content="Best Car and Auto Repair Services and Workshops Dubai" />
-      <meta name="keywords" content="car repair, car repair dubai, car repair uae, auto repair, auto repair dubai, auto repair uae, car service, car service dubai, auto service, auto servicing dubai, car garage, car workshop, auto workshop" />
-      <meta name="google-site-verification" content="Z5xfhCSfmT74Y2930wHGuxbb8ipy1lymqaS22U6jVCA" />
-    </Helmet>
-    <CssBaseline />
-    {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
-    <Routes />
-  </div>
-)
+export default class Main extends React.Component {
 
-export default withRouter(Main);
+  state = {
+    location: null,
+  };
+
+  componentDidMount() {
+    history.listen((location, action) => {
+      debugger;
+      this.setState({ location });
+    });
+  }
+
+  render() {
+    const leProps = this.props;
+    const { location } = this.state;
+
+    return (
+      <div style={{ height: "100%", width: "100%" }}>
+        <DocumentTitle title="Gears Guru - Find the best car repair garages in Dubai!" />
+        <Helmet>
+          <meta name="description" content="Best Car and Auto Repair Services and Workshops Dubai" />
+          <meta name="keywords" content="car repair, car repair dubai, car repair uae, auto repair, auto repair dubai, auto repair uae, car service, car service dubai, auto service, auto servicing dubai, car garage, car workshop, auto workshop" />
+          <meta name="google-site-verification" content="Z5xfhCSfmT74Y2930wHGuxbb8ipy1lymqaS22U6jVCA" />
+        </Helmet>
+        <CssBaseline />
+        {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
+        <Routes location={location} />
+      </div>
+    );
+  }
+}
