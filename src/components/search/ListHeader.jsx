@@ -40,12 +40,6 @@ export default class ListHeader extends React.Component {
     style: {},
   };
 
-  componentDidMount() {
-    history.listen((location, action) => {
-      debugger;
-    });
-  }
-
   handleChange = event => {
     const { location } = this.props;
     const newSort = event.target.value;

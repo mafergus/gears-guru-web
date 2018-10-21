@@ -9,6 +9,7 @@ import MapMarker from 'components/map/MapMarker';
 const styles = {
   container: {
     width: "100%",
+    height: 350,
   },
   title: {
     textAlign: "center",
@@ -30,7 +31,7 @@ export default function MapSection({ style, locations }) {
         center={mapCenter}
         options={{ scrollwheel: false }}
       >
-        {locations.map(item => <MapMarker key={item.garageUid} lat={parseFloat(item.lat)} lng={parseFloat(item.long)}/>)}
+        {locations.map(item => <MapMarker key={item.garageUid} lat={parseFloat(item.lat)} lng={parseFloat(item.lng)}/>)}
       </SimpleMap>
     </div>
   )

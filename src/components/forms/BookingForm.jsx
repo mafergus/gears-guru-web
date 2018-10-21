@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
-import { PhoneNumberTextField, TextInput } from 'gg-common';
+import { Form, Text, Phone } from 'gg-common/form';
 import { SelectInput } from 'components/ui/selects';
 import { gray } from 'util/colors';
 
@@ -35,7 +35,7 @@ export default class BookingForm extends React.Component {
 
     this.setState({
       selectedMake: uid,
-      carModels: uid === '42' ? [] : cars[uid].models,
+      carModels: uid === '42' ? [] : cars[uid].models.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0)),
     });
   }
 
@@ -86,25 +86,23 @@ export default class BookingForm extends React.Component {
     }
 
     return (
-      <form style={style}>
-        <TextInput
+      <Form style={style}>
+        <Text
           name="name"
-          type="text"
           placeholder="Name"
-          style={{ width: "calc(50% - 7px)", marginRight: 14, marginBottom: 9 }}
+          style={{ width: "calc(100% - 70px)" }}
           value={name}
           onChange={event => this.onUpdate(event, 'name')}
         />
-        <TextInput
+        <Phone
           name="phoneNumber"
-          type="tel"
           placeholder="Phone number"
-          style={{ width: "calc(50% - 7px)"}}
+          style={{ width: "calc(100% - 70px)" }}
           value={phoneNumber}
           onChange={event => this.onUpdate(event, 'phoneNumber')}
         />
         <SelectInput
-          style={{ width: "calc(50% - 7px)", marginRight: 14, display: "inline-block" }}
+          style={{ width: "calc(100% - 70px)", marginBottom: 7 }}
           selected={selectedMake}
           handleChange={this.handleChangeMake}
           id="make"
@@ -113,7 +111,7 @@ export default class BookingForm extends React.Component {
           {carMakes.map(item => <MenuItem key={item.uid} value={item.uid}>{item.name}</MenuItem>)}
         </SelectInput>
         <SelectInput
-          style={{ width: "calc(50% - 7px)", display: "inline-block" }}
+          style={{ width: "calc(100% - 70px)" }}
           selected={selectedModel}
           handleChange={this.handleChangeModel}
           id="model"
@@ -135,7 +133,7 @@ export default class BookingForm extends React.Component {
         >
          COMPLETE RESERVATION
        </Button>
-      </form>
+      </Form>
     );
   }
 }

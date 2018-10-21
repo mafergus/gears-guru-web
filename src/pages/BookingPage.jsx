@@ -32,10 +32,14 @@ const Details = ({ garage, appointmentDate }) => (
 
 const mapStateToProps = (state, props) => {
   const urlValues = queryString.parse(props.location.search);
-  return {
+  const carMakes = Object.entries(state.cars)
+    .map(entry => ( { uid: entry[0], name: entry[1].make } ))
+    .sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0) );
+  
+    return {
     browser: state.browser,
     cars: state.cars,
-    carMakes: Object.entries(state.cars).map(entry => ( { uid: entry[0], name: entry[1].make } )),
+    carMakes,
     garage: state.garages[urlValues.gid],
   };
 }
@@ -55,7 +59,6 @@ class BookingPage extends React.Component {
                       .hour(time.hour())
                       .minute(time.minute())
                       .toISOString();
-    debugger;
     addReservation({
       name,
       phoneNumber,

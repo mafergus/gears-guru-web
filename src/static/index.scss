@@ -222,3 +222,19 @@ $gradient-end: rgba(0, 0, 0, 0.35);
   font-style: normal;
   font-weight: 600;
 }
+
+.text-page {
+  width: 50%;
+  margin: auto;
+  padding: 50px 0px;
+  
+  h1 {
+    margin: 30px 0px;
+  }
+  h2 {
+    margin: 20px 0px;
+  }
+  p {
+    line-height: 1.5;
+  }
+}

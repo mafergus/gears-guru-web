@@ -45,17 +45,23 @@ export default function CarMakesSection({ style, browser }) {
 
   const padding = 0;
 
+  // Oof, we can't add breakpoints on Grid container. Should re-work this
   return (
     <div style={{ ...styles.container, ...style, paddingLeft: padding, paddingRight: padding }}>
       <h4 style={styles.title}>We service most makes and models</h4>
-      <Grid 
-        container
-        sm={12}
-        md={10}
-        lg={8}
-        xl={6}
-      >
-        {icons.map(icon => renderBox(icon))}
+      <Grid container>
+        <Grid
+          item
+          sm={12}
+          md={10}
+          lg={8}
+          xl={6}
+          style={{ margin: "auto" }}
+        >
+          <Grid container>
+          {icons.map(icon => renderBox(icon))}
+          </Grid>
+        </Grid>
       </Grid>
       <Button style={{ marginTop: 70 }}>BOOK NOW</Button>
     </div>

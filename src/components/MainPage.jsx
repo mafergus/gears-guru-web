@@ -11,7 +11,7 @@ import GaragePage from 'components/profile/GaragePage';
 import MenuAppBar from 'components/MenuAppBar';
 import AdminPage from 'components/admin/AdminPage';
 import GarageAdmin from 'components/admin/GarageAdmin';
-import { BookingPage, SearchPage } from 'pages';
+import { BookingPage, SearchPage, PrivacyPolicyPage, TermsPage } from 'pages';
 import Footer from 'components/Footer';
 import history from 'datastore/history';
 
@@ -76,6 +76,18 @@ const routes = [
     title: 'Booking',
     appBar: () => <MenuAppBar />,
   },
+  {
+    path: '/privacy',
+    main: PrivacyPolicyPage,
+    title: 'Privacy Policy',
+    appBar: () => <MenuAppBar />,
+  },
+  {
+    path: '/terms',
+    main: TermsPage,
+    title: 'Terms and Conditions',
+    appBar: () => <MenuAppBar />,
+  },
 ];
 
 function Routes({ location }) {
@@ -110,20 +122,8 @@ function Routes({ location }) {
 
 export default class Main extends React.Component {
 
-  state = {
-    location: null,
-  };
-
-  componentDidMount() {
-    history.listen((location, action) => {
-      debugger;
-      this.setState({ location });
-    });
-  }
-
   render() {
     const leProps = this.props;
-    const { location } = this.state;
 
     return (
       <div style={{ height: "100%", width: "100%" }}>
@@ -133,9 +133,10 @@ export default class Main extends React.Component {
           <meta name="keywords" content="car repair, car repair dubai, car repair uae, auto repair, auto repair dubai, auto repair uae, car service, car service dubai, auto service, auto servicing dubai, car garage, car workshop, auto workshop" />
           <meta name="google-site-verification" content="Z5xfhCSfmT74Y2930wHGuxbb8ipy1lymqaS22U6jVCA" />
         </Helmet>
+        <div id="map"></div>
         <CssBaseline />
         {/*<Route exact path="/" component={isAuthed ? MainPage : LoginPage} />*/}
-        <Routes location={location} />
+        <Routes />
       </div>
     );
   }

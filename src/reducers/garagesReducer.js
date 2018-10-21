@@ -3,8 +3,19 @@ export function garagesReducer(state = {}, action) {
     case "GET_GARAGES_SUCCESS": {
       let newState = { ...state };
       Object.entries(action.garages).forEach(entry => {
-        newState[entry[0]] = { ...entry[1], uid: entry[0] };
+        const [ uid, obj ] = entry;
+        const newObj = {
+          ...state[uid],
+          ...obj,
+          uid,
+        };
+        newState[uid] = newObj;
       });
+      return newState;
+    }
+    case "GET_GARAGE_SUCCESS": {
+      let newState = { ...state };
+      newState[action.garage.key] = action.garage;
       return newState;
     }
     default:

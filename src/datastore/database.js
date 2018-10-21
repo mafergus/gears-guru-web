@@ -1,5 +1,10 @@
 import firebase from 'firebase';
 import store from "datastore/store";
+import loadjs from 'loadjs';
+
+import { getGPlaces } from 'util/api';
+
+const KEY = "AIzaSyDsjdI2R4TNd9bpKcHtVMI6qthrV44C8IY";
 
 firebase.init = () => {
 
@@ -11,6 +16,8 @@ firebase.init = () => {
     storageBucket: "gears-guru-991bc.appspot.com",
     messagingSenderId: "292156830551"
   };
+
+  // loadjs(`https://maps.googleapis.com/maps/api/js?key=${KEY}&libraries=places`, () => getGPlaces());
 
   firebase.initializeApp(config);
 
@@ -57,13 +64,6 @@ firebase.init = () => {
     }
   });
 
-  // firebase.database().ref('users').on('value', snapshot => {
-  //   const users = snapshot.val();
-  //   if (users) {
-  //     store.dispatch({ type: "GET_USERS_SUCCESS", users });
-  //   }
-  // });
-
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       console.log("Got user! ", user);
@@ -89,7 +89,6 @@ firebase.init = () => {
       }
     });
   };
-  
 }
 
 export default firebase;

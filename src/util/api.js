@@ -1,6 +1,8 @@
 import firebase from 'datastore/database';
 import store from 'datastore/store';
 
+import { AL_QUOZ_LOCATION } from 'util/constants';
+
 const PLACEHOLDER_PHOTO = "https://s-media-cache-ak0.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg";
 const PIXABAY_KEY = "4423887-ab96e540ffbe404d644032133";
 const API_BASE = "https://us-central1-gears-guru-991bc.cloudfunctions.net";
@@ -59,13 +61,9 @@ export async function addReservation(reservation) {
   const opts = Object.entries(reservation).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
   const response = await fetch(`${API_BASE}/api/addReservation?${opts}`, { method: 'post' })
   
-  debugger;
-
-  const json = await response.json();
-
-  debugger;
-  
-  return json;
+  if (!response.ok) {
+    console.log("Error adding reservation");
+  }  
 }
 
 export async function getCars() {
@@ -108,6 +106,43 @@ export function getPhotoUrl(searchTerm, isThumbnail=false) {
     }).catch(error => resolve(error));
   });
 }
+
+// export async function getGPlaces() {
+//   debugger;
+
+//   if (typeof google === "undefined") { return; }
+
+//   const mapCenter = new google.maps.LatLng(AL_QUOZ_LOCATION[0], AL_QUOZ_LOCATION[1]); //eslint-disable-line
+
+//   const snapshot = await firebase.database().ref('/garages').once('value');
+
+//   const garages = snapshot.val();
+//   if (!garages) { return; }
+//   store.dispatch({ type: "GET_GARAGES_SUCCESS", garages });
+
+//   debugger;
+
+//   const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
+//     center: mapCenter,
+//     zoom: 12
+//   });
+//   const service = new google.maps.places.PlacesService(map); //eslint-disable-line
+
+//   Object.entries(garages).filter(entry => entry[1].place_id).forEach(entry => {
+//     const [ key, obj ] = entry;
+//     try {
+//       service.getDetails({ placeId: obj.place_id }, (place, status) => {
+//         debugger;
+//         if (status === google.maps.places.PlacesServiceStatus.OK) { //eslint-disable-line
+//           store.dispatch({ type: "GET_GARAGE_SUCCESS", garage: { ...place, key } });
+//         }
+//       });
+//     } catch (error) {
+//       debugger;
+//       console.log(error);
+//     }
+//   });
+// }
 
 export function uploadFile(file, directory="images/") {
   return new Promise((resolve, reject) => {

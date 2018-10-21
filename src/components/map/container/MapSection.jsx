@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import Presentation from 'components/map/presentation/MapSection';
 
 function mapStateToProps(state, props) {
-  const locations = [];
-  Object.entries(state.garages).forEach(entry => {
-    entry[1].locations.map(item => locations.push({ ...item, garageUid: entry[0] }));
-  });
+  const locations = Object.entries(state.garages)
+    .forEach(entry => ({ ...entry[1].geometry.location, uid: entry[0] }));
 
   return {
-    locations,
+    locations: locations || [],
   };
 }
 

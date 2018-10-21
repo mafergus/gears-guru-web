@@ -29,6 +29,8 @@ class JumboSection extends React.Component {
     const dateStr = encodeURI(date.toISOString());
     const timeStr = encodeURI(time.toISOString());
     history.push('/s/?date=' + dateStr + '&time=' + timeStr + '&sortBy=popular');
+    // React Router isn't reloading routes >:C
+    window.location.reload();
   }
 
   render() {

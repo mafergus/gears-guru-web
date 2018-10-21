@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import { Footer, PostFooter, Section, Title, Link } from 'gg-common';
-
-import { primary } from 'util/colors';
+import { PostFooter, Section, Title, Link, Footer } from 'gg-common/footer';
+import { primary } from 'gg-common/colors';
 
 const mapStateToProps = (state, props) => {
   return {
@@ -34,7 +33,7 @@ function GGFooter({ browser }) {
           <Link>About Us</Link>
           <Link>Press</Link>
           <Link>Blog</Link>
-          <Link>Careers</Link>
+          <Link to="https://angel.co/gears-guru/jobs" target="_blank">Careers</Link>
         </Section>
 
         <Section>
@@ -46,17 +45,17 @@ function GGFooter({ browser }) {
 
         <Section style={{ marginTop }}>
           <Title>Terms</Title>
-          <Link>Privacy Policy</Link>
-          <Link>Terms of Use</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Use</Link>
         </Section>
 
         <Section style={{ marginTop }}>
           <Title>Social</Title>
-          <Link>Angel List</Link>
-          <Link>Facebook</Link>
+          <Link to="https://angel.co/gears-guru" target="_blank">Angel List</Link>
+          <Link to="https://web.facebook.com/The.Gears.Guru/" target="_blank">Facebook</Link>
           <Link>LinkedIn</Link>
-          <Link>Twitter</Link>
-          <Link>Instagram</Link>
+          <Link to="https://twitter.com/gears_guru" target="_blank">Twitter</Link>
+          <Link to="https://www.instagram.com/gears.guru.official/" target="_blank">Instagram</Link>
         </Section>
       </Footer>
       <PostFooter />
