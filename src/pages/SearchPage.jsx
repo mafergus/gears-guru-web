@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import queryString from 'query-string';
+import qs from 'qs';
 import GPlacesList from 'components/garage-list/GPlacesList';
 import history from 'datastore/history';
 import { ListHeader, Sidebar, DateTimeHeader } from 'components/search';
@@ -114,7 +114,7 @@ class SearchPage extends React.Component {
   };
 
   onItemClick = gid => {
-    const values = queryString.parse(this.props.location.search);
+    const values = qs.parse(this.props.location.search);
     history.push('/booking?date=' + values.date + '&time=' + values.time + '&gid=' + gid);
     window.location.reload();
   }

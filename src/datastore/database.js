@@ -1,6 +1,7 @@
-import firebase from 'firebase';
+import { firebase } from '@firebase/app';
+import '@firebase/auth';
+import '@firebase/database';
 import store from "datastore/store";
-import loadjs from 'loadjs';
 
 import { getGPlaces } from 'util/api';
 
@@ -16,8 +17,6 @@ firebase.init = () => {
     storageBucket: "gears-guru-991bc.appspot.com",
     messagingSenderId: "292156830551"
   };
-
-  // loadjs(`https://maps.googleapis.com/maps/api/js?key=${KEY}&libraries=places`, () => getGPlaces());
 
   firebase.initializeApp(config);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { KeyboardArrowDown } from '@material-ui/icons';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import { text } from 'util/colors';

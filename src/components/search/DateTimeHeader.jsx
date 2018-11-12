@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import queryString from 'query-string';
+import qs from 'qs';
 import { Button } from 'gg-common';
 import { DateSelect, TimeSelect } from 'components/ui/selects';
 import { primary, dividerColor } from 'gg-common/colors';
@@ -50,7 +50,7 @@ export default class DateTimeHeader extends React.Component {
   };
 
   render() {
-    const values = queryString.parse(this.props.location.search);
+    const values = qs.parse(this.props.location.search);
 
     return (
       <div style={STYLE.container}>

@@ -20,7 +20,7 @@ admin.initializeApp();
 
 const app = express();
 app.use(cors({ origin: true }));
-app.post('/addReservation/', (req, res) => { doAddReservation(req, res) });
+app.post('/addReservation/', (req, res) => doAddReservation(req, res));
 app.get('/populateGarages', (req, res) => populateGarages);
 // app.post('/addQuote/', (req, res) => { doAddQuote(req, res) });
 // app.post('/handleIncoming/', (req, res) => { doHandleIncoming(req, res) });

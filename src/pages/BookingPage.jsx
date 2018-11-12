@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
+import qs from 'qs';
 import moment from 'moment';
 
 import BookingForm from 'components/forms/BookingForm';
@@ -31,7 +31,7 @@ const Details = ({ garage, appointmentDate }) => (
 );
 
 const mapStateToProps = (state, props) => {
-  const urlValues = queryString.parse(props.location.search);
+  const urlValues = qs.parse(props.location.search);
   const carMakes = Object.entries(state.cars)
     .map(entry => ( { uid: entry[0], name: entry[1].make } ))
     .sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0) );
@@ -52,7 +52,7 @@ class BookingPage extends React.Component {
   }
 
   onSubmit = ({ name, phoneNumber, selectedMake, selectedModel }) => {
-    const values = queryString.parse(this.props.location.search);
+    const values = qs.parse(this.props.location.search);
     const { garage } = this.props;
     const time = moment(values.time);
     let appointment = moment(values.date)
@@ -70,7 +70,7 @@ class BookingPage extends React.Component {
   }
 
   render() {
-    const values = queryString.parse(this.props.location.search);
+    const values = qs.parse(this.props.location.search);
     const { cars, carMakes, garage } = this.props;
     const appointmentDate = moment(values.date).format('dddd, MMMM Do') + ' at ' + moment(values.time).format('h:mma');
 

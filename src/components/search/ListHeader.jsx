@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
+import qs from 'qs';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { SelectInput } from 'components/ui/selects';
@@ -43,7 +43,7 @@ export default class ListHeader extends React.Component {
   handleChange = event => {
     const { location } = this.props;
     const newSort = event.target.value;
-    const { sortBy, ...otherParams } = queryString.parse(location.search);
+    const { sortBy, ...otherParams } = qs.parse(location.search);
     const queryStr = Object.entries(otherParams).map(entry => `${entry[0]}=${entry[1]}`).join('&');
     const newUrl = location.pathname + '?' + queryStr + `&sortBy=${newSort}`;
     history.replace(newUrl);
@@ -51,7 +51,7 @@ export default class ListHeader extends React.Component {
 
   render() {
     const { className, count, location, onSortChange, style } = this.props;
-    const values = queryString.parse(location.search);
+    const values = qs.parse(location.search);
 
     return (
       <div style={{ ...STYLE.container, ...style }} className={className}>
